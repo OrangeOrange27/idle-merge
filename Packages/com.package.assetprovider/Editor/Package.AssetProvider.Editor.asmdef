@@ -1,0 +1,20 @@
+{
+    "name": "Package.AssetProvider.Editor",
+    "references": [
+        "UniTask",
+        "Unity.Addressables",
+        "UniTask.Addressables",
+        "Unity.ResourceManager",
+        "Unity.Addressables.Editor",
+        "Package.AssetProvider"
+    ],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Package.AssetProvider.Pooling",
+  "references": [
+    "Package.AssetProvider",
+    "Package.Pooling",
+    "UniTask",
+    "Package.Disposables",
+    "VContainer",
+    "Zenject"
+  ],
+  "rootNamespace": "Package.AssetProvider"
+}

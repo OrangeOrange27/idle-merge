@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b38de119934b1e9f6802d5defd4883, type: 3}
+  m_Name: CardToPile
+  m_EditorClassIdentifier: 
+  AudioConfig:
+    AudioClips:
+    - {fileID: 8300000, guid: a7ced70858738b84cb6a65603136ecd4, type: 3}
+    - {fileID: 8300000, guid: 3a7392e24a8f7424ab964c0c746293ab, type: 3}
+    - {fileID: 8300000, guid: d44d1de60c2017c4d9c946274db6e576, type: 3}
+    - {fileID: 8300000, guid: f6390367b12feea4b886513731eb185f, type: 3}
+    - {fileID: 8300000, guid: 987d72b458158c3428f2831e14ea4e1a, type: 3}
+    - {fileID: 8300000, guid: 79cb5ef4c40e8cc4fa880977eb2332b5, type: 3}
+    PlayBehaviour: 2
+    AudioMixerGroup: {fileID: 3359819842325147483, guid: 703baf6970a8847f6ba792c7bff8b3bf,
+      type: 2}
+    Loop: 0
+    Index: 0
+    MaxChannelsProvided: 1
+    OverrideVolume: 1
+    OverrideVolumeValue: 1.3

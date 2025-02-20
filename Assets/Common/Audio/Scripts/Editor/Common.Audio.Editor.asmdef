@@ -1,0 +1,14 @@
+{
+  "autoReferenced": false,
+  "name": "Common.Audio.Editor",
+  "references": [
+    "Tools.EditorUtils",
+    "Common.Audio",
+    "Unity.Addressables",
+    "Unity.Addressables.Editor",
+    "Package.AssetProvider.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

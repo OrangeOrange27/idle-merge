@@ -1,0 +1,26 @@
+{
+  "name": "Package.AssetProvider.Pooling.Tests",
+  "references": [
+    "UniTask",
+    "Unity.ResourceManager",
+    "Unity.Rider.Editor",
+    "UnityEditor.TestRunner",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "NSubstitute.dll",
+    "FluentAssertions.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS",
+    "ZENJECT"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

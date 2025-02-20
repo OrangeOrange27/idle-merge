@@ -1,0 +1,18 @@
+{
+  "autoReferenced": false,
+  "name": "Common.Audio",
+  "references": [
+    "UniTask",
+    "VContainer",
+    "UniTask.DOTween",
+    "ZLogger",
+    "Unity.Addressables",
+    "UniTask.Addressables",
+    "Common.EntryPoint.Initialize",
+    "Package.AssetProvider",
+    "Package.Logger.Abstraction",
+    "NaughtyAttributes.Core",
+    "DOTween.Modules",
+    "Unity.ResourceManager"
+  ]
+}

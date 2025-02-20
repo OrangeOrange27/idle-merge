@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b38de119934b1e9f6802d5defd4883, type: 3}
+  m_Name: PlayCard
+  m_EditorClassIdentifier: 
+  AudioConfig:
+    AudioClips:
+    - {fileID: 8300000, guid: 362dcdf4dcadda0499281337e86b98a0, type: 3}
+    - {fileID: 8300000, guid: b834df713d91ee148a44579d477c0183, type: 3}
+    - {fileID: 8300000, guid: 5631e972c030e4d4f89045066c218f0e, type: 3}
+    - {fileID: 8300000, guid: 15549860f088f1e4ab1b977a32f84078, type: 3}
+    - {fileID: 8300000, guid: fc5866534736c414c91274943c3ff238, type: 3}
+    - {fileID: 8300000, guid: c571e38aaecabec4b863f94b9340bdc1, type: 3}
+    - {fileID: 8300000, guid: 1b11d16c2770ac24da533dff077c0e60, type: 3}
+    - {fileID: 8300000, guid: fa5c957164029c94d9aaa00f73deaa08, type: 3}
+    - {fileID: 8300000, guid: 7925f3faf5b1cab41a03665e2dc40840, type: 3}
+    - {fileID: 8300000, guid: 9a879834576894b41a7e8a2e3b12d00c, type: 3}
+    - {fileID: 8300000, guid: 15a1ff493e0b02f47b4c302e771b2a73, type: 3}
+    - {fileID: 8300000, guid: 61929124f3a183c43872ac114e98ddaf, type: 3}
+    - {fileID: 8300000, guid: 49d896f7a155c0344b0d6aeca3982b2d, type: 3}
+    - {fileID: 8300000, guid: 45c3d9176e1d52a4a9f7c256432ebd81, type: 3}
+    - {fileID: 8300000, guid: 95602c0f6747fd04d9c441e26468d223, type: 3}
+    - {fileID: 8300000, guid: 3c06267c4292774499fb9b60eeaa2bbe, type: 3}
+    - {fileID: 8300000, guid: f245e8e25a1ae1f40b50c2c22a666df8, type: 3}
+    - {fileID: 8300000, guid: 95bf0cbd3f031a0429eb05ca5b9b1295, type: 3}
+    - {fileID: 8300000, guid: db6b8dcebbb025847a1aa300672074b9, type: 3}
+    - {fileID: 8300000, guid: 4990270eaa945c441b47b10facde6566, type: 3}
+    - {fileID: 8300000, guid: 625c35f5a5f742d469b2ec0d0f64041d, type: 3}
+    - {fileID: 8300000, guid: 586d055a10b70d346afacb2c03e0c872, type: 3}
+    PlayBehaviour: 1
+    AudioMixerGroup: {fileID: 3359819842325147483, guid: 703baf6970a8847f6ba792c7bff8b3bf,
+      type: 2}
+    Loop: 0
+    Index: 1
+    MaxChannelsProvided: 1
+    OverrideVolume: 1
+    OverrideVolumeValue: 0.3

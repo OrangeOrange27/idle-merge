@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b38de119934b1e9f6802d5defd4883, type: 3}
+  m_Name: BundleToDeck
+  m_EditorClassIdentifier: 
+  AudioConfig:
+    AudioClips:
+    - {fileID: 8300000, guid: f4173de8e34e8ab49a042eea92a2eb38, type: 3}
+    - {fileID: 8300000, guid: 9c93144828d99a24db5c0c59660fda2f, type: 3}
+    - {fileID: 8300000, guid: 76e2dd1175696c641bb98fb216fc9882, type: 3}
+    - {fileID: 8300000, guid: e064216995aaccd42a5389ce1b220d0d, type: 3}
+    - {fileID: 8300000, guid: ae0546e198b2f5f4d9d2fa70f29211e4, type: 3}
+    PlayBehaviour: 1
+    AudioMixerGroup: {fileID: 3359819842325147483, guid: 703baf6970a8847f6ba792c7bff8b3bf,
+      type: 2}
+    Loop: 0
+    Index: 0
+    MaxChannelsProvided: 1
+    OverrideVolume: 0
+    OverrideVolumeValue: 1

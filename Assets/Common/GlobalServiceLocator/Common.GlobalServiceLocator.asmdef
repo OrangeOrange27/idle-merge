@@ -1,0 +1,8 @@
+{
+  "name": "Common.GlobalServiceLocator",
+  "references": [
+    "VContainer",
+    "ZLogger",
+    "Package.Logger.Abstraction"
+  ]
+}

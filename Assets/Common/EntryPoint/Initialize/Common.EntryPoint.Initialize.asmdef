@@ -1,0 +1,8 @@
+{
+  "name": "Common.EntryPoint.Initialize",
+  "references": [
+    "UniTask",
+    "Package.ControllersTree.Core",
+    "Package.ControllersTree.SyntaxSugar"
+  ]
+}

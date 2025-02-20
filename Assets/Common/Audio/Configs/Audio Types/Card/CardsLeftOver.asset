@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b38de119934b1e9f6802d5defd4883, type: 3}
+  m_Name: CardsLeftOver
+  m_EditorClassIdentifier: 
+  AudioConfig:
+    AudioClips:
+    - {fileID: 8300000, guid: 429c8537e0f6a1041bd9fdcbb56e7c55, type: 3}
+    - {fileID: 8300000, guid: a2d7203f85aca2545a2bf712ab78826f, type: 3}
+    - {fileID: 8300000, guid: a3c6fe8a49b0d1e459f415d58a82e59a, type: 3}
+    - {fileID: 8300000, guid: ad0a870171c6ec244a63a0b4c8163166, type: 3}
+    - {fileID: 8300000, guid: fcbcb15b1f3e68e48a20c1d858ef862f, type: 3}
+    - {fileID: 8300000, guid: 695991b785dea8e46996623593237383, type: 3}
+    - {fileID: 8300000, guid: 9bfe2c7683cb17c46b41c34b77e04c26, type: 3}
+    - {fileID: 8300000, guid: 51788fc399d22e34792c0e81fdee74ab, type: 3}
+    - {fileID: 8300000, guid: 73a52a5b0a7ed6049adc3b41839dc783, type: 3}
+    - {fileID: 8300000, guid: a5983a77c61040a4f9f78949a4288f98, type: 3}
+    - {fileID: 8300000, guid: 0b4cf86a96951944cb65daf14a420abb, type: 3}
+    - {fileID: 8300000, guid: bf4fd927d1b9eb147a34d607cfa6775c, type: 3}
+    - {fileID: 8300000, guid: dc77df8c2322d94408c5e43a82852ea0, type: 3}
+    - {fileID: 8300000, guid: 3a86877ccbb1b4d4085befd30a5d1bf3, type: 3}
+    - {fileID: 8300000, guid: d3107f12d9d40e344a53b0f555ca307d, type: 3}
+    PlayBehaviour: 1
+    AudioMixerGroup: {fileID: 3359819842325147483, guid: 703baf6970a8847f6ba792c7bff8b3bf,
+      type: 2}
+    Loop: 0
+    Index: 7
+    MaxChannelsProvided: 1
+    OverrideVolume: 1
+    OverrideVolumeValue: 0.45

@@ -1,0 +1,22 @@
+{
+    "name": "Package.AssetProvider",
+    "references": [
+        "UniTask",
+        "Unity.Addressables",
+        "UniTask.Addressables",
+        "Unity.ResourceManager",
+        "Unity.Addressables.Editor",
+        "Common.Extensions",
+        "Package.DevSettings"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false,
+    "rootNamespace": "Package.AssetProvider"
+}

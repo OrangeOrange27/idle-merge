@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b38de119934b1e9f6802d5defd4883, type: 3}
+  m_Name: LobbyBG
+  m_EditorClassIdentifier: 
+  AudioConfig:
+    AudioClips:
+    - {fileID: 8300000, guid: 5c80ab58634cda64da45ae5b6e2e4ac8, type: 3}
+    PlayBehaviour: 0
+    AudioMixerGroup: {fileID: -7327037144154509858, guid: 703baf6970a8847f6ba792c7bff8b3bf,
+      type: 2}
+    Loop: 1
+    Index: 26
+    MaxChannelsProvided: 1
+    OverrideVolume: 1
+    OverrideVolumeValue: 0.35
