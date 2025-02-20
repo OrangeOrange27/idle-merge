@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Road Tile Rule
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -438398331, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-  m_DefaultGameObject: {fileID: 0}
+  m_DefaultGameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     m_Sprites:
     - {fileID: -510737435, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
     - {fileID: 1608805182, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.27
@@ -80,7 +80,7 @@ MonoBehaviour:
     m_Sprites:
     - {fileID: -2143691521, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
     - {fileID: -2086349298, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -118,7 +118,7 @@ MonoBehaviour:
   - m_Id: 2
     m_Sprites:
     - {fileID: -1997255390, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -175,7 +175,7 @@ MonoBehaviour:
   - m_Id: 3
     m_Sprites:
     - {fileID: -792384375, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -217,7 +217,7 @@ MonoBehaviour:
   - m_Id: 8
     m_Sprites:
     - {fileID: -1332676832, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -238,7 +238,7 @@ MonoBehaviour:
   - m_Id: 10
     m_Sprites:
     - {fileID: 876192636, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -262,7 +262,7 @@ MonoBehaviour:
     - {fileID: 1351606196, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
     - {fileID: -756427975, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
     - {fileID: 1937060842, guid: 81eef5d3bd8c6433c8deca53a52aa273, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 1943260191134392365, guid: 9230bb01833dd564cb67894ad1713df5, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.518
