@@ -1,0 +1,10 @@
+{
+  "name": "Package.Logger.Crashlytics",
+  "references": [
+    "Package.Logger.Abstraction",
+    "ZLogger",
+    "ZString",
+    "Package.Exception.Demystifier"
+  ],
+  "rootNamespace": "Package.Logger.Crashlytics"
+}
