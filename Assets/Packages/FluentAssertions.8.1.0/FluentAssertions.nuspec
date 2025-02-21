@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>FluentAssertions</id>
+    <version>8.1.0</version>
+    <authors>Dennis Doomen,Jonas Nyrup,Xceed</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>FluentAssertions.png</icon>
+    <projectUrl>https://xceed.com/products/unit-testing/fluent-assertions/</projectUrl>
+    <description>A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or
+      BDD-style unit tests. Works with .NET Standard 2.0 and higher, .NET Framework 4.7 and higher and .NET 6 and higher.
+      Supports the unit test frameworks MSTest2, NUnit3, NUnit4, XUnit2, XUnit3, MSpec and TUnit.
+
+      IMPORTANT: This version is free for open-source projects and non-commercial use, but commercial use requires [a paid license](https://xceed.com/products/unit-testing/fluent-assertions/).
+Check out the [license page](LICENSE) for more information.</description>
+    <releaseNotes>See https://fluentassertions.com/releases/</releaseNotes>
+    <copyright>Copyright 2024-2025 Xceed Software Inc., all rights reserved</copyright>
+    <tags>MSTest2 xUnit NUnit MSpec TUnit TDD BDD Fluent netstandard uwp</tags>
+    <repository type="git" url="https://github.com/fluentassertions/fluentassertions" commit="af8910f56ca8b9f898bd28b13312db091800a198" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7">
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.1" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.7" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework=".NETFramework4.7" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

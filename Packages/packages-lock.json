@@ -26,6 +26,12 @@
       "dependencies": {},
       "hash": "36d3260fdca03bf6feb105c67022d1fd7629dd2f"
     },
+    "com.package.applicationlifecyclenotifier": {
+      "version": "file:com.package.applicationlifecyclenotifier",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.package.assetprovider": {
       "version": "file:com.package.assetprovider",
       "depth": 0,
@@ -34,6 +40,48 @@
     },
     "com.package.assetprovider.pooling": {
       "version": "file:com.package.assetprovider.pooling",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.addons.extensionpoints": {
+      "version": "file:com.package.controllerstree.addons.extensionpoints",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.addons.logging": {
+      "version": "file:com.package.controllerstree.addons.logging",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.addons.ondemandrun": {
+      "version": "file:com.package.controllerstree.addons.ondemandrun",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.core": {
+      "version": "file:com.package.controllerstree.core",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.syntaxsugar": {
+      "version": "file:com.package.controllerstree.syntaxsugar",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.controllerstree.vcontainer": {
+      "version": "file:com.package.controllerstree.vcontainer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.deviceinfo": {
+      "version": "file:com.package.deviceinfo",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
@@ -52,6 +100,18 @@
     },
     "com.package.pooling": {
       "version": "file:com.package.pooling",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.statemachine.core": {
+      "version": "file:com.package.statemachine.core",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.timeservice": {
+      "version": "file:com.package.timeservice",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}

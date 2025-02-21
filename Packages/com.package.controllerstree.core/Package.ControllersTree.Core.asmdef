@@ -1,0 +1,6 @@
+{
+  "name": "Package.ControllersTree.Core",
+  "references": [
+    "UniTask"
+  ]
+}

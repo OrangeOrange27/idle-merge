@@ -1,0 +1,10 @@
+{
+  "name": "Package.ControllersTree.Addons.ExtensionPoints",
+  "references": [
+    "UniTask",
+    "Package.ControllersTree.Core",
+    "VContainer",
+    "Common.Tests"
+  ],
+  "rootNamespace": "Package.ControllersTree.Addons.ExtensionPoints"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Package.ControllersTree.Addons.OnDemandRun",
+  "references": [
+    "UniTask",
+    "Package.ControllersTree.Core"
+  ]
+}

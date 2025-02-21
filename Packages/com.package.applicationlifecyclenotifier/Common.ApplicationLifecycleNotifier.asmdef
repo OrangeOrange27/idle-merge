@@ -1,0 +1,8 @@
+{
+  "name": "Common.ApplicationLifecycleNotifier",
+  "references": [
+    "Package.Logger.Abstraction",
+    "ZLogger",
+    "VContainer"
+  ]
+}

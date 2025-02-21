@@ -1,0 +1,21 @@
+{
+  "name": "Package.TimeService.Tests",
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "FluentAssertions.dll",
+    "NSubstitute.dll"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "VContainer",
+    "Package.TimeService",
+    "Package.TimeService.Extensions",
+    "Package.DeviceInfo",
+    "Package.TimeService.Infrastructure"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Package.ControllersTree.VContainer",
+  "references": [
+    "Package.StateMachine.Core",
+    "Package.ControllersTree.Core",
+    "Package.ControllersTree.SyntaxSugar",
+    "VContainer",
+    "UniTask"
+  ]
+}

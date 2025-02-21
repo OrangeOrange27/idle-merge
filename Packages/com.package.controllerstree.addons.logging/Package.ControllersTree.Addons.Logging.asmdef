@@ -1,0 +1,9 @@
+{
+  "name": "Package.ControllersTree.Addons.Logging",
+  "references": [
+    "UniTask",
+    "Package.ControllersTree.Core",
+    "ZLogger"
+  ],
+  "rootNamespace": "Package.ControllersTree.Addons.Logging"
+}

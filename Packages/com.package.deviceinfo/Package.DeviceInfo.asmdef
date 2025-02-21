@@ -1,0 +1,16 @@
+{
+    "name": "Package.DeviceInfo",
+    "references": [
+        "VContainer",
+        "Package.DevSettings"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

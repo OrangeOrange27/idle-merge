@@ -1,0 +1,7 @@
+{
+  "name": "Package.ControllersTree.SyntaxSugar",
+  "references": [
+    "Package.ControllersTree.Core",
+    "UniTask"
+  ]
+}

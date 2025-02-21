@@ -1,0 +1,25 @@
+{
+    "name": "Package.TimeService",
+    "references": [
+        "UniTask",
+        "ZLogger",
+        "Package.Repository",
+        "Package.TimeService.Infrastructure",
+        "Package.TimeService.Extensions",
+        "Package.DeviceInfo",
+        "Package.ControllersTree.Core",
+        "Package.ControllersTree.SyntaxSugar",
+        "Common.ApplicationLifecycleNotifier",
+        "Package.ControllersTree.VContainer",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

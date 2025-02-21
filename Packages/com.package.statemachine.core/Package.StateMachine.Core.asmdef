@@ -1,0 +1,8 @@
+{
+  "name": "Package.StateMachine.Core",
+  "references": [
+    "Package.ControllersTree.Core",
+    "Package.ControllersTree.SyntaxSugar",
+    "UniTask"
+  ]
+}
