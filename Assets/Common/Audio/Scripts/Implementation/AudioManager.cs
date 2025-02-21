@@ -82,7 +82,9 @@ namespace Common.Audio.Implementation
 
 			foreach (var freeAudioSource in _freeAudioSourcesPool)
 			{
-				UnityEngine.Object.Destroy(freeAudioSource.AudioSource.gameObject);
+				if(freeAudioSource.AudioSource!=null)
+					if(freeAudioSource.AudioSource.gameObject != null)
+						UnityEngine.Object.Destroy(freeAudioSource.AudioSource.gameObject);
 			}
 
 			AudioSettings.OnAudioConfigurationChanged -= OnAudioSettingsConfigurationChanged;

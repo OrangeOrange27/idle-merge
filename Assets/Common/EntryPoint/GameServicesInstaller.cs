@@ -1,13 +1,21 @@
 ﻿using System;
+using Common.ApplicationLifecycleNotifier;
 using Common.Audio;
 using Common.Audio.Implementation;
 using Common.Audio.Infrastructure;
+using Common.DeviceInfo;
+using Common.EntryPoint;
+using Common.EntryPoint.Initialize;
 using Common.GlobalServiceLocator;
 using Common.JsonConverters;
+using Common.TimeService;
+using Features.Gameplay.Scripts;
 using Newtonsoft.Json;
 using Package.AssetProvider.Implementation;
 using Package.AssetProvider.Infrastructure;
+using Package.ControllersTree.VContainer;
 using Package.Logger.Abstraction;
+using Package.Pooling.Installers;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -39,7 +47,20 @@ namespace Common
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterFactory<Type, ILogger>(_ => (type) => LogManager.GetLogger(type.Name), Lifetime.Singleton);
-
+            
+            builder.Register<IAssetProviderAnalyticsCallbacks, EmptyAssetProviderAnalyticsCallbacks>(Lifetime.Singleton);
+            builder.RegisterDefaultPoolStrategy();
+            builder.RegisterGameObjectPrefabsPool();
+            builder.RegisterTimeService();
+        
+            builder.RegisterApplicationLifecycleNotifier();
+            builder.RegisterDeviceInfoRegistration();
+            
+            builder.RegisterControllersTreePackage();
+            builder.RegisterController<RootController>();
+            builder.RegisterController<InitializeGameAfterAuthController>();
+            builder.RegisterController<InitializeGameBeforeAuthController>();
+            
             builder.Register<AudioManagerInitController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<IAudioManager, AudioManager>(Lifetime.Singleton);
             
@@ -56,6 +77,7 @@ namespace Common
 
         private void RegisterFeatures(IContainerBuilder builder)
         {
+            builder.RegisterController<RootGameplayState>();
         }
     }
 }
