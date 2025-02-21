@@ -1,7 +1,7 @@
-﻿using Core.GridSystem.Tiles;
+﻿using Features.Core.GridSystem.Tiles;
 using UnityEngine;
 
-namespace Core
+namespace Features.Core
 {
     public class GameAreaObject : MonoBehaviour, IGameAreaPlaceable
     {

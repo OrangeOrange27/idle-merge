@@ -1,7 +1,7 @@
-﻿using Core.GridSystem;
+﻿using Features.Core.GridSystem;
 using UnityEngine;
 
-namespace Core
+namespace Features.Core.SupplySystem
 {
     public class SupplyManager : MonoBehaviour
     {

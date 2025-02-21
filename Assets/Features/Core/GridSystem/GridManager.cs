@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.GridSystem.Tiles;
+using Features.Core.GridSystem.Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Core.GridSystem
+namespace Features.Core.GridSystem
 {
     public class GridManager : MonoBehaviour
     {

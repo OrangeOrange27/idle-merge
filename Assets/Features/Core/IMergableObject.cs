@@ -1,4 +1,4 @@
-namespace Core
+namespace Features.Core
 {
     public interface IMergableObject
     {

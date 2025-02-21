@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Utils;
+﻿using Common.Utils;
+using UnityEngine;
 
-namespace Core.GridSystem.Tiles
+namespace Features.Core.GridSystem.Tiles
 {
     public class GameAreaTile : TileBase, IGameAreaTile
     {
