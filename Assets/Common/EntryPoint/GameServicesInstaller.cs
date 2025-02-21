@@ -1,7 +1,12 @@
 ﻿using System;
+using Common.Audio;
+using Common.Audio.Implementation;
+using Common.Audio.Infrastructure;
 using Common.GlobalServiceLocator;
 using Common.JsonConverters;
 using Newtonsoft.Json;
+using Package.AssetProvider.Implementation;
+using Package.AssetProvider.Infrastructure;
 using Package.Logger.Abstraction;
 using UnityEngine;
 using VContainer;
@@ -33,7 +38,15 @@ namespace Common
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterFactory<Type, ILogger>(_ => (type) => LogManager.GetLogger(type.Name), Lifetime.Singleton);
+
+            builder.Register<AudioManagerInitController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IAudioManager, AudioManager>(Lifetime.Singleton);
             
+            builder.Register<IAssetProvider, AddressablesAssetProvider>(Lifetime.Transient);
+            builder.RegisterFactory<IAssetProvider>(resolver => resolver.Resolve<IAssetProvider>, Lifetime.Transient);
+
+            builder.RegisterInstance(JsonSettings);
             
             RegisterFeatures(builder);
             
