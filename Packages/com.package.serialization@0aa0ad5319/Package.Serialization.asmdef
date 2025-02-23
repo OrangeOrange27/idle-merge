@@ -1,0 +1,20 @@
+{
+  "name": "Package.Serialization",
+  "references": [
+    "ZLogger",
+    "UniTask",
+    "Package.Logger.Abstraction",
+    "VContainer"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

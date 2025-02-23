@@ -1,0 +1,13 @@
+{
+  "name": "Common.Config",
+  "references": [
+    "VContainer",
+    "Package.DataProvider",
+    "Package.AssetProvider",
+    "Package.Serialization",
+    "UniTask",
+    "Package.Logger.Abstraction",
+    "ZLogger",
+    "Common.EntryPoint.Initialize"
+  ]
+}

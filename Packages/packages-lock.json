@@ -80,6 +80,18 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.package.cryptography": {
+      "version": "file:com.package.cryptography",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.dataprovider": {
+      "version": "file:com.package.dataprovider",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.package.deviceinfo": {
       "version": "file:com.package.deviceinfo",
       "depth": 0,
@@ -98,8 +110,20 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.package.encoding": {
+      "version": "file:com.package.encoding",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.package.pooling": {
       "version": "file:com.package.pooling",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.package.serialization": {
+      "version": "file:com.package.serialization@0aa0ad5319",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}

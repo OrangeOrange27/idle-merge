@@ -1,14 +1,19 @@
 ﻿using System;
 using Common.ApplicationLifecycleNotifier;
 using Common.Audio;
+using Common.Config;
 using Common.Audio.Implementation;
 using Common.Audio.Infrastructure;
 using Common.DeviceInfo;
-using Common.EntryPoint;
 using Common.EntryPoint.Initialize;
 using Common.GlobalServiceLocator;
 using Common.JsonConverters;
 using Common.TimeService;
+using Features.Core.MergeSystem;
+using Features.Core.MergeSystem.Config;
+using Features.Core.MergeSystem.Controller;
+using Features.Core.MergeSystem.ScriptableObjects;
+using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts;
 using Newtonsoft.Json;
 using Package.AssetProvider.Implementation;
@@ -21,13 +26,14 @@ using VContainer;
 using VContainer.Unity;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Common
+namespace Common.EntryPoint
 {
     public class GameServicesInstaller : LifetimeScope
     {
         private static readonly ILogger Logger = LogManager.GetLogger<GameServicesInstaller>();
 
         [SerializeField] private LifetimeScope[] _compositeScopes;
+        [SerializeField] private MergeableObjectsConfigProvider _mergeableObjectsConfigProvider;
         
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -78,6 +84,13 @@ namespace Common
         private void RegisterFeatures(IContainerBuilder builder)
         {
             builder.RegisterController<RootGameplayState>();
+            
+            builder.Register<IMergeController, MergeController>(Lifetime.Singleton);
+            builder.RegisterInstance<IMergeableObjectsConfigProvider, MergeableObjectsConfigProvider>(_mergeableObjectsConfigProvider);
+            builder.RegisterInstance(_mergeableObjectsConfigProvider.GetConfig());
+            
+            builder.Register<ISupplyManager, SupplyManager>(Lifetime.Singleton);
+            builder.Register<ISupplyProvider, RandomSupplyProvider>(Lifetime.Singleton);
         }
     }
 }
