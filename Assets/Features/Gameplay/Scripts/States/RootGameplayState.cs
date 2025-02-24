@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Package.ControllersTree.Abstractions;
 using Package.StateMachine;
 
-namespace Features.Gameplay.Scripts
+namespace Features.Gameplay.States
 {
     public class RootGameplayState : IStateController
     {

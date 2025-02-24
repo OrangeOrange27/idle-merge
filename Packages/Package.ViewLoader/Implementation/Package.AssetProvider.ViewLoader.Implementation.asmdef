@@ -1,0 +1,11 @@
+{
+  "name": "Package.AssetProvider.ViewLoader.Implementation",
+  "references": [
+    "Package.AssetProvider.ViewLoader.Infrastructure",
+    "UniTask",
+    "Package.AssetProvider.Pooling",
+    "Package.Disposables",
+    "Unity.Addressables"
+  ],
+  "rootNamespace": "Package.AssetProvider"
+}

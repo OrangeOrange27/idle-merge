@@ -1,0 +1,8 @@
+{
+  "name": "Package.AssetProvider.ViewLoader.Infrastructure",
+  "references": [
+    "UniTask",
+    "Package.ControllersTree.Core"
+  ],
+  "rootNamespace": "Package.AssetProvider"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Common.AssetProvider.ViewLoader.Tests",
+  "references": [
+    "Common.AssetProvider.ViewLoader.Implementation",
+    "Common.AssetProvider.ViewLoader.Infrastructure",
+    "SGH.Controllers.ViewHolder",
+    "UnityEditor.TestRunner",
+    "UnityEngine.TestRunner",
+    "Tools.Test",
+    "Zenject",
+    "Zenject-TestFramework",
+    "Common.AssetProvider.ViewLoader.Zenject",
+    "UniTask",
+    "Common.AssetProvider.Pooling",
+    "Common.Pooling",
+    "Common.AssetProvider",
+    "Unity.ResourceManager",
+    "Common.DestroyObjectsStrategies",
+    "Common.AssetProvider.Pooling.Tests"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "NSubstitute.dll",
+    "FluentAssertions.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS",
+    "ZENJECT"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Package.AssetProvider.ViewLoader.VContainer",
+  "references": [
+    "Package.AssetProvider.ViewLoader.Implementation",
+    "Package.AssetProvider.ViewLoader.Infrastructure",
+    "VContainer",
+    "Package.AssetProvider.Pooling"
+  ]
+}
