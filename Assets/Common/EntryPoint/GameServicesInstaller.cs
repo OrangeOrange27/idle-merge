@@ -15,7 +15,9 @@ using Features.Core.MergeSystem.Controller;
 using Features.Core.MergeSystem.ScriptableObjects;
 using Features.Core.SupplySystem;
 using Features.Gameplay;
+using Features.Gameplay.Scripts;
 using Features.Gameplay.States;
+using Features.SplashScreen;
 using Newtonsoft.Json;
 using Package.AssetProvider.Implementation;
 using Package.AssetProvider.Infrastructure;
@@ -34,6 +36,7 @@ namespace Common.EntryPoint
         private static readonly ILogger Logger = LogManager.GetLogger<GameServicesInstaller>();
 
         [SerializeField] private LifetimeScope[] _compositeScopes;
+        [SerializeField] private SplashSceneView _splashSceneView;
         [SerializeField] private MergeableObjectsConfigProvider _mergeableObjectsConfigProvider;
         
         public static JsonSerializerSettings JsonSettings = new()
@@ -73,7 +76,7 @@ namespace Common.EntryPoint
             
             builder.Register<IAssetProvider, AddressablesAssetProvider>(Lifetime.Transient);
             builder.RegisterFactory<IAssetProvider>(resolver => resolver.Resolve<IAssetProvider>, Lifetime.Transient);
-
+            
             builder.RegisterInstance(JsonSettings);
             
             RegisterFeatures(builder);
@@ -84,14 +87,10 @@ namespace Common.EntryPoint
 
         private void RegisterFeatures(IContainerBuilder builder)
         {
-            builder.RegisterController<RootGameplayState>();
-            
-            builder.Register<IMergeController, MergeController>(Lifetime.Singleton);
-            builder.RegisterInstance<IMergeableObjectsConfigProvider, MergeableObjectsConfigProvider>(_mergeableObjectsConfigProvider);
-            builder.RegisterInstance(_mergeableObjectsConfigProvider.GetConfig());
-            
-            builder.Register<ISupplyManager, SupplyManager>(Lifetime.Singleton);
-            builder.Register<ISupplyProvider, RandomSupplyProvider>(Lifetime.Singleton);
+            builder.RegisterSplashScreen(_splashSceneView);
+            builder.RegisterMergeSystem(_mergeableObjectsConfigProvider);
+            builder.RegisterSupplySystem();
+            builder.RegisterGameplay();
         }
     }
 }

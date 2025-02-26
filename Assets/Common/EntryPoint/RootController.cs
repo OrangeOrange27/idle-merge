@@ -5,6 +5,7 @@ using Common.TimeService;
 using Cysharp.Threading.Tasks;
 using Features.Gameplay;
 using Features.Gameplay.States;
+using Features.SplashScreen;
 using Package.ControllersTree;
 using Package.ControllersTree.Abstractions;
 using Package.StateMachine;
@@ -16,14 +17,17 @@ namespace Common.EntryPoint
     public class RootController : IStateController
     {
         private readonly IObjectResolver _objectResolver;
+        private readonly SplashSceneView _splashSceneView;
 
         private bool _initialStateIsLobby;
         private IControllerRunner<StateMachinePayload, IStateMachineInstruction> _stateMachineRunner;
         private readonly Stopwatch _stopWatch;
 
-        public RootController(IObjectResolver objectResolver)
+        public RootController(IObjectResolver objectResolver, SplashSceneView splashSceneView)
         {
             _objectResolver = objectResolver;
+            _splashSceneView = splashSceneView;
+            
             _stopWatch = Stopwatch.StartNew();
         }
 
@@ -56,6 +60,7 @@ namespace Common.EntryPoint
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources,
             IControllerChildren controllerChildren, CancellationToken token)
         {
+            _splashSceneView.HideView().Forget();
             return await _stateMachineRunner.Execute(token);
         }
 

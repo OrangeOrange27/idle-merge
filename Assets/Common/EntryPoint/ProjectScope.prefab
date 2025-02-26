@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7171860102206684358}
   - component: {fileID: 7696564839100698249}
+  - component: {fileID: 1884999974545409363}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -49,4 +50,19 @@ MonoBehaviour:
   autoRun: 0
   autoInjectGameObjects: []
   _compositeScopes: []
+  _splashSceneView: {fileID: 0}
+  _mergeableObjectsConfigProvider: {fileID: 1884999974545409363}
   _disableInitFlow: 0
+--- !u!114 &1884999974545409363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212875366303386821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e762138dfb148beb2f5498e3babce00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 055d76e29210e154cba52c5515626a65, type: 2}
