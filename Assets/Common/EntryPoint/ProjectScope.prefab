@@ -51,7 +51,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _compositeScopes: []
   _splashSceneView: {fileID: 0}
-  _mergeableObjectsConfigProvider: {fileID: 1884999974545409363}
+  supplyWeightsConfigProvider: {fileID: 1884999974545409363}
   _disableInitFlow: 0
 --- !u!114 &1884999974545409363
 MonoBehaviour:
@@ -65,4 +65,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e762138dfb148beb2f5498e3babce00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 055d76e29210e154cba52c5515626a65, type: 2}
+  _config: {fileID: 11400000, guid: 6d0da6633be5e264caa442c822ebb67e, type: 2}

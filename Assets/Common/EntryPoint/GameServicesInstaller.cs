@@ -1,7 +1,6 @@
 ﻿using System;
 using Common.ApplicationLifecycleNotifier;
 using Common.Audio;
-using Common.Config;
 using Common.Audio.Implementation;
 using Common.Audio.Infrastructure;
 using Common.DeviceInfo;
@@ -11,12 +10,8 @@ using Common.JsonConverters;
 using Common.TimeService;
 using Features.Core.MergeSystem;
 using Features.Core.MergeSystem.Config;
-using Features.Core.MergeSystem.Controller;
-using Features.Core.MergeSystem.ScriptableObjects;
 using Features.Core.SupplySystem;
-using Features.Gameplay;
 using Features.Gameplay.Scripts;
-using Features.Gameplay.States;
 using Features.SplashScreen;
 using Newtonsoft.Json;
 using Package.AssetProvider.Implementation;
@@ -37,7 +32,7 @@ namespace Common.EntryPoint
 
         [SerializeField] private LifetimeScope[] _compositeScopes;
         [SerializeField] private SplashSceneView _splashSceneView;
-        [SerializeField] private MergeableObjectsConfigProvider _mergeableObjectsConfigProvider;
+        [SerializeField] private SupplyWeightsConfigProvider supplyWeightsConfigProvider;
         
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -88,7 +83,7 @@ namespace Common.EntryPoint
         private void RegisterFeatures(IContainerBuilder builder)
         {
             builder.RegisterSplashScreen(_splashSceneView);
-            builder.RegisterMergeSystem(_mergeableObjectsConfigProvider);
+            builder.RegisterMergeSystem(supplyWeightsConfigProvider);
             builder.RegisterSupplySystem();
             builder.RegisterGameplay();
         }

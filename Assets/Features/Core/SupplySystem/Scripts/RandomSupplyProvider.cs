@@ -1,26 +1,41 @@
-﻿using Features.Core.MergeSystem.Config;
+﻿using System.Linq;
+using Features.Core.MergeSystem.Config;
+using Features.Core.MergeSystem.MergeableObjects;
 using UnityEngine;
 
 namespace Features.Core.SupplySystem
 {
     public class RandomSupplyProvider : ISupplyProvider
     {
-        private readonly MergeableObjectsConfig _mergeableObjectsConfig;
+        private readonly SupplyWeightsConfig _supplyWeightsConfig;
         
-        public RandomSupplyProvider(MergeableObjectsConfig mergeableObjectsConfig)
+        public RandomSupplyProvider(SupplyWeightsConfig supplyWeightsConfig)
         {
-            _mergeableObjectsConfig = mergeableObjectsConfig;
+            _supplyWeightsConfig = supplyWeightsConfig;
         }
         
-        public GameAreaObject GetSupply()
+        public MergeableObject GetSupply()
         {
             return GetRandomSupply();
         }
         
-        private GameAreaObject GetRandomSupply()
+        private MergeableObject GetRandomSupply()
         {
-            var rnd = Random.Range(0, _mergeableObjectsConfig.MergeableObjects.Length);
-            return _mergeableObjectsConfig.MergeableObjects[rnd];
+            var totalWeight = _supplyWeightsConfig.WeightsArray.Sum(entry => entry.Weight);
+            var rnd = Random.Range(0f, totalWeight);
+            var cumulativeWeight = 0f;
+            
+            foreach (var entry in _supplyWeightsConfig.WeightsArray)
+            {
+                cumulativeWeight += entry.Weight;
+
+                if (rnd <= cumulativeWeight)
+                {
+                    return entry.MergeableObject;
+                }
+            }
+
+            return _supplyWeightsConfig.WeightsArray[^1].MergeableObject;
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Features.Core.MergeSystem
 {
     public static class MergeSystemRegistration
     {
-        public static void RegisterMergeSystem(this IContainerBuilder builder, MergeableObjectsConfigProvider mergeableObjectsConfigProvider)
+        public static void RegisterMergeSystem(this IContainerBuilder builder, SupplyWeightsConfigProvider supplyWeightsConfigProvider)
         {
             builder.Register<IMergeController, MergeController>(Lifetime.Singleton);
-            builder.RegisterInstance<IMergeableObjectsConfigProvider, MergeableObjectsConfigProvider>(mergeableObjectsConfigProvider);
-            builder.RegisterInstance(mergeableObjectsConfigProvider.GetConfig());
+            builder.RegisterInstance<ISupplyWeightsConfigProvider, SupplyWeightsConfigProvider>(supplyWeightsConfigProvider);
+            builder.RegisterInstance(supplyWeightsConfigProvider.GetConfig());
         }
     }
 }

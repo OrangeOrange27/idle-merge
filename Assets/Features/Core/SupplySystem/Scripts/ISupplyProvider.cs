@@ -1,7 +1,9 @@
-﻿namespace Features.Core.SupplySystem
+﻿using Features.Core.MergeSystem.MergeableObjects;
+
+namespace Features.Core.SupplySystem
 {
     public interface ISupplyProvider
     {
-        GameAreaObject GetSupply();
+        MergeableObject GetSupply();
     }
 }
