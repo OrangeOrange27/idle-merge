@@ -71,6 +71,8 @@ namespace Features.Core.GridSystem
                 if(tileObject == null)
                     continue;
                 
+                tileObject.transform.position = _tilemap.GetCellCenterWorld(position);
+                
                 tileObject.TryGetComponent(out GameAreaTile gameAreaTile);
                 if (gameAreaTile != null)
                     _validCells.Add(position, gameAreaTile);

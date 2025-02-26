@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Features.Core.GridSystem.Tiles
 {
-    public class GameAreaTile : TileBase, IGameAreaTile
+    public class GameAreaTile : MonoBehaviour, IGameAreaTile
     {
         public bool IsOccupied => OccupyingObject != null;
         public IGameAreaPlaceable OccupyingObject => _occupyingObject;
