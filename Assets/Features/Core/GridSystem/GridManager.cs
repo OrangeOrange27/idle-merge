@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 namespace Features.Core.GridSystem
 {
-    public class GridManager : MonoBehaviour
+    public class GridManager : MonoBehaviour, IGridManager
     {
         [SerializeField] private Grid _grid;
         [SerializeField] private Tilemap _tilemap;

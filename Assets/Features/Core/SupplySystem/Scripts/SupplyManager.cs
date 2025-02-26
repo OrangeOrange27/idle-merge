@@ -1,4 +1,6 @@
 ﻿using Features.Core.GridSystem;
+using Features.Gameplay.View;
+using Package.AssetProvider.ViewLoader.Infrastructure;
 using Package.Logger.Abstraction;
 using UnityEngine;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -10,18 +12,21 @@ namespace Features.Core.SupplySystem
         private static readonly ILogger Logger = LogManager.GetLogger<SupplyManager>();
         private static Vector3 Offset = new(0.5f, 0.5f, -1);
         
-        private readonly GridManager _gridManager;
         private readonly ISupplyProvider _supplyProvider;
+        private readonly ISharedViewLoader<IGameView> _gameViewLoader;
+        
+        private IGridManager _gridManager;
+        private IGridManager GridManager => _gridManager ??= _gameViewLoader.CachedView.GameAreaView.GridManager;
 
-        public SupplyManager(GridManager gridManager, ISupplyProvider supplyProvider)
+        public SupplyManager(ISharedViewLoader<IGameView> gameViewLoader, ISupplyProvider supplyProvider)
         {
-            _gridManager = gridManager;
+            _gameViewLoader = gameViewLoader;
             _supplyProvider = supplyProvider;
         }
 
         public void SpawnSupply()
         {
-            var freeTile = _gridManager.GetRandomFreeTile();
+            var freeTile = GridManager.GetRandomFreeTile();
             if (freeTile == null)
                 return;
 
