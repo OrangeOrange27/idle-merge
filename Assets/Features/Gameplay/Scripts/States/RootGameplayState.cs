@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Features.Core.MergeSystem.Controller;
+using Features.Core.Grid.Managers;
 using Features.Core.SupplySystem;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.Infrastructure;
@@ -15,16 +15,16 @@ namespace Features.Gameplay.States
         
         private readonly ISharedViewLoader<IGameView> _gameViewLoader;
         private readonly ISupplyManager _supplyManager;
-        private readonly IMergeController _mergeController;
-        
+        private readonly IPlaceablesVisualSystem _placeablesVisualSystem;
+
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
-
-        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IMergeController mergeController)
+        
+        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IPlaceablesVisualSystem placeablesVisualSystem)
         {
             _gameViewLoader = gameViewLoader;
             _supplyManager = supplyManager;
-            _mergeController = mergeController;
+            _placeablesVisualSystem = placeablesVisualSystem;
         }
         
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
@@ -37,13 +37,6 @@ namespace Features.Gameplay.States
             var gameView = await _gameViewLoader.Load(resources, token, null);
             _gameUIView = gameView.GameUIView;
             _gameAreaView = gameView.GameAreaView;
-            
-            _gameUIView.OnSupplyButtonClicked += OnSupplyButtonClicked;
-        }
-
-        private void OnSupplyButtonClicked()
-        {
-            _supplyManager.SpawnSupply();
         }
 
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources, IControllerChildren controllerChildren, CancellationToken token)
@@ -53,7 +46,6 @@ namespace Features.Gameplay.States
 
         public async UniTask OnStop(CancellationToken token)
         {
-            _gameUIView.OnSupplyButtonClicked -= OnSupplyButtonClicked;
         }
 
         public async UniTask OnDispose(CancellationToken token)

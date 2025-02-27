@@ -1,5 +1,5 @@
 ﻿using System;
-using Features.Core.MergeSystem.MergeableObjects;
+using Features.Core.MergeSystem.Scripts.Models;
 
 namespace Features.Core.MergeSystem.Config
 {
@@ -12,7 +12,7 @@ namespace Features.Core.MergeSystem.Config
     [Serializable]
     public class SupplyWeightsConfigEntry
     {
-        public MergeableObject MergeableObject;
+        public MergeableType MergeableObject;
         public float Weight;
     }
 }

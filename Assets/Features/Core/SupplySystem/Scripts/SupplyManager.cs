@@ -1,6 +1,6 @@
-﻿using Features.Core.GridSystem;
+﻿using System;
+using Features.Core.GridSystem;
 using Features.Gameplay.View;
-using Package.AssetProvider.ViewLoader.Infrastructure;
 using Package.Logger.Abstraction;
 using UnityEngine;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -13,26 +13,24 @@ namespace Features.Core.SupplySystem
         private static Vector3 Offset = new(0.5f, 0.5f, -1);
         
         private readonly ISupplyProvider _supplyProvider;
-        private readonly ISharedViewLoader<IGameView> _gameViewLoader;
+        private readonly Func<IGameView> _gameViewGetter;
         
         private IGridManager _gridManager;
-        private IGridManager GridManager => _gridManager ??= _gameViewLoader.CachedView.GameAreaView.GridManager;
 
-        public SupplyManager(ISharedViewLoader<IGameView> gameViewLoader, ISupplyProvider supplyProvider)
+        public SupplyManager(Func<IGameView> gameViewGetter, ISupplyProvider supplyProvider)
         {
-            _gameViewLoader = gameViewLoader;
+            _gameViewGetter = gameViewGetter;
             _supplyProvider = supplyProvider;
         }
 
         public void SpawnSupply()
         {
-            var freeTile = GridManager.GetRandomFreeTile();
+            var freeTile = _gameViewGetter.Invoke().GameAreaView.GridManager.GetRandomFreeTile();
             if (freeTile == null)
                 return;
 
-            var position = freeTile.Position + Offset;
-            var supply = Object.Instantiate(_supplyProvider.GetSupply(), position, Quaternion.identity);
-            freeTile.Occupy(supply);
+            var supply = _supplyProvider.GetSupply();
+            supply.ParentTile.Value = freeTile;
         }
     }
 }

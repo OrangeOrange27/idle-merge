@@ -1,9 +1,7 @@
-﻿using Features.Core.MergeSystem.MergeableObjects;
-
-namespace Features.Core.SupplySystem
+﻿namespace Features.Core.SupplySystem
 {
     public interface ISupplyProvider
     {
-        MergeableObject GetSupply();
+        PlaceableModel GetSupply();
     }
 }
