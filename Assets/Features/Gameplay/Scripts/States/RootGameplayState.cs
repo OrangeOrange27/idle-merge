@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Features.Core.Grid.Managers;
+using Features.Core;
+using Features.Core.GridSystem.Managers;
 using Features.Core.SupplySystem;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.Infrastructure;
@@ -19,6 +20,7 @@ namespace Features.Gameplay.States
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
+        private GameContext _gameContext;
         
         public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IPlaceablesVisualSystem placeablesVisualSystem)
         {
@@ -29,6 +31,7 @@ namespace Features.Gameplay.States
         
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
         {
+            _gameContext = new GameContext(); //todo: get valid context
         }
         
         public async UniTask OnStart(EmptyPayloadType payload, IControllerResources resources, IControllerChildren controllerChildren,
@@ -37,6 +40,16 @@ namespace Features.Gameplay.States
             var gameView = await _gameViewLoader.Load(resources, token, null);
             _gameUIView = gameView.GameUIView;
             _gameAreaView = gameView.GameAreaView;
+            
+            _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
+
+            await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameContext, resources, token);
+            await _placeablesVisualSystem.InitializePlaceablesViews();
+        }
+
+        private void OnSupplyClick()
+        {
+            _supplyManager.SpawnSupply(_gameContext);
         }
 
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources, IControllerChildren controllerChildren, CancellationToken token)
@@ -46,6 +59,7 @@ namespace Features.Gameplay.States
 
         public async UniTask OnStop(CancellationToken token)
         {
+            _gameUIView.OnSupplyButtonClicked -= OnSupplyClick;
         }
 
         public async UniTask OnDispose(CancellationToken token)

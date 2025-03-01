@@ -12,7 +12,14 @@ namespace Features.Core.MergeSystem.Config
     [Serializable]
     public class SupplyWeightsConfigEntry
     {
-        public MergeableType MergeableObject;
+        public MergeableObjectConfig MergeableObject;
         public float Weight;
+    }
+    
+    [Serializable]
+    public class MergeableObjectConfig
+    {
+        public MergeableType MergeableType;
+        public int Stage;
     }
 }

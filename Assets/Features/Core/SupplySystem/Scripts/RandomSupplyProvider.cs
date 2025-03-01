@@ -35,12 +35,15 @@ namespace Features.Core.SupplySystem
 
                 if (rnd <= cumulativeWeight)
                 {
-                    model.MergeableType = entry.MergeableObject;
+                    model.MergeableType = entry.MergeableObject.MergeableType;
+                    model.Stage.Value = entry.MergeableObject.Stage;
                     return model;
                 }
             }
 
-            model.MergeableType = _supplyWeightsConfig.WeightsArray[^1].MergeableObject;
+            var objectConfig = _supplyWeightsConfig.WeightsArray[^1].MergeableObject;
+            model.MergeableType = objectConfig.MergeableType;
+            model.Stage.Value = objectConfig.Stage;
             return model;
         }
     }

@@ -2,10 +2,9 @@
 using System.Collections.Specialized;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Features.Core.Grid.Managers;
 using Package.ControllersTree.Abstractions;
 
-namespace Features.Core
+namespace Features.Core.GridSystem.Managers
 {
     public class PlaceablesVisualSystem : IPlaceablesVisualSystem
     {
@@ -23,15 +22,17 @@ namespace Features.Core
             _placeablesVisualProvider = placeablesVisualProvider;
         }
 
-        public async UniTask SpawnInitPlaceablesViews(GameContext context, IControllerResources resources)
+        public async UniTask SpawnInitPlaceablesViews(GameContext context, IControllerResources resources,
+            CancellationToken token)
         {
             _resources = resources;
             _gameContext = context;
             _gameContext.Placeables.CollectionChanged += CardsOnCollectionChanged;
 
-            _viewControllers = await UniTask.WhenAll(context.Placeables.Select(model => LoadSpawnView(model, resources)));
+            _viewControllers =
+                await UniTask.WhenAll(context.Placeables.Select(model => LoadSpawnView(model, resources, token)));
         }
-        
+
         public async UniTask InitializePlaceablesViews()
         {
             foreach (var cardViewController in _viewControllers)
@@ -40,21 +41,24 @@ namespace Features.Core
             }
         }
 
-        private void CardsOnCollectionChanged(in ObservableCollections.NotifyCollectionChangedEventArgs<PlaceableModel> e)
+        private void CardsOnCollectionChanged(
+            in ObservableCollections.NotifyCollectionChangedEventArgs<PlaceableModel> e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     if (e.IsSingleItem)
                     {
-                        LoadSpawnView(e.NewItem, _resources).ContinueWith(controller => controller.InitObserving())
+                        LoadSpawnView(e.NewItem, _resources, CancellationToken.None)
+                            .ContinueWith(controller => controller.InitObserving())
                             .Forget();
                     }
                     else
                     {
                         foreach (var cardModel in e.NewItems)
                         {
-                            LoadSpawnView(cardModel, _resources).ContinueWith(controller => controller.InitObserving())
+                            LoadSpawnView(cardModel, _resources, CancellationToken.None)
+                                .ContinueWith(controller => controller.InitObserving())
                                 .Forget();
                         }
                     }
@@ -63,9 +67,10 @@ namespace Features.Core
             }
         }
 
-        private async UniTask<IPlaceableViewController> LoadSpawnView(PlaceableModel model, IControllerResources resources)
+        private async UniTask<IPlaceableViewController> LoadSpawnView(PlaceableModel model,
+            IControllerResources resources, CancellationToken token)
         {
-            var view = await _placeablesVisualProvider.Load(model, resources, CancellationToken.None,
+            var view = await _placeablesVisualProvider.Load(model, resources, token,
                 model.ParentTile.CurrentValue.Transform);
             var cardViewController = _cardViewControllerGetter.Invoke();
 

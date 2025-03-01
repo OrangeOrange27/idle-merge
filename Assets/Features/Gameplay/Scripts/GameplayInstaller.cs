@@ -1,5 +1,7 @@
-﻿using Features.Core;
-using Features.Core.Grid.Managers;
+﻿using System;
+using Features.Core;
+using Features.Core.GridSystem.Managers;
+using Features.Core.MergeSystem.Scripts.Models;
 using Features.Gameplay.States;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.VContainer;
@@ -14,6 +16,17 @@ namespace Features.Gameplay.Scripts
         {
             builder.RegisterController<RootGameplayState>();
             builder.RegisterSharedViewLoader<GameView, IGameView>("GameView");
+
+            builder.RegisterViewLoader<PlaceableView, IPlaceableView, string>(key => key);
+            builder.RegisterViewLoader<MergeableView, IPlaceableView, MergeableType>(mergeableType =>
+            {
+                return mergeableType switch
+                {
+                    MergeableType.Circle => "Circle",
+                    MergeableType.Square => "Square",
+                    _ => throw new ArgumentOutOfRangeException(nameof(mergeableType), mergeableType, null)
+                };
+            });
             
             builder.Register<PlaceableViewController>(Lifetime.Transient).AsImplementedInterfaces();
             builder.RegisterFactory<IPlaceableViewController>(resolver => resolver.Resolve<IPlaceableViewController>, Lifetime.Transient);

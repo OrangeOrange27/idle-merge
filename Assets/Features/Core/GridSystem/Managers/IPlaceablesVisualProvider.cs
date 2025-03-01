@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Package.ControllersTree.Abstractions;
 using UnityEngine;
 
-namespace Features.Core.Grid.Managers
+namespace Features.Core.GridSystem.Managers
 {
     public interface IPlaceablesVisualProvider
     {

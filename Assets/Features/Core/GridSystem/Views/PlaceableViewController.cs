@@ -25,7 +25,7 @@ namespace Features.Core
             _view.OnTap += OnViewTap;
 
             _disposable = Disposable.Combine(
-                _model.ParentTile.Subscribe(tile => tile.Occupy(_model))
+                _model.ParentTile.Subscribe(tile => _view.SetParentTile(tile))
                 );
         }
         

@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SupplyWeightsConfig:
     WeightsArray:
-    - MergeableObject: {fileID: 6635621313801011481, guid: 9e74b7652f1555945a0a8c63abcd5b85, type: 3}
+    - MergeableObject:
+        MergeableType: 1
+        Stage: 1
       Weight: 1
-    - MergeableObject: {fileID: 6562197684766707491, guid: b4f944c65c8e6074096e34a1c68bc152, type: 3}
+    - MergeableObject:
+        MergeableType: 1
+        Stage: 2
       Weight: 0.33
-    - MergeableObject: {fileID: 8076648698102396112, guid: af04e7db7d3591e44a2a259ef47a3f6f, type: 3}
+    - MergeableObject:
+        MergeableType: 1
+        Stage: 3
       Weight: 0.11

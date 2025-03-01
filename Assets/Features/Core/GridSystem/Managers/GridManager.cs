@@ -4,11 +4,11 @@ using Features.Core.GridSystem.Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Features.Core.GridSystem
+namespace Features.Core.GridSystem.Managers
 {
     public class GridManager : MonoBehaviour, IGridManager
     {
-        [SerializeField] private UnityEngine.Grid _grid;
+        [SerializeField] private Grid _grid;
         [SerializeField] private Tilemap _tilemap;
 
         private Dictionary<Vector3Int, GameAreaTile> _validCells;

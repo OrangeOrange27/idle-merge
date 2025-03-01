@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Core.GridSystem.Tiles;
 
 namespace Features.Core
 {
@@ -6,5 +7,6 @@ namespace Features.Core
     {
         event Action OnTap;
         void SetModel(PlaceableModel model);
+        void SetParentTile(IGameAreaTile tile);
     }
 }

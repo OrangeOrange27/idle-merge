@@ -1,5 +1,5 @@
 ﻿using System;
-using Features.Core.GridSystem;
+using Features.Core.GridSystem.Managers;
 using Features.Gameplay.View;
 using Package.Logger.Abstraction;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace Features.Core.SupplySystem
             _supplyProvider = supplyProvider;
         }
 
-        public void SpawnSupply()
+        public void SpawnSupply(GameContext gameContext)
         {
             var freeTile = _gameViewGetter.Invoke().GameAreaView.GridManager.GetRandomFreeTile();
             if (freeTile == null)
@@ -31,6 +31,7 @@ namespace Features.Core.SupplySystem
 
             var supply = _supplyProvider.GetSupply();
             supply.ParentTile.Value = freeTile;
+            gameContext.Placeables.Add(supply);
         }
     }
 }

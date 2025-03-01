@@ -1,4 +1,4 @@
-﻿using Features.Core.GridSystem;
+﻿using Features.Core.GridSystem.Managers;
 using UnityEngine;
 
 namespace Features.Gameplay.View

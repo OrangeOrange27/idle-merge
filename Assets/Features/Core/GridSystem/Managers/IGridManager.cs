@@ -1,7 +1,7 @@
 ﻿using Features.Core.GridSystem.Tiles;
 using UnityEngine;
 
-namespace Features.Core.GridSystem
+namespace Features.Core.GridSystem.Managers
 {
     public interface IGridManager
     {

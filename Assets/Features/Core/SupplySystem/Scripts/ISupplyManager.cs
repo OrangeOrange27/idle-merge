@@ -2,6 +2,6 @@
 {
     public interface ISupplyManager
     {
-        void SpawnSupply();
+        void SpawnSupply(GameContext gameContext);
     }
 }

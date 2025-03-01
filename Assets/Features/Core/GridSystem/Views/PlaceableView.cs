@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Core.GridSystem.Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,6 +14,12 @@ namespace Features.Core
         public void SetModel(PlaceableModel model)
         {
             _model = model;
+        }
+
+        public void SetParentTile(IGameAreaTile tile)
+        {
+            transform.position = tile.Position;
+            tile.Occupy(_model);
         }
 
         public void OnPointerDown(PointerEventData eventData)
