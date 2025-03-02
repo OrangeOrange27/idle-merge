@@ -8,5 +8,6 @@ namespace Features.Core
         event Action OnTap;
         void SetModel(PlaceableModel model);
         void SetParentTile(IGameAreaTile tile);
+        void SetStage(int stage);
     }
 }

@@ -7,6 +7,8 @@ namespace Features.Core
 {
     public class PlaceableView : MonoBehaviour, IPlaceableView, IPointerDownHandler
     {
+        private static readonly Vector3 PositionOffset = new(0.5f, 0.5f, -1);
+        
         public event Action OnTap;
         
         private PlaceableModel _model;
@@ -18,8 +20,12 @@ namespace Features.Core
 
         public void SetParentTile(IGameAreaTile tile)
         {
-            transform.position = tile.Position;
+            transform.position = tile.Position + PositionOffset;
             tile.Occupy(_model);
+        }
+
+        public virtual void SetStage(int stage)
+        {
         }
 
         public void OnPointerDown(PointerEventData eventData)
