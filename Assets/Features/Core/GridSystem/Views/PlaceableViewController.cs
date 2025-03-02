@@ -26,6 +26,7 @@ namespace Features.Core
 
             _disposable = Disposable.Combine(
                 _model.ParentTile.Subscribe(tile => _view.SetParentTile(tile)),
+                _model.Position.Subscribe(position => _view.Move(position)),
                 _model.Stage.Subscribe(stage => _view.SetStage(stage))
                 );
         }

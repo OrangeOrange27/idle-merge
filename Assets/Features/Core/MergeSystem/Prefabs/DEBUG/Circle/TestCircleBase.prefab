@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2923590073050047205}
   - component: {fileID: 5740470428980980078}
+  - component: {fileID: 4860993737612623765}
   m_Layer: 0
   m_Name: TestCircleBase
   m_TagString: Untagged
@@ -52,6 +53,27 @@ MonoBehaviour:
   _stage2: {fileID: 7027434269858400532}
   _stage3: {fileID: 5658131330144272460}
   _stage4: {fileID: 8107130632913209262}
+--- !u!65 &4860993737612623765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512791830562231474}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2492220863390617314
 GameObject:
   m_ObjectHideFlags: 0

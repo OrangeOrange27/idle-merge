@@ -10,6 +10,7 @@ using Common.JsonConverters;
 using Common.TimeService;
 using Features.Core.MergeSystem;
 using Features.Core.MergeSystem.Config;
+using Features.Core.PlacementSystem;
 using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts;
 using Features.SplashScreen;
@@ -85,6 +86,7 @@ namespace Common.EntryPoint
             builder.RegisterSplashScreen(_splashSceneView);
             builder.RegisterMergeSystem(supplyWeightsConfigProvider);
             builder.RegisterSupplySystem();
+            builder.RegisterPlacementSystem();
             builder.RegisterGameplay();
         }
     }

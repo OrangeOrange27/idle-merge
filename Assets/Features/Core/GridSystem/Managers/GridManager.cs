@@ -14,6 +14,7 @@ namespace Features.Core.GridSystem.Managers
         private Dictionary<Vector3Int, GameAreaTile> _validCells;
         private bool _isTilemapUpToDate;
 
+        public Grid Grid => _grid;
         private bool NeedToUpdateValidCellsMap => _validCells == null || _isTilemapUpToDate == false;
 
         private void Awake()
@@ -26,7 +27,7 @@ namespace Features.Core.GridSystem.Managers
             if (NeedToUpdateValidCellsMap)
                 UpdateTilemap();
         }
-        
+
         public IGameAreaTile GetRandomFreeTile()
         {
             var freeTiles = _validCells

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Features.Core;
 using Features.Core.GridSystem.Managers;
 using Features.Core.SupplySystem;
+using Features.Gameplay.Scripts.Controllers;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.Infrastructure;
 using Package.ControllersTree.Abstractions;
@@ -17,21 +18,21 @@ namespace Features.Gameplay.States
         private readonly ISharedViewLoader<IGameView> _gameViewLoader;
         private readonly ISupplyManager _supplyManager;
         private readonly IPlaceablesVisualSystem _placeablesVisualSystem;
+        private readonly IGameplayController _gameplayController;
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
-        private GameContext _gameContext;
         
-        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IPlaceablesVisualSystem placeablesVisualSystem)
+        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController)
         {
             _gameViewLoader = gameViewLoader;
             _supplyManager = supplyManager;
             _placeablesVisualSystem = placeablesVisualSystem;
+            _gameplayController = gameplayController;
         }
         
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
         {
-            _gameContext = new GameContext(); //todo: get valid context
         }
         
         public async UniTask OnStart(EmptyPayloadType payload, IControllerResources resources, IControllerChildren controllerChildren,
@@ -42,14 +43,16 @@ namespace Features.Gameplay.States
             _gameAreaView = gameView.GameAreaView;
             
             _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
+            
+            _gameplayController.Initialize(new GameContext()); //todo: get valid context
 
-            await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameContext, resources, token);
+            await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameplayController.GameContext, resources, token);
             await _placeablesVisualSystem.InitializePlaceablesViews();
         }
 
         private void OnSupplyClick()
         {
-            _supplyManager.SpawnSupply(_gameContext);
+            _supplyManager.SpawnSupply(_gameplayController.GameContext);
         }
 
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources, IControllerChildren controllerChildren, CancellationToken token)

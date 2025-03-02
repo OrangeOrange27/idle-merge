@@ -2,24 +2,27 @@
 using System.Collections.Specialized;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Features.Gameplay.Scripts.Controllers;
 using Package.ControllersTree.Abstractions;
 
 namespace Features.Core.GridSystem.Managers
 {
     public class PlaceablesVisualSystem : IPlaceablesVisualSystem
     {
-        private readonly Func<IPlaceableViewController> _cardViewControllerGetter;
+        private readonly Func<IPlaceableViewController> _viewControllerGetter;
         private readonly IPlaceablesVisualProvider _placeablesVisualProvider;
+        private readonly IGameplayController _gameplayController;
 
         private IControllerResources _resources;
         private GameContext _gameContext;
         private IPlaceableViewController[] _viewControllers;
 
-        public PlaceablesVisualSystem(Func<IPlaceableViewController> cardViewControllerGetter,
-            IPlaceablesVisualProvider placeablesVisualProvider)
+        public PlaceablesVisualSystem(Func<IPlaceableViewController> viewControllerGetter,
+            IPlaceablesVisualProvider placeablesVisualProvider, IGameplayController gameplayController)
         {
-            _cardViewControllerGetter = cardViewControllerGetter;
+            _viewControllerGetter = viewControllerGetter;
             _placeablesVisualProvider = placeablesVisualProvider;
+            _gameplayController = gameplayController;
         }
 
         public async UniTask SpawnInitPlaceablesViews(GameContext context, IControllerResources resources,
@@ -27,7 +30,7 @@ namespace Features.Core.GridSystem.Managers
         {
             _resources = resources;
             _gameContext = context;
-            _gameContext.Placeables.CollectionChanged += CardsOnCollectionChanged;
+            _gameContext.Placeables.CollectionChanged += OnPlaceablesCollectionChanged;
 
             _viewControllers =
                 await UniTask.WhenAll(context.Placeables.Select(model => LoadSpawnView(model, resources, token)));
@@ -35,13 +38,13 @@ namespace Features.Core.GridSystem.Managers
 
         public async UniTask InitializePlaceablesViews()
         {
-            foreach (var cardViewController in _viewControllers)
+            foreach (var viewController in _viewControllers)
             {
-                cardViewController.InitObserving();
+                viewController.InitObserving();
             }
         }
 
-        private void CardsOnCollectionChanged(
+        private void OnPlaceablesCollectionChanged(
             in ObservableCollections.NotifyCollectionChangedEventArgs<PlaceableModel> e)
         {
             switch (e.Action)
@@ -55,9 +58,9 @@ namespace Features.Core.GridSystem.Managers
                     }
                     else
                     {
-                        foreach (var cardModel in e.NewItems)
+                        foreach (var placeableModel in e.NewItems)
                         {
-                            LoadSpawnView(cardModel, _resources, CancellationToken.None)
+                            LoadSpawnView(placeableModel, _resources, CancellationToken.None)
                                 .ContinueWith(controller => controller.InitObserving())
                                 .Forget();
                         }
@@ -72,20 +75,20 @@ namespace Features.Core.GridSystem.Managers
         {
             var view = await _placeablesVisualProvider.Load(model, resources, token,
                 model.ParentTile.CurrentValue.Transform);
-            var cardViewController = _cardViewControllerGetter.Invoke();
+            var viewController = _viewControllerGetter.Invoke();
 
             model.View = view;
-            cardViewController.InitOnCreate(_gameContext, view, model);
-            resources.Attach(cardViewController);
+            viewController.InitOnCreate(_gameContext, view, model);
+            resources.Attach(viewController);
 
-            cardViewController.OnTap += CardViewOnTap;
+            viewController.OnTap += OnViewTap;
 
-            return cardViewController;
+            return viewController;
         }
 
-        private void CardViewOnTap(PlaceableModel model)
+        private void OnViewTap(PlaceableModel model)
         {
-            throw new NotImplementedException();
+            _gameplayController.RegisterPlaceableClick(model);
         }
     }
 }
