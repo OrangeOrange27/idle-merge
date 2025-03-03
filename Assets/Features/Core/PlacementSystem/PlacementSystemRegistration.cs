@@ -6,7 +6,8 @@ namespace Features.Core.PlacementSystem
     {
         public static void RegisterPlacementSystem(this IContainerBuilder builder)
         {
-            builder.Register<PlacementController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<SelectionController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlacementSystem>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

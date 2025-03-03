@@ -1,7 +1,9 @@
-﻿using Features.Core;
+﻿using System;
+using Features.Core;
 using Features.Core.PlacementSystem;
 using Microsoft.Extensions.Logging;
 using Package.Logger.Abstraction;
+using R3;
 
 namespace Features.Gameplay.Scripts.Controllers
 {
@@ -9,26 +11,27 @@ namespace Features.Gameplay.Scripts.Controllers
     {
         private static readonly ILogger Logger = LogManager.GetLogger<GameplayController>();
 
-        private readonly IPlacementController _placementController;
+        private readonly ISelectionController _selectionController;
 
         private GameContext _gameContext;
 
         public GameContext GameContext => _gameContext;
         
-        public GameplayController(IPlacementController placementController)
+        public GameplayController(ISelectionController selectionController)
         {
-            _placementController = placementController;
+            _selectionController = selectionController;
         }
-        
-        public void Initialize(GameContext gameContext)
+
+        public IDisposable Initialize(GameContext gameContext)
         {
             _gameContext = gameContext;
+            return Disposable.Empty;
         }
-        
+
         public void RegisterPlaceableClick(PlaceableModel placeableModel)
         {
             Logger.LogInformation($"Placeable {placeableModel} clicked");
-            _placementController.SelectPlaceable(placeableModel);
+            _selectionController.SelectPlaceable(placeableModel);
         }
     }
 }

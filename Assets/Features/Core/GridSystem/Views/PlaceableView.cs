@@ -1,5 +1,6 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
+using Features.Core.PlacementSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,8 +8,6 @@ namespace Features.Core
 {
     public class PlaceableView : MonoBehaviour, IPlaceableView, IPointerDownHandler
     {
-        private static readonly Vector3 PositionOffset = new(0.5f, 0.5f, -1);
-
         public event Action OnTap;
 
         private PlaceableModel _model;
@@ -23,8 +22,7 @@ namespace Features.Core
 
         public void SetParentTile(IGameAreaTile tile)
         {
-            tile.Occupy(_model);
-            _model.Position.Value = tile.Position + PositionOffset;
+            _model.Position.Value = tile.Position + Constants.PlaceableOffset;
         }
 
         public void Move(Vector3 position)

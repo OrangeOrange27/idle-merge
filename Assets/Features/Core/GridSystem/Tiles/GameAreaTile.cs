@@ -15,6 +15,10 @@ namespace Features.Core.GridSystem.Tiles
         public void Occupy(PlaceableModel gameAreaPlaceable)
         {
             _occupyingObject = gameAreaPlaceable;
+        }        
+        public void DeOccupy()
+        {
+            _occupyingObject = null;
         }
     }
 }

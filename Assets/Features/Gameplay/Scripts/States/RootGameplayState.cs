@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Features.Core;
 using Features.Core.GridSystem.Managers;
+using Features.Core.PlacementSystem;
 using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts.Controllers;
 using Features.Gameplay.View;
@@ -19,18 +20,22 @@ namespace Features.Gameplay.States
         private readonly ISupplyManager _supplyManager;
         private readonly IPlaceablesVisualSystem _placeablesVisualSystem;
         private readonly IGameplayController _gameplayController;
+        private readonly IPlacementSystem _placementSystem;
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
-        
-        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager, IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController)
+
+        public RootGameplayState(ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager,
+            IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController,
+            IPlacementSystem placementSystem)
         {
             _gameViewLoader = gameViewLoader;
             _supplyManager = supplyManager;
             _placeablesVisualSystem = placeablesVisualSystem;
             _gameplayController = gameplayController;
+            _placementSystem = placementSystem;
         }
-        
+
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
         {
         }
@@ -44,7 +49,8 @@ namespace Features.Gameplay.States
             
             _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
             
-            _gameplayController.Initialize(new GameContext()); //todo: get valid context
+            resources.Attach(_gameplayController.Initialize(new GameContext())); //todo: get valid context
+            resources.Attach(_placementSystem.Initialize(_gameplayController.GameContext));
 
             await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameplayController.GameContext, resources, token);
             await _placeablesVisualSystem.InitializePlaceablesViews();

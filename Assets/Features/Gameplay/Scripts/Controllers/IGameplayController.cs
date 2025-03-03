@@ -1,4 +1,5 @@
-﻿using Features.Core;
+﻿using System;
+using Features.Core;
 
 namespace Features.Gameplay.Scripts.Controllers
 {
@@ -6,7 +7,7 @@ namespace Features.Gameplay.Scripts.Controllers
     {
         GameContext GameContext { get; }
         
-        void Initialize(GameContext gameContext);
+        IDisposable Initialize(GameContext gameContext);
         void RegisterPlaceableClick(PlaceableModel placeableModel);
     }
 }

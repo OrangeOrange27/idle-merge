@@ -10,5 +10,6 @@ namespace Features.Core.GridSystem.Tiles
         Transform Transform { get; }
         
         void Occupy(PlaceableModel gameAreaPlaceable);
+        void DeOccupy();
     }
 }

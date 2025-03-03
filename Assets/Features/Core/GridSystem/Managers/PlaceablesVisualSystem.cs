@@ -52,22 +52,24 @@ namespace Features.Core.GridSystem.Managers
                 case NotifyCollectionChangedAction.Add:
                     if (e.IsSingleItem)
                     {
-                        LoadSpawnView(e.NewItem, _resources, CancellationToken.None)
-                            .ContinueWith(controller => controller.InitObserving())
-                            .Forget();
+                        LoadAndInitPlaceableView(e.NewItem).Forget();
                     }
                     else
                     {
                         foreach (var placeableModel in e.NewItems)
                         {
-                            LoadSpawnView(placeableModel, _resources, CancellationToken.None)
-                                .ContinueWith(controller => controller.InitObserving())
-                                .Forget();
+                            LoadAndInitPlaceableView(placeableModel).Forget();
                         }
                     }
 
                     break;
             }
+        }
+
+        private async UniTask LoadAndInitPlaceableView(PlaceableModel model)
+        {
+            await LoadSpawnView(model, _resources, CancellationToken.None)
+                .ContinueWith(controller => controller.InitObserving());
         }
 
         private async UniTask<IPlaceableViewController> LoadSpawnView(PlaceableModel model,
