@@ -1,6 +1,8 @@
 ﻿using System;
 using Common.Utils;
 using Features.Core.GridSystem.Managers;
+using Features.Core.Placeables;
+using Features.Core.Placeables.Models;
 using Features.Gameplay.View;
 using UnityEngine;
 using VContainer.Unity;
@@ -10,70 +12,76 @@ namespace Features.Core.PlacementSystem
     public class SelectionController : ISelectionController, ITickable, IDisposable
     {
         private readonly Func<IGameView> _gameViewGetter;
+        private readonly IPlacementSystem _placementSystem;
 
-        private IGameView _gameView;
         private PlaceableModel _selectedPlaceable;
         private Vector3 _returnPosition;
+        private IGameView _gameView;
 
         private IGameView GameView => _gameView ??= _gameViewGetter.Invoke();
         private IGridManager GridManager => GameView.GameAreaView.GridManager;
         private Camera Camera => GameView.Camera;
 
-        public SelectionController(Func<IGameView> gameViewGetter)
+        private PlaceableModel SelectedPlaceable
+        {
+            get
+            {
+                if (_selectedPlaceable == null)
+                    return null;
+                return _selectedPlaceable.IsDisposed ? null : _selectedPlaceable;
+            }
+            set => _selectedPlaceable = value;
+        }
+
+        public SelectionController(Func<IGameView> gameViewGetter, IPlacementSystem placementSystem)
         {
             _gameViewGetter = gameViewGetter;
+            _placementSystem = placementSystem;
         }
 
         public event Action<PlaceableModel> OnSelect;
-        public event Action<PlaceableModel> OnDeSelect;
+        public event Action<PlaceableModel> OnDeselect;
 
         public void SelectPlaceable(PlaceableModel placeable)
         {
-            if (_selectedPlaceable != null)
-                DeSelectPlaceable(true);
+            if (SelectedPlaceable != null)
+                DeselectPlaceable(true);
 
-            _selectedPlaceable = placeable;
-            _selectedPlaceable.IsSelected.Value = true;
-            _returnPosition = _selectedPlaceable.Position.Value;
+            SelectedPlaceable = placeable;
+            SelectedPlaceable.IsSelected.Value = true;
+            _returnPosition = SelectedPlaceable.Position.Value;
 
-            OnSelect?.Invoke(_selectedPlaceable);
+            OnSelect?.Invoke(SelectedPlaceable);
         }
 
         //todo: add mobile controls support
         public void Tick()
         {
-            if (_selectedPlaceable == null)
+            if (SelectedPlaceable == null)
                 return;
 
             if (Input.GetMouseButtonUp(0))
             {
-                var returnToOriginalPosition = !TryPlaceOnCell(InputToGridPosition(Input.mousePosition));
-                DeSelectPlaceable(returnToOriginalPosition);
+                var returnToOriginalPosition = !_placementSystem.TryPlaceOnCell(SelectedPlaceable, InputToGridPosition(Input.mousePosition));
+                DeselectPlaceable(returnToOriginalPosition);
                 return;
             }
 
-            _selectedPlaceable.Position.Value = GetCellCenterFromInput(Input.mousePosition);
+            SelectedPlaceable.Position.Value = GetCellCenterFromInput(Input.mousePosition);
         }
 
-        private void DeSelectPlaceable(bool returnToOriginalPosition)
+        private void DeselectPlaceable(bool returnToOriginalPosition)
         {
+            if(SelectedPlaceable==null)
+                return;
+            
             if (returnToOriginalPosition)
-                _selectedPlaceable.Position.Value = _returnPosition;
+                SelectedPlaceable.Position.Value = _returnPosition;
 
-            _selectedPlaceable.IsSelected.Value = false;
+            SelectedPlaceable.IsSelected.Value = false;
 
-            OnDeSelect?.Invoke(_selectedPlaceable);
-            _selectedPlaceable = null;
-        }
-
-        private bool TryPlaceOnCell(Vector3Int cellPosition)
-        {
-            var tile = GridManager.GetTile(cellPosition);
-            if (tile == null || tile.IsOccupied)
-                return false;
-
-            _selectedPlaceable.ParentTile.Value = tile;
-            return true;
+            OnDeselect?.Invoke(SelectedPlaceable);
+            SelectedPlaceable = null;
         }
 
         private Vector3Int InputToGridPosition(Vector3 inputPosition)
@@ -98,7 +106,7 @@ namespace Features.Core.PlacementSystem
 
         public void Dispose()
         {
-            DeSelectPlaceable(true);
+            DeselectPlaceable(true);
         }
     }
 }

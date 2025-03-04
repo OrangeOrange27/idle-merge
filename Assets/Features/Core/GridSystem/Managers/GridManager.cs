@@ -48,6 +48,38 @@ namespace Features.Core.GridSystem.Managers
             return _validCells.GetValueOrDefault(position);
         }
 
+        public IGameAreaTile[] GetNeighbours(Vector3Int position)
+        {
+            return GetNeighbours(GetTile(position));
+        }
+
+        public IGameAreaTile[] GetNeighbours(IGameAreaTile tile)
+        {
+            if(tile == null)
+                return null;
+            
+            var neighbours = new List<IGameAreaTile>();
+            var position = tile.Position;
+
+            var left = GetTile(position + Vector3Int.left);
+            if (left != null)
+                neighbours.Add(left);
+
+            var right = GetTile(position + Vector3Int.right);
+            if (right != null)
+                neighbours.Add(right);
+
+            var up = GetTile(position + Vector3Int.up);
+            if (up != null)
+                neighbours.Add(up);
+
+            var down = GetTile(position + Vector3Int.down);
+            if (down != null)
+                neighbours.Add(down);
+
+            return neighbours.ToArray();
+        }
+
         private void OnTilemapChanged(Tilemap tilemap, Tilemap.SyncTile[] syncTiles)
         {
             if(tilemap != _tilemap)

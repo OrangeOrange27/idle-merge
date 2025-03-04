@@ -1,10 +1,11 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
+using Features.Core.Placeables.Models;
 using UnityEngine;
 
-namespace Features.Core
+namespace Features.Core.Placeables.Views
 {
-    public interface IPlaceableView
+    public interface IPlaceableView : IDisposable
     {
         event Action OnTap;
         

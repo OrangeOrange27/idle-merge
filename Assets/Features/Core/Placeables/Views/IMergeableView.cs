@@ -1,4 +1,4 @@
-﻿namespace Features.Core
+﻿namespace Features.Core.Placeables.Views
 {
     public class IMergeableView
     {

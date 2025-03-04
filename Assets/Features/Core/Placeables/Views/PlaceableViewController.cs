@@ -1,7 +1,8 @@
 ﻿using System;
+using Features.Core.Placeables.Models;
 using R3;
 
-namespace Features.Core
+namespace Features.Core.Placeables.Views
 {
     public class PlaceableViewController : IPlaceableViewController
     {

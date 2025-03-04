@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Features.Core.PlacementSystem
+namespace Features.Core.Placeables
 {
     public static class Constants
     {

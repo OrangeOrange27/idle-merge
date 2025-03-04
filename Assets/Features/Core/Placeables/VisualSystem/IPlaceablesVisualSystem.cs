@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Package.ControllersTree.Abstractions;
 
-namespace Features.Core.GridSystem.Managers
+namespace Features.Core.Placeables.VisualSystem
 {
     public interface IPlaceablesVisualSystem
     {

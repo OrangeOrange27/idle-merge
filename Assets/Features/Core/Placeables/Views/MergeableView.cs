@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Features.Core
+namespace Features.Core.Placeables.Views
 {
     public class MergeableView : PlaceableView
     {

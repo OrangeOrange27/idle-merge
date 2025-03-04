@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using VContainer;
 
 namespace Features.Gameplay.View
 {
@@ -11,5 +12,10 @@ namespace Features.Gameplay.View
         public Camera Camera => _camera;
         public IGameAreaView GameAreaView => _gameAreaView;
         public IGameUIView GameUIView => _gameUIView;
+
+        public void Initialize(IObjectResolver resolver)
+        {
+            resolver.Inject(_gameAreaView.GridManager);
+        }
     }
 }

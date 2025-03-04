@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Specialized;
+using Features.Core.GridSystem.Managers;
 using Features.Core.GridSystem.Tiles;
+using Features.Core.Placeables.Models;
 using ObservableCollections;
 using R3;
+using UnityEngine;
 
 namespace Features.Core.PlacementSystem
 {
     public class PlacementSystem : IPlacementSystem
     {
         private GameContext _gameContext;
+        private IGridManager _gridManager;
         
-        public IDisposable Initialize(GameContext gameContext)
+        public IDisposable Initialize(GameContext gameContext, IGridManager gridManager)
         {
             _gameContext = gameContext;
+            _gridManager = gridManager;
 
             var disposableBag = new DisposableBag();
 
@@ -49,6 +54,32 @@ namespace Features.Core.PlacementSystem
                 );
                 disposableBag.Add(disposable);
             }
+        }
+
+        public event Action<PlacementRequestResult> OnPlacementAttempt; 
+        
+        public bool TryPlaceOnCell(PlaceableModel placeable, Vector3Int cellPosition)
+        {
+            var tile = _gridManager.GetTile(cellPosition);
+            if (tile == null || tile.IsOccupied)
+            {
+                OnPlacementAttempt?.Invoke(new PlacementRequestResult()
+                {
+                    IsSuccessful = false,
+                    Placeable = placeable,
+                    TargetCell = cellPosition
+                });
+                return false;
+            }
+
+            placeable.ParentTile.Value = tile;
+            OnPlacementAttempt?.Invoke(new PlacementRequestResult()
+            {
+                IsSuccessful = true,
+                Placeable = placeable,
+                TargetCell = cellPosition
+            });
+            return true;
         }
         
         private static void ChangePlaceableTile(PlaceableModel placeable, IGameAreaTile oldTile, IGameAreaTile newTile)

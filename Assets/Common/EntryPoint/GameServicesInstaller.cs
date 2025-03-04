@@ -8,8 +8,11 @@ using Common.EntryPoint.Initialize;
 using Common.GlobalServiceLocator;
 using Common.JsonConverters;
 using Common.TimeService;
+using Features.Core;
 using Features.Core.MergeSystem;
 using Features.Core.MergeSystem.Config;
+using Features.Core.Placeables;
+using Features.Core.Placeables.Factories;
 using Features.Core.PlacementSystem;
 using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts;
@@ -75,19 +78,20 @@ namespace Common.EntryPoint
             
             builder.RegisterInstance(JsonSettings);
             
-            RegisterFeatures(builder);
-            
+            builder.RegisterSplashScreen(_splashSceneView);
+            RegisterSystems(builder);
+            builder.RegisterGameplay();
+
             OutsideBuilder?.Invoke(builder);
             builder.RegisterBuildCallback(GlobalServices.Initialize);
         }
 
-        private void RegisterFeatures(IContainerBuilder builder)
+        private void RegisterSystems(IContainerBuilder builder)
         {
-            builder.RegisterSplashScreen(_splashSceneView);
+            builder.RegisterPlaceables();
             builder.RegisterMergeSystem(supplyWeightsConfigProvider);
             builder.RegisterSupplySystem();
             builder.RegisterPlacementSystem();
-            builder.RegisterGameplay();
         }
     }
 }

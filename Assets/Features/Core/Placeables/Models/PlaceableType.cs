@@ -1,6 +1,6 @@
-﻿namespace Features.Core
+﻿namespace Features.Core.Placeables.Models
 {
-    public enum GameAreaObjectType
+    public enum PlaceableType
     {
         SpecialObject = 0,
         MergeableObject = 1,

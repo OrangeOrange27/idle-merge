@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.Core.Placeables.Models;
+using UnityEngine;
 
 namespace Features.Core.GridSystem.Tiles
 {

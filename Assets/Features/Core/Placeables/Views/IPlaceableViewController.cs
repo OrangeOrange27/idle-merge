@@ -1,6 +1,7 @@
 ﻿using System;
+using Features.Core.Placeables.Models;
 
-namespace Features.Core
+namespace Features.Core.Placeables.Views
 {
     public interface IPlaceableViewController : IDisposable
     {

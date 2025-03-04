@@ -1,16 +1,20 @@
 ﻿using System.Linq;
 using Features.Core.MergeSystem.Config;
-using UnityEngine;
+using Features.Core.Placeables.Factories;
+using Features.Core.Placeables.Models;
+using Random = UnityEngine.Random;
 
 namespace Features.Core.SupplySystem
 {
     public class RandomSupplyProvider : ISupplyProvider
     {
         private readonly SupplyWeightsConfig _supplyWeightsConfig;
-        
-        public RandomSupplyProvider(SupplyWeightsConfig supplyWeightsConfig)
+        private readonly PlaceablesFactoryResolver _placeablesFactory;
+
+        public RandomSupplyProvider(SupplyWeightsConfig supplyWeightsConfig, PlaceablesFactoryResolver placeablesFactory)
         {
             _supplyWeightsConfig = supplyWeightsConfig;
+            _placeablesFactory = placeablesFactory;
         }
         
         public PlaceableModel GetSupply()
@@ -24,10 +28,7 @@ namespace Features.Core.SupplySystem
             var rnd = Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
 
-            var model = new PlaceableModel()
-            {
-                ObjectType = GameAreaObjectType.MergeableObject
-            };
+            var model = _placeablesFactory.Create(PlaceableType.MergeableObject);
             
             foreach (var entry in _supplyWeightsConfig.WeightsArray)
             {

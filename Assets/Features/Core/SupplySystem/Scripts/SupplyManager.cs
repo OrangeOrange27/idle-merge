@@ -1,5 +1,4 @@
 ﻿using System;
-using Features.Core.GridSystem.Managers;
 using Features.Gameplay.View;
 using Package.Logger.Abstraction;
 using UnityEngine;
@@ -15,8 +14,6 @@ namespace Features.Core.SupplySystem
         private readonly ISupplyProvider _supplyProvider;
         private readonly Func<IGameView> _gameViewGetter;
         
-        private IGridManager _gridManager;
-
         public SupplyManager(Func<IGameView> gameViewGetter, ISupplyProvider supplyProvider)
         {
             _gameViewGetter = gameViewGetter;

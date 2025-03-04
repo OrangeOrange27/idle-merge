@@ -1,4 +1,5 @@
 ﻿using Features.Core.MergeSystem.Config;
+using Features.Core.MergeSystem.Scripts;
 using VContainer;
 
 namespace Features.Core.MergeSystem
@@ -9,6 +10,8 @@ namespace Features.Core.MergeSystem
         {
             builder.RegisterInstance<ISupplyWeightsConfigProvider, SupplyWeightsConfigProvider>(supplyWeightsConfigProvider);
             builder.RegisterInstance(supplyWeightsConfigProvider.GetConfig());
+
+            builder.Register<MergeController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Features.Core.GridSystem.Managers
         Grid Grid { get; }
         IGameAreaTile GetRandomFreeTile();
         IGameAreaTile GetTile(Vector3Int position);
+        IGameAreaTile[] GetNeighbours(Vector3Int position);
+        IGameAreaTile[] GetNeighbours(IGameAreaTile tile);
     }
 }

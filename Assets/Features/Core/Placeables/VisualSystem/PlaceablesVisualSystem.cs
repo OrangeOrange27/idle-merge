@@ -2,10 +2,12 @@
 using System.Collections.Specialized;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Features.Core.Placeables.Models;
+using Features.Core.Placeables.Views;
 using Features.Gameplay.Scripts.Controllers;
 using Package.ControllersTree.Abstractions;
 
-namespace Features.Core.GridSystem.Managers
+namespace Features.Core.Placeables.VisualSystem
 {
     public class PlaceablesVisualSystem : IPlaceablesVisualSystem
     {

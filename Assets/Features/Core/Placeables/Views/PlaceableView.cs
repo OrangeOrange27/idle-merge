@@ -1,10 +1,11 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
-using Features.Core.PlacementSystem;
+using Features.Core.Placeables.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using PlaceableModel = Features.Core.Placeables.Models.PlaceableModel;
 
-namespace Features.Core
+namespace Features.Core.Placeables.Views
 {
     public class PlaceableView : MonoBehaviour, IPlaceableView, IPointerDownHandler
     {
@@ -50,6 +51,11 @@ namespace Features.Core
         
         public virtual void SetStage(int stage)
         {
+        }
+
+        public void Dispose()
+        {
+            Destroy(gameObject);
         }
     }
 }
