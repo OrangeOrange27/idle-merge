@@ -3,6 +3,7 @@ using Common.Authentication.Providers;
 using Common.DataProvider.Infrastructure;
 using Common.Server;
 using Cysharp.Threading.Tasks;
+using Features.Core.Placeables.Models;
 using Microsoft.Extensions.Logging;
 using Package.Disposables;
 using Package.Logger.Abstraction;
@@ -20,9 +21,9 @@ namespace Common.PlayerData
         public bool IsOnline => _isOnline;
         public bool IsSignedIn { get; private set; }
         public PlayerData PlayerData { get; private set; }
-        
+
         public event Action<PlayerBalanceAssetType, int> OnBalanceChanged;
-        
+
         public PlayerDataService(IDataProvider playerDataProvider)
         {
             _playerDataProvider = playerDataProvider;
@@ -43,7 +44,7 @@ namespace Common.PlayerData
 
         public void GiveBalance(PlayerBalanceAssetType type, int amount)
         {
-            if(amount<0)
+            if (amount < 0)
                 return;
 
             using (Update())
@@ -52,18 +53,36 @@ namespace Common.PlayerData
 
         public void SpendBalance(PlayerBalanceAssetType type, int amount)
         {
-            if(PlayerData.Balance.GetBalance(type) < amount)
+            if (PlayerData.Balance.GetBalance(type) < amount)
                 return;
-            
-            using (Update()) 
+
+            using (Update())
                 PlayerData.Balance.ChangeBalance(type, -amount);
+        }
+
+        public void GiveCollectible(CollectibleType type, int amount)
+        {
+            if (amount < 0)
+                return;
+
+            using (Update())
+                PlayerData.Balance.ChangeCollectibleAmount(type, amount);
+        }
+
+        public void UseCollectible(CollectibleType type, int amount)
+        {
+            if (PlayerData.Balance.GetCollectibleAmount(type) < amount)
+                return;
+
+            using (Update())
+                PlayerData.Balance.ChangeCollectibleAmount(type, -amount);
         }
 
         public PlayerSettingsData GetPlayerSettings()
         {
             return PlayerData.Settings;
         }
-        
+
         private void SetOfflinePlayer()
         {
             _isOnline = false;

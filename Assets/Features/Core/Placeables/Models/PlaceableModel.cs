@@ -20,6 +20,9 @@ namespace Features.Core.Placeables.Models
         public MergeableType MergeableType;
         public GameplayReactiveProperty<int> Stage = new();
         
+        //Collectibles
+        public CollectibleType CollectibleType;
+        
         public bool IsDisposed { get; private set; }
 
         public void Dispose()

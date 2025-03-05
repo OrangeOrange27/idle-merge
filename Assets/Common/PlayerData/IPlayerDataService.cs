@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Authentication.Providers;
 using Cysharp.Threading.Tasks;
+using Features.Core.Placeables.Models;
 
 namespace Common.PlayerData
 {
@@ -17,6 +18,9 @@ namespace Common.PlayerData
         
         void GiveBalance(PlayerBalanceAssetType type, int amount);
         void SpendBalance(PlayerBalanceAssetType type, int amount);
+        
+        void GiveCollectible(CollectibleType type, int amount);
+        void UseCollectible(CollectibleType type, int amount);
         
         PlayerSettingsData GetPlayerSettings();
     }
