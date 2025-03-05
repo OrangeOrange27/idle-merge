@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Utils;
+using Common.Utils.Extensions;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables;
 using Features.Core.Placeables.Models;
@@ -97,9 +98,9 @@ namespace Features.Core.PlacementSystem
             var worldPosition = Camera.ScreenToWorldPoint(inputPosition);
             var gridPosition =
                 GridManager.Grid.GetCellCenterWorld(
-                    (worldPosition + (Vector3)(Vector2.Scale(Constants.PlaceableOffset, ((Vector2)worldPosition).normalized) - (Vector2)Constants.PlaceableOffset))
+                    (worldPosition + (Vector3)(Vector2.Scale(PlaceablesConstants.PlaceableOffset, ((Vector2)worldPosition).normalized) - (Vector2)PlaceablesConstants.PlaceableOffset))
                     .ToVector3Int());
-            gridPosition.z = Constants.ZOffset;
+            gridPosition.z = PlaceablesConstants.ZOffset;
 
             return gridPosition;
         }

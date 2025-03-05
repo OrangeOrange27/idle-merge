@@ -23,7 +23,7 @@ namespace Features.Core.Placeables.Views
 
         public void SetParentTile(IGameAreaTile tile)
         {
-            _model.Position.Value = tile.Position + Constants.PlaceableOffset;
+            _model.Position.Value = tile.Position + PlaceablesConstants.PlaceableOffset;
         }
 
         public void Move(Vector3 position)
