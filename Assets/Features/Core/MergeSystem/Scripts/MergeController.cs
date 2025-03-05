@@ -35,7 +35,8 @@ namespace Features.Core.MergeSystem.Scripts
                 return false;
 
             var connectedMergeables = GetAllConnectedMergeables(targetTile);
-            connectedMergeables.Add(placeable);
+            if(!connectedMergeables.Contains(placeable))
+                connectedMergeables.Add(placeable);
             
             if (connectedMergeables.Count < MinMergeableCount)
                 return false;
