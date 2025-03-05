@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Common.Utils;
 using Features.Core.GridSystem.Managers;
 using Features.Core.GridSystem.Tiles;
 using Features.Core.Placeables.Factories;
@@ -17,13 +17,13 @@ namespace Features.Core.MergeSystem.Scripts
 
         private readonly PlaceablesFactoryResolver _placeablesFactory;
         private readonly Func<IGameView> _gameViewGetter;
-        
+
         private IGameView _gameView;
 
         private IGameView GameView => _gameView ??= _gameViewGetter.Invoke();
-        private IGridManager GridManager => GameView.GameAreaView.GridManager;        
-        
-        public MergeController(PlaceablesFactoryResolver placeablesFactory,Func<IGameView> gameViewGetter)
+        private IGridManager GridManager => GameView.GameAreaView.GridManager;
+
+        public MergeController(PlaceablesFactoryResolver placeablesFactory, Func<IGameView> gameViewGetter)
         {
             _placeablesFactory = placeablesFactory;
             _gameViewGetter = gameViewGetter;
@@ -35,53 +35,73 @@ namespace Features.Core.MergeSystem.Scripts
                 return false;
 
             var connectedMergeables = GetAllConnectedMergeables(targetTile);
-            if(!connectedMergeables.Contains(placeable))
+            if (!connectedMergeables.Contains(placeable))
                 connectedMergeables.Add(placeable);
-            
+
             if (connectedMergeables.Count < MinMergeableCount)
                 return false;
 
-            var resultObject = Merge(placeable, targetTile, connectedMergeables);
-            if(resultObject!=null)
-                gameContext.Placeables.Add(resultObject);
-            
-            if (connectedMergeables.Count >= MinBonusMergeableCount)
-            {
-                var bonusObject = CreateBonusObject(placeable, targetTile);
-                if(bonusObject!=null)
-                    gameContext.Placeables.Add(bonusObject);
-            }
+            var mergeResult = Merge(placeable, targetTile, connectedMergeables);
+            if (!mergeResult.IsNullOrEmpty())
+                gameContext.Placeables.AddRange(mergeResult);
 
             return true;
         }
 
-        private PlaceableModel Merge(PlaceableModel placeable, IGameAreaTile targetTile, List<PlaceableModel> connectedMergeables)
+        private List<PlaceableModel> Merge(PlaceableModel placeable, IGameAreaTile targetTile,
+            List<PlaceableModel> connectedMergeables)
         {
+            var baseNextTierCount = connectedMergeables.Count / MinMergeableCount; // Standard merging (3 = 1 next-tier)
+            var mergeBonusCount =
+                connectedMergeables.Count % MinBonusMergeableCount == 0 // Extra next-tier items for every full set of 5
+                    ? connectedMergeables.Count / MinBonusMergeableCount
+                    : 0;
+            var totalNextTierCount = baseNextTierCount + mergeBonusCount;
+            var sameTierCount =
+                mergeBonusCount > 0
+                    ? 0
+                    : connectedMergeables.Count % MinMergeableCount; // Remaining items at the same tier
+
             foreach (var mergeable in connectedMergeables)
                 mergeable.Dispose();
-            
-            return CreateNextStageMergeable(placeable, targetTile);
+
+            var result = new List<PlaceableModel>();
+            for (int i = 0; i < totalNextTierCount; i++)
+                result.Add(CreateNextStageMergeable(placeable, GetFreeTile(targetTile)));
+            for (int i = 0; i < sameTierCount; i++)
+                result.Add(CreateMergeable(placeable, GetFreeTile(targetTile)));
+
+            return result;
         }
 
-        //BUGGY TODO:REFACTOR
-        private PlaceableModel CreateBonusObject(PlaceableModel placeable, IGameAreaTile targetTile)
+        private IGameAreaTile GetFreeTile(IGameAreaTile targetTile)
         {
-            var neighbourFreeTile = GridManager.GetNeighbours(targetTile)
-                .FirstOrDefault(tile => tile.IsOccupied == false);
-            var spawnTile = neighbourFreeTile ?? GridManager.GetRandomFreeTile();
+            if (targetTile.IsOccupied == false)
+                return targetTile;
 
-            if(spawnTile == null)
-                return null;
-            
-            return CreateNextStageMergeable(placeable, targetTile);
+            foreach (var tile in GridManager.GetNeighbours(targetTile))
+            {
+                if (tile.IsOccupied == false)
+                    return tile;
+            }
+
+            return GridManager.GetRandomFreeTile();
         }
 
-        private PlaceableModel CreateNextStageMergeable(PlaceableModel placeable, IGameAreaTile spawnTile)
+        private PlaceableModel CreateNextStageMergeable(PlaceableModel referenceModel, IGameAreaTile spawnTile)
+        {
+            var resultObject = CreateMergeable(referenceModel, spawnTile);
+            resultObject.Stage.Value++;
+            return resultObject;
+        }
+
+        private PlaceableModel CreateMergeable(PlaceableModel referenceModel, IGameAreaTile spawnTile)
         {
             var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject);
-            resultObject.MergeableType = placeable.MergeableType;
-            resultObject.Stage.Value = placeable.Stage.Value + 1;
+            resultObject.MergeableType = referenceModel.MergeableType;
+            resultObject.Stage.Value = referenceModel.Stage.Value;
             resultObject.ParentTile.Value = spawnTile;
+            spawnTile.Occupy(resultObject);
 
             return resultObject;
         }

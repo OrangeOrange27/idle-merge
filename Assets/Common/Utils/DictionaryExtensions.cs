@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Common.Utils
 {
-    public static class DictionaryExtensions
+    public static class IEnumerableExtensions
     {
         public static KeyValuePair<TKey, TValue> GetRandom<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
         {
@@ -20,6 +21,11 @@ namespace Common.Utils
             }
 
             return default;
+        }
+        
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable == null || !enumerable.Any();
         }
     }
 }
