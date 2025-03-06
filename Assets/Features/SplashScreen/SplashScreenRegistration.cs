@@ -11,7 +11,6 @@ namespace Features.SplashScreen
                 builder.RegisterInstance(splashSceneView);
             }
             
-            builder.Register<GameLoadingManager>(Lifetime.Singleton);
             builder.Register<GameInitializationController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }

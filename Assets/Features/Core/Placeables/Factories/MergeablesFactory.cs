@@ -1,12 +1,23 @@
-﻿using Features.Core.Placeables.Models;
+﻿using System;
+using Features.Core.MergeSystem.Scripts.Models;
+using Features.Core.Placeables.Models;
 
 namespace Features.Core.Placeables.Factories
 {
-    public class MergeablesFactory : IPlaceablesFactory
+    public class MergeablesFactory : IPlaceablesFactory<MergeableType>
     {
-        public PlaceableModel Create()
+        public PlaceableType FactoryType => PlaceableType.MergeableObject;
+
+        public PlaceableModel Create(MergeableType type)
         {
-            return new PlaceableModel() { ObjectType = PlaceableType.MergeableObject };
+            return new PlaceableModel() { ObjectType = PlaceableType.MergeableObject, MergeableType = type };
+        }
+
+        PlaceableModel IPlaceablesFactory.Create(Enum objectType)
+        {
+            return objectType is MergeableType type
+                ? Create(type)
+                : throw new ArgumentException($"Invalid type {objectType}");
         }
     }
 }

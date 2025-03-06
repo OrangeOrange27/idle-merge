@@ -19,7 +19,7 @@ namespace Common.PlayerData
                 Extras = new ExtraPlayerData
                 {
                     //optional data here
-                },
+                }
             };
 
             return playerData;

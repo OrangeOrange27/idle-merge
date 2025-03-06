@@ -12,9 +12,9 @@ namespace Common.PlayerData
 
         [JsonProperty("email")] public string Email;
 
-        [JsonProperty("loginData")] public PlayerLoginData LoginData;
+        [JsonProperty("loginData")] public PlayerLoginData LoginData = new();
 
-        [JsonProperty("purchases")] public PlayerPurchaseData PurchaseData;
+        [JsonProperty("purchases")] public PlayerPurchaseData PurchaseData = new();
         
         public override string ToString()
         {

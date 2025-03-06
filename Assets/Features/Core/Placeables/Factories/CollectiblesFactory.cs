@@ -1,12 +1,22 @@
-﻿using Features.Core.Placeables.Models;
+﻿using System;
+using Features.Core.Placeables.Models;
 
 namespace Features.Core.Placeables.Factories
 {
-    public class CollectiblesFactory : IPlaceablesFactory
+    public class CollectiblesFactory : IPlaceablesFactory<CollectibleType>
     {
-        public PlaceableModel Create()
+        public PlaceableType FactoryType => PlaceableType.CollectibleObject;
+
+        public PlaceableModel Create(CollectibleType type)
         {
-            return new PlaceableModel(){ObjectType = PlaceableType.CollectibleObject};
+            return new PlaceableModel() { ObjectType = PlaceableType.MergeableObject, CollectibleType = type };
+        }
+
+        PlaceableModel IPlaceablesFactory.Create(Enum objectType)
+        {
+            return objectType is CollectibleType type
+                ? Create(type)
+                : throw new ArgumentException($"Invalid type {objectType}");
         }
     }
 }

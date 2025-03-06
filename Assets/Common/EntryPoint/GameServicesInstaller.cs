@@ -13,6 +13,7 @@ using Common.EntryPoint.Initialize;
 using Common.GlobalServiceLocator;
 using Common.JsonConverters;
 using Common.PlayerData;
+using Common.Serialization;
 using Common.TimeService;
 using Features.Core;
 using Features.Core.MergeSystem;
@@ -61,6 +62,7 @@ namespace Common.EntryPoint
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterSerialization();
             RegisterDataProvider(builder);
             builder.RegisterFactory<Type, ILogger>(_ => (type) => LogManager.GetLogger(type.Name), Lifetime.Singleton);
 

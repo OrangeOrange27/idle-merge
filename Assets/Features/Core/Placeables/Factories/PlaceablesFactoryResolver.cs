@@ -11,17 +11,17 @@ namespace Features.Core.Placeables.Factories
         
         public PlaceablesFactoryResolver(IEnumerable<IPlaceablesFactory> factories)
         {
-            _factories = factories.ToDictionary(f => f.Create().ObjectType);
+            _factories = factories.ToDictionary(f => f.FactoryType);
         }
         
-        public PlaceableModel Create(PlaceableType objectType)
+        public PlaceableModel Create(PlaceableType placeableType, Enum objectType)
         {
-            if (_factories.TryGetValue(objectType, out var factory))
+            if (_factories.TryGetValue(placeableType, out var factory))
             {
-                return factory.Create();
+                return factory.Create(objectType);
             }
 
-            throw new InvalidOperationException($"No factory found for {objectType}");
+            throw new InvalidOperationException($"No factory found for {placeableType}");
         }
     }
 }

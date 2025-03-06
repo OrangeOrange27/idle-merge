@@ -12,7 +12,12 @@ namespace Features.Core.Placeables.Views
         void SetModel(PlaceableModel model);
         void SetParentTile(IGameAreaTile tile);
         void Move(Vector3 position);
+        
+        //Mergeables
         void SetStage(int stage);
+        
+        //Collectibles
+        void Collect();
         
         void Select();
         void DeSelect();

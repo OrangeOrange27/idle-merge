@@ -52,6 +52,10 @@ namespace Features.Core.Placeables.Views
         public virtual void SetStage(int stage)
         {
         }
+        
+        public virtual void Collect()
+        {
+        }
 
         public void Dispose()
         {

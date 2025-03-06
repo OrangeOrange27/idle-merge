@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Common.Authentication.Providers;
 using Common.EntryPoint.Initialize;
+using Common.PlayerData;
 using Cysharp.Threading.Tasks;
 
 namespace Features.SplashScreen
@@ -17,7 +19,7 @@ namespace Features.SplashScreen
         }
         
         private readonly SplashSceneView _splashSceneView;
-        private readonly GameLoadingManager _gameLoadingManager;
+        private readonly IPlayerDataService _playerDataService;
 
         private static readonly Dictionary<LoadingModule, float> LoadingProgress = new()
         {
@@ -25,18 +27,36 @@ namespace Features.SplashScreen
             { LoadingModule.GameData, 0.5f }
         };
 
-        public GameInitializationController(SplashSceneView splashSceneView, GameLoadingManager gameLoadingManager)
+        private bool _isGameDataInitComplete;
+        private bool IsSignInDone => _playerDataService.IsSignedIn;
+
+        public GameInitializationController(SplashSceneView splashSceneView, IPlayerDataService playerDataService)
         {
-            _splashSceneView = splashSceneView;
-            _gameLoadingManager = gameLoadingManager;
+            _splashSceneView = splashSceneView; 
+            _playerDataService = playerDataService;
         }
 
         public async UniTask InitializeBeforeAuth()
         {
-            await LoadComponentAsync(() => _gameLoadingManager.IsSignInDone, progress => LoadingProgress[LoadingModule.PlayerData] = progress, CancellationToken.None);
-            await LoadComponentAsync(() => _gameLoadingManager.IsGameDataInitComplete, progress => LoadingProgress[LoadingModule.GameData] = progress, CancellationToken.None);
+            var loadedGameTask = LoadGame();
+
+            await LoadComponentAsync(() => IsSignInDone, progress => LoadingProgress[LoadingModule.PlayerData] = progress, CancellationToken.None);
+            await LoadComponentAsync(() => _isGameDataInitComplete, progress => LoadingProgress[LoadingModule.GameData] = progress, CancellationToken.None);
+            
+            await loadedGameTask;
 
             _splashSceneView.ShowLoadingCompleted();
+        }
+
+        public async UniTask LoadGame()
+        {
+            await SignIn();
+            _isGameDataInitComplete = true;
+        }
+        
+        private async UniTask SignIn()
+        {
+            await _playerDataService.LoginWithProvider(AuthProvider.Guest);
         }
 
         private async UniTask LoadComponentAsync(Func<bool> isCompleteFunc, Action<float> progressCallback, CancellationToken cancellationToken)

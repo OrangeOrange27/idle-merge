@@ -28,7 +28,7 @@ namespace Features.Core.SupplySystem
             var rnd = Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
 
-            var model = _placeablesFactory.Create(PlaceableType.MergeableObject);
+            var dto = new MergeableCreationDTO();
             
             foreach (var entry in _supplyWeightsConfig.WeightsArray)
             {
@@ -36,16 +36,23 @@ namespace Features.Core.SupplySystem
 
                 if (rnd <= cumulativeWeight)
                 {
-                    model.MergeableType = entry.MergeableObject.MergeableType;
-                    model.Stage.Value = entry.MergeableObject.Stage;
-                    return model;
+                    dto.Type = entry.MergeableObject.MergeableType;
+                    dto.Stage = entry.MergeableObject.Stage;
+                    return CreateModel(dto);
                 }
             }
 
             var objectConfig = _supplyWeightsConfig.WeightsArray[^1].MergeableObject;
-            model.MergeableType = objectConfig.MergeableType;
-            model.Stage.Value = objectConfig.Stage;
-            return model;
+            dto.Type = objectConfig.MergeableType;
+            dto.Stage = objectConfig.Stage;
+            return CreateModel(dto);
+            
+            PlaceableModel CreateModel(MergeableCreationDTO creationDto)
+            {
+                var model = _placeablesFactory.Create(PlaceableType.MergeableObject, creationDto.Type);
+                model.Stage.Value = creationDto.Stage;
+                return model;
+            }
         }
     }
 }

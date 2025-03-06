@@ -3,10 +3,12 @@ using Common.Authentication.Providers;
 using Common.DataProvider.Infrastructure;
 using Common.Server;
 using Cysharp.Threading.Tasks;
+using fbg;
 using Features.Core.Placeables.Models;
 using Microsoft.Extensions.Logging;
 using Package.Disposables;
 using Package.Logger.Abstraction;
+using Debug = UnityEngine.Debug;
 
 namespace Common.PlayerData
 {
@@ -27,8 +29,6 @@ namespace Common.PlayerData
         public PlayerDataService(IDataProvider playerDataProvider)
         {
             _playerDataProvider = playerDataProvider;
-
-            PlayerData.Balance.OnBalanceChanged += (type, amount) => OnBalanceChanged?.Invoke(type, amount);
         }
 
         public IDisposable Update()
@@ -40,6 +40,7 @@ namespace Common.PlayerData
         {
             //no server yet
             SetOfflinePlayer();
+            PlayerData.Balance.OnBalanceChanged += (type, amount) => OnBalanceChanged?.Invoke(type, amount);
         }
 
         public void GiveBalance(PlayerBalanceAssetType type, int amount)

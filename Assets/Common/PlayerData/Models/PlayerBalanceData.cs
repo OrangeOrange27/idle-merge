@@ -105,6 +105,10 @@ namespace Common.PlayerData
         private void EnsureCollectiblesArraySize()
         {
             var enumValuesCount = EnumExtensions.GetValuesCount<CollectibleType>();
+
+            if(Collectibles.IsNullOrEmpty())
+                Collectibles = new CollectibleModel[enumValuesCount];
+            
             if (Collectibles.Length == enumValuesCount)
                 return;
 

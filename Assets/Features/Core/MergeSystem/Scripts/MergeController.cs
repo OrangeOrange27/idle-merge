@@ -97,8 +97,7 @@ namespace Features.Core.MergeSystem.Scripts
 
         private PlaceableModel CreateMergeable(PlaceableModel referenceModel, IGameAreaTile spawnTile)
         {
-            var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject);
-            resultObject.MergeableType = referenceModel.MergeableType;
+            var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject, referenceModel.MergeableType);
             resultObject.Stage.Value = referenceModel.Stage.Value;
             resultObject.ParentTile.Value = spawnTile;
             spawnTile.Occupy(resultObject);
