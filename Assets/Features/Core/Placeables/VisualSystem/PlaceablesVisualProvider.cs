@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Features.Core.MergeSystem.Scripts.Models;
+using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Models;
 using Features.Core.Placeables.Views;
 using Package.AssetProvider.ViewLoader.Infrastructure;

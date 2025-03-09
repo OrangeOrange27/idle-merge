@@ -1,6 +1,6 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
-using Features.Core.MergeSystem.Scripts.Models;
+using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Views;
 using UnityEngine;
 
@@ -22,6 +22,10 @@ namespace Features.Core.Placeables.Models
         
         //Collectibles
         public CollectibleType CollectibleType;
+        
+        //Production
+        public CollectibleType ProductionType;
+        public GameplayReactiveProperty<DateTime> NextCollectionDateTime = new();
         
         public bool IsDisposed { get; private set; }
 

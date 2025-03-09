@@ -1,4 +1,5 @@
-﻿using VContainer;
+﻿using Features.Core.SupplySystem.Providers;
+using VContainer;
 
 namespace Features.Core.SupplySystem
 {

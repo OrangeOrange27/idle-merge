@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Core.SupplySystem.Providers;
 using Features.Gameplay.View;
 using Package.Logger.Abstraction;
 using UnityEngine;

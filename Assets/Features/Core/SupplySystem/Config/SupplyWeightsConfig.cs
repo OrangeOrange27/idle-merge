@@ -1,7 +1,7 @@
 ﻿using System;
-using Features.Core.MergeSystem.Scripts.Models;
+using Features.Core.MergeSystem.Models;
 
-namespace Features.Core.MergeSystem.Config
+namespace Features.Core.SupplySystem.Config
 {
     [Serializable]
     public class SupplyWeightsConfig

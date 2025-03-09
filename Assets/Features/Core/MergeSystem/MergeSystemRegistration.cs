@@ -1,5 +1,4 @@
-﻿using Features.Core.MergeSystem.Config;
-using Features.Core.MergeSystem.Scripts;
+﻿using Features.Core.SupplySystem.Providers;
 using VContainer;
 
 namespace Features.Core.MergeSystem

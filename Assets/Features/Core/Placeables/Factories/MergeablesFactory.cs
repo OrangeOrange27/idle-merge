@@ -1,5 +1,5 @@
 ﻿using System;
-using Features.Core.MergeSystem.Scripts.Models;
+using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Models;
 
 namespace Features.Core.Placeables.Factories

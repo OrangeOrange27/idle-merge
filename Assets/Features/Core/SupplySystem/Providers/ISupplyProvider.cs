@@ -1,6 +1,6 @@
 ﻿using Features.Core.Placeables.Models;
 
-namespace Features.Core.SupplySystem
+namespace Features.Core.SupplySystem.Providers
 {
     public interface ISupplyProvider
     {

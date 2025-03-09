@@ -8,7 +8,7 @@ using Features.Core.Placeables.Models;
 using Features.Gameplay.View;
 using UnityEngine;
 
-namespace Features.Core.MergeSystem.Scripts
+namespace Features.Core.MergeSystem
 {
     public class MergeController : IMergeController
     {

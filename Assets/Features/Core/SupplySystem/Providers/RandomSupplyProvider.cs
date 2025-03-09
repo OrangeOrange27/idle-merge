@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using Features.Core.MergeSystem.Config;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
+using Features.Core.SupplySystem.Config;
+using Features.Core.SupplySystem.Models;
 using Random = UnityEngine.Random;
 
-namespace Features.Core.SupplySystem
+namespace Features.Core.SupplySystem.Providers
 {
     public class RandomSupplyProvider : ISupplyProvider
     {

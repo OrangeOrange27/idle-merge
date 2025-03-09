@@ -1,7 +1,7 @@
-﻿using Features.Core.MergeSystem.Config;
+﻿using Features.Core.SupplySystem.Config;
 using UnityEngine;
 
-namespace Features.Core.MergeSystem.ScriptableObjects
+namespace Features.Core.SupplySystem.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "SupplyWeightsConfig", menuName = "Config/SupplyWeightsConfig")]
     public class SupplyWeightsConfigSO : ScriptableObject

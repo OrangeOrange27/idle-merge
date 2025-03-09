@@ -1,4 +1,4 @@
-﻿namespace Features.Core.MergeSystem.Scripts.Models
+﻿namespace Features.Core.MergeSystem.Models
 {
     public enum MergeableType
     {

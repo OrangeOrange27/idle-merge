@@ -1,6 +1,6 @@
-﻿using Features.Core.MergeSystem.Scripts.Models;
+﻿using Features.Core.MergeSystem.Models;
 
-namespace Features.Core.SupplySystem
+namespace Features.Core.SupplySystem.Models
 {
     public class MergeableCreationDTO
     {

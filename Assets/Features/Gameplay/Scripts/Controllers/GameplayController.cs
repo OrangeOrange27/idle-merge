@@ -4,7 +4,7 @@ using System.Linq;
 using Common.PlayerData;
 using Features.Core;
 using Features.Core.GridSystem.Managers;
-using Features.Core.MergeSystem.Scripts;
+using Features.Core.MergeSystem;
 using Features.Core.Placeables.Models;
 using Features.Core.PlacementSystem;
 using Features.Gameplay.View;
