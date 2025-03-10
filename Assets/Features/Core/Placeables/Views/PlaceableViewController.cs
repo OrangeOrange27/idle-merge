@@ -10,9 +10,9 @@ namespace Features.Core.Placeables.Views
         private IPlaceableView _view;
         private GameContext _context;
         private IDisposable _disposable;
-        
+
         public event Action<PlaceableModel> OnTap;
-        
+
         public void InitOnCreate(GameContext context, IPlaceableView view, PlaceableModel model)
         {
             _context = context;
@@ -27,11 +27,17 @@ namespace Features.Core.Placeables.Views
 
             _disposable = Disposable.Combine(
                 _model.ParentTile.Subscribe(tile => _view.SetParentTile(tile)),
-                _model.Position.Subscribe(position => _view.Move(position)),
-                _model.Stage.Subscribe(stage => _view.SetStage(stage))
-                );
+                _model.Position.Subscribe(position => _view.Move(position))
+            );
+
+            if (_model is MergeableModel mergeableModel)
+            {
+                _disposable = Disposable.Combine(
+                    _disposable,
+                    mergeableModel.Stage.Subscribe(stage => _view.SetStage(stage)));
+            }
         }
-        
+
         public void Dispose()
         {
             _view.OnTap -= OnViewTap;

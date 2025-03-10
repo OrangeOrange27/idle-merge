@@ -29,7 +29,7 @@ namespace Features.Core.MergeSystem
             _gameViewGetter = gameViewGetter;
         }
 
-        public bool TryMerge(GameContext gameContext, PlaceableModel placeable, IGameAreaTile targetTile)
+        public bool TryMerge(GameContext gameContext, MergeableModel placeable, IGameAreaTile targetTile)
         {
             if (placeable.CanMergeWith(targetTile.OccupyingObject) == false)
                 return false;
@@ -48,8 +48,8 @@ namespace Features.Core.MergeSystem
             return true;
         }
 
-        private List<PlaceableModel> Merge(PlaceableModel placeable, IGameAreaTile targetTile,
-            List<PlaceableModel> connectedMergeables)
+        private List<MergeableModel> Merge(MergeableModel placeable, IGameAreaTile targetTile,
+            List<MergeableModel> connectedMergeables)
         {
             var baseNextTierCount = connectedMergeables.Count / MinMergeableCount; // Standard merging (3 = 1 next-tier)
             var mergeBonusCount =
@@ -65,7 +65,7 @@ namespace Features.Core.MergeSystem
             foreach (var mergeable in connectedMergeables)
                 mergeable.Dispose();
 
-            var result = new List<PlaceableModel>();
+            var result = new List<MergeableModel>();
             for (int i = 0; i < totalNextTierCount; i++)
                 result.Add(CreateNextStageMergeable(placeable, GetFreeTile(targetTile)));
             for (int i = 0; i < sameTierCount; i++)
@@ -88,16 +88,16 @@ namespace Features.Core.MergeSystem
             return GridManager.GetRandomFreeTile();
         }
 
-        private PlaceableModel CreateNextStageMergeable(PlaceableModel referenceModel, IGameAreaTile spawnTile)
+        private MergeableModel CreateNextStageMergeable(MergeableModel referenceModel, IGameAreaTile spawnTile)
         {
             var resultObject = CreateMergeable(referenceModel, spawnTile);
             resultObject.Stage.Value++;
             return resultObject;
         }
 
-        private PlaceableModel CreateMergeable(PlaceableModel referenceModel, IGameAreaTile spawnTile)
+        private MergeableModel CreateMergeable(MergeableModel referenceModel, IGameAreaTile spawnTile)
         {
-            var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject, referenceModel.MergeableType);
+            var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject, referenceModel.MergeableType) as MergeableModel;
             resultObject.Stage.Value = referenceModel.Stage.Value;
             resultObject.ParentTile.Value = spawnTile;
             spawnTile.Occupy(resultObject);
@@ -105,15 +105,15 @@ namespace Features.Core.MergeSystem
             return resultObject;
         }
 
-        private List<PlaceableModel> GetAllConnectedMergeables(IGameAreaTile startTile)
+        private List<MergeableModel> GetAllConnectedMergeables(IGameAreaTile startTile)
         {
-            var connectedMergeables = new List<PlaceableModel>();
+            var connectedMergeables = new List<MergeableModel>();
             var tilesToCheck = new Queue<IGameAreaTile>();
             var visitedTiles = new HashSet<Vector3Int>();
 
             tilesToCheck.Enqueue(startTile);
             visitedTiles.Add(startTile.Position);
-            connectedMergeables.Add(startTile.OccupyingObject);
+            connectedMergeables.Add(startTile.OccupyingObject as MergeableModel);
 
             while (tilesToCheck.Count > 0)
             {
@@ -126,9 +126,9 @@ namespace Features.Core.MergeSystem
                     if (visitedTiles.Contains(neighbourTile.Position) || !neighbourTile.IsOccupied)
                         continue;
 
-                    if (neighbourTile.OccupyingObject.CanMergeWith(currentTile.OccupyingObject))
+                    if ((neighbourTile.OccupyingObject as MergeableModel).CanMergeWith(currentTile.OccupyingObject))
                     {
-                        connectedMergeables.Add(neighbourTile.OccupyingObject);
+                        connectedMergeables.Add(neighbourTile.OccupyingObject as MergeableModel);
                         visitedTiles.Add(neighbourTile.Position);
                         tilesToCheck.Enqueue(neighbourTile);
                     }

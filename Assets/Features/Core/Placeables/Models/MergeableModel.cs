@@ -1,0 +1,37 @@
+﻿using System;
+using Features.Core.MergeSystem.Models;
+
+namespace Features.Core.Placeables.Models
+{
+    [Serializable]
+    public class MergeableModel : PlaceableModel
+    {
+        public MergeableType MergeableType;
+        public GameplayReactiveProperty<int> Stage = new();
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            Stage?.Dispose();
+        }
+    }
+    
+    public static class MergeablesExtensions
+    {
+        public static bool CanMergeWith(this MergeableModel original, MergeableModel other)
+        {
+            if(original == null || other == null)
+                return false;
+            
+            return original.MergeableType == other.MergeableType && original.Stage.Value == other.Stage.Value;
+        }
+        
+        public static bool CanMergeWith(this MergeableModel original, PlaceableModel other)
+        {
+            if(original == null || other is not MergeableModel otherMergeable)
+                return false;
+            
+            return original.MergeableType == otherMergeable.MergeableType && original.Stage.Value == otherMergeable.Stage.Value;
+        }
+    }
+}

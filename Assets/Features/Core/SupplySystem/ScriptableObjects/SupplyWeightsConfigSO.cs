@@ -1,4 +1,4 @@
-﻿using Features.Core.SupplySystem.Config;
+﻿using Features.Core.SupplySystem.Models;
 using UnityEngine;
 
 namespace Features.Core.SupplySystem.ScriptableObjects

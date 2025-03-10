@@ -10,7 +10,7 @@ namespace Features.Core.Placeables.Factories
 
         public PlaceableModel Create(MergeableType type)
         {
-            return new PlaceableModel() { ObjectType = PlaceableType.MergeableObject, MergeableType = type };
+            return new MergeableModel() { ObjectType = PlaceableType.MergeableObject, MergeableType = type };
         }
 
         PlaceableModel IPlaceablesFactory.Create(Enum objectType)

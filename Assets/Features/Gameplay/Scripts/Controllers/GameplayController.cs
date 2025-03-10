@@ -11,6 +11,7 @@ using Features.Gameplay.View;
 using Microsoft.Extensions.Logging;
 using Package.Logger.Abstraction;
 using R3;
+using ZLogger;
 
 namespace Features.Gameplay.Scripts.Controllers
 {
@@ -62,9 +63,12 @@ namespace Features.Gameplay.Scripts.Controllers
             if (targetTile is not { IsOccupied: true })
                 return;
 
-            if (result.Placeable.CanMergeWith(targetTile.OccupyingObject))
+            if (result.Placeable is MergeableModel resultMergeable)
             {
-                _mergeController.TryMerge(_gameContext, result.Placeable, targetTile);
+                if (resultMergeable.CanMergeWith(targetTile.OccupyingObject))
+                {
+                    _mergeController.TryMerge(_gameContext, resultMergeable, targetTile);
+                }
             }
         }
 
@@ -77,23 +81,35 @@ namespace Features.Gameplay.Scripts.Controllers
                 case PlaceableType.SpecialObject:
                     break;
                 case PlaceableType.MergeableObject:
-                    RegisterClickOnMergeable(placeableModel);
+                    RegisterClickOnMergeable(placeableModel as MergeableModel);
                     break;
                 case PlaceableType.CollectibleObject:
-                    RegisterClickOnCollectible(placeableModel);
+                    RegisterClickOnCollectible(placeableModel as CollectibleModel);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void RegisterClickOnMergeable(PlaceableModel placeableModel)
+        private void RegisterClickOnMergeable(MergeableModel placeableModel)
         {
+            if (placeableModel == null)
+            {
+                Logger.ZLogWarning("Tried to register click on NULL mergeable");
+                return;
+            }
+            
             _selectionController.SelectPlaceable(placeableModel);
         }
 
-        private void RegisterClickOnCollectible(PlaceableModel placeableModel)
+        private void RegisterClickOnCollectible(CollectibleModel placeableModel)
         {
+            if (placeableModel == null)
+            {
+                Logger.ZLogWarning("Tried to register click on NULL collectible");
+                return;
+            }
+            
             var collectibleType = placeableModel.CollectibleType;
             var collectibles = GetAllCollectiblesOnGameArea(collectibleType); 
             if(collectibles == null || collectibles.Count <=0)
@@ -102,10 +118,11 @@ namespace Features.Gameplay.Scripts.Controllers
             _playerDataService.GiveCollectible(collectibleType, collectibles.Count);
         }
 
-        private List<PlaceableModel> GetAllCollectiblesOnGameArea(CollectibleType type)
+        private List<CollectibleModel> GetAllCollectiblesOnGameArea(CollectibleType type)
         {
             return _gameContext.Placeables
-                .Where(model => model.ObjectType == PlaceableType.CollectibleObject && model.CollectibleType == type)
+                .OfType<CollectibleModel>()
+                .Where(model => model.CollectibleType == type)
                 .ToList();
         }
     }

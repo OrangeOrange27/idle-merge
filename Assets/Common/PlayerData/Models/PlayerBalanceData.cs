@@ -12,7 +12,7 @@ namespace Common.PlayerData
         [JsonProperty("coins")] public int Coins;
         [JsonProperty("gems")] public int Gems;
         [JsonProperty("energy")] public int Energy;
-        [JsonProperty("collectibles")] public CollectibleModel[] Collectibles;
+        [JsonProperty("collectibles")] public Collectible[] Collectibles;
 
         public event Action<PlayerBalanceAssetType, int> OnBalanceChanged;
 
@@ -107,12 +107,12 @@ namespace Common.PlayerData
             var enumValuesCount = EnumExtensions.GetValuesCount<CollectibleType>();
 
             if(Collectibles.IsNullOrEmpty())
-                Collectibles = new CollectibleModel[enumValuesCount];
+                Collectibles = new Collectible[enumValuesCount];
             
             if (Collectibles.Length == enumValuesCount)
                 return;
 
-            var collectibles = new CollectibleModel[enumValuesCount];
+            var collectibles = new Collectible[enumValuesCount];
             if (collectibles == null)
                 throw new ArgumentNullException(nameof(collectibles));
 
@@ -120,11 +120,11 @@ namespace Common.PlayerData
             {
                 var amount = Collectibles.FirstOrDefault(collectible => collectible.CollectibleType == type)?.Amount ??
                              0;
-                collectibles[(int)type] = new CollectibleModel { CollectibleType = type, Amount = amount };
+                collectibles[(int)type] = new Collectible { CollectibleType = type, Amount = amount };
             }
         }
 
-        private CollectibleModel GetCollectible(CollectibleType collectibleType)
+        private Collectible GetCollectible(CollectibleType collectibleType)
         {
             return Collectibles.FirstOrDefault(collectible => collectible.CollectibleType == collectibleType);
         }

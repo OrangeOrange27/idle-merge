@@ -3,8 +3,9 @@
 namespace Features.Core.Placeables.Models
 {
     [Serializable]
-    public class CollectibleModel : PlaceableModel
+    public class Collectible
     {
         public CollectibleType CollectibleType;
+        public int Amount;
     }
 }

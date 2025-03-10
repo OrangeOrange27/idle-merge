@@ -32,7 +32,9 @@ namespace Features.Core.Placeables
             builder.Register<IPlaceablesFactory, MergeablesFactory>(Lifetime.Singleton)
                 .WithParameter("type", PlaceableType.MergeableObject);
             builder.Register<IPlaceablesFactory, CollectiblesFactory>(Lifetime.Singleton)
-                .WithParameter("type", PlaceableType.CollectibleObject);
+                .WithParameter("type", PlaceableType.CollectibleObject);            
+            builder.Register<IPlaceablesFactory, ProductionObjectsFactory>(Lifetime.Singleton)
+                .WithParameter("type", PlaceableType.ProductionEntity);
             
             builder.Register<PlaceablesFactoryResolver>(Lifetime.Singleton);
         }

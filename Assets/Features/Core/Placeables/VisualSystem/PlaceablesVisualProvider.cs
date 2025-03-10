@@ -24,9 +24,9 @@ namespace Features.Core.Placeables.VisualSystem
         public UniTask<IPlaceableView> Load(PlaceableModel model, IControllerResources controllerResources,
             CancellationToken cancellationToken, Transform parent = null)
         {
-            return model.ObjectType switch
+            return model switch
             {
-                PlaceableType.MergeableObject => _mergeableViewLoader.Load(model.MergeableType,
+                MergeableModel mergeableModel => _mergeableViewLoader.Load(mergeableModel.MergeableType,
                     controllerResources,
                     cancellationToken, parent),
                 _ => _defaultViewLoader.Load(model.ObjectType.ToString(), controllerResources, cancellationToken,

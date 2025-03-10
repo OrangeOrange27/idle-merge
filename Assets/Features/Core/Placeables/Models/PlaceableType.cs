@@ -5,6 +5,7 @@
         SpecialObject = 0,
         MergeableObject = 1,
         CollectibleObject = 2,
-        ProductionBuilding = 3,
+        ProductionEntity = 3,
+        ProductionBuilding = 4,
     }
 }

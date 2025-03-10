@@ -1,6 +1,5 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
-using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Views;
 using UnityEngine;
 
@@ -15,21 +14,10 @@ namespace Features.Core.Placeables.Models
         public GameplayReactiveProperty<IGameAreaTile> ParentTile = new();
         public GameplayReactiveProperty<Vector3> Position = new();
         public GameplayReactiveProperty<bool> IsSelected = new();
-
-        //Mergeables
-        public MergeableType MergeableType;
-        public GameplayReactiveProperty<int> Stage = new();
-        
-        //Collectibles
-        public CollectibleType CollectibleType;
-        
-        //Production
-        public CollectibleType ProductionType;
-        public GameplayReactiveProperty<DateTime> NextCollectionDateTime = new();
         
         public bool IsDisposed { get; private set; }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             IsDisposed = true;
             
@@ -37,17 +25,8 @@ namespace Features.Core.Placeables.Models
             ParentTile?.Dispose();
             Position?.Dispose();
             IsSelected?.Dispose();
-            Stage?.Dispose();
             
             View?.Dispose();
-        }
-    }
-    
-    public static class PlaceablesExtensions
-    {
-        public static bool CanMergeWith(this PlaceableModel original, PlaceableModel other)
-        {
-            return original.MergeableType == other.MergeableType && original.Stage.Value == other.Stage.Value;
         }
     }
 }

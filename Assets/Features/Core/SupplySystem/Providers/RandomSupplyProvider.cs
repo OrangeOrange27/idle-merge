@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
-using Features.Core.SupplySystem.Config;
 using Features.Core.SupplySystem.Models;
 using Random = UnityEngine.Random;
 
@@ -48,9 +47,9 @@ namespace Features.Core.SupplySystem.Providers
             dto.Stage = objectConfig.Stage;
             return CreateModel(dto);
             
-            PlaceableModel CreateModel(MergeableCreationDTO creationDto)
+            MergeableModel CreateModel(MergeableCreationDTO creationDto)
             {
-                var model = _placeablesFactory.Create(PlaceableType.MergeableObject, creationDto.Type);
+                var model = _placeablesFactory.Create(PlaceableType.MergeableObject, creationDto.Type) as MergeableModel;
                 model.Stage.Value = creationDto.Stage;
                 return model;
             }
