@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using Common.Utils.Extensions;
 using Features.Core.GridSystem.Managers;
 using Features.Core.GridSystem.Tiles;
+using Features.Core.MergeSystem.Providers;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
 using Features.Gameplay.View;
+using Package.Logger.Abstraction;
 using UnityEngine;
+using ZLogger;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Features.Core.MergeSystem
 {
     public class MergeController : IMergeController
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<MergeController>();
+
         private const int MinMergeableCount = 3;
         private const int MinBonusMergeableCount = 5;
 
         private readonly PlaceablesFactoryResolver _placeablesFactory;
+        private readonly IMergeProvider _mergeProvider;
         private readonly Func<IGameView> _gameViewGetter;
 
         private IGameView _gameView;
@@ -23,10 +30,11 @@ namespace Features.Core.MergeSystem
         private IGameView GameView => _gameView ??= _gameViewGetter.Invoke();
         private IGridManager GridManager => GameView.GameAreaView.GridManager;
 
-        public MergeController(PlaceablesFactoryResolver placeablesFactory, Func<IGameView> gameViewGetter)
+        public MergeController(PlaceablesFactoryResolver placeablesFactory, Func<IGameView> gameViewGetter, IMergeProvider mergeProvider)
         {
             _placeablesFactory = placeablesFactory;
             _gameViewGetter = gameViewGetter;
+            _mergeProvider = mergeProvider;
         }
 
         public bool TryMerge(GameContext gameContext, MergeableModel placeable, IGameAreaTile targetTile)
@@ -48,7 +56,7 @@ namespace Features.Core.MergeSystem
             return true;
         }
 
-        private List<MergeableModel> Merge(MergeableModel placeable, IGameAreaTile targetTile,
+        private List<PlaceableModel> Merge(MergeableModel placeable, IGameAreaTile targetTile,
             List<MergeableModel> connectedMergeables)
         {
             var baseNextTierCount = connectedMergeables.Count / MinMergeableCount; // Standard merging (3 = 1 next-tier)
@@ -65,13 +73,42 @@ namespace Features.Core.MergeSystem
             foreach (var mergeable in connectedMergeables)
                 mergeable.Dispose();
 
-            var result = new List<MergeableModel>();
-            for (int i = 0; i < totalNextTierCount; i++)
-                result.Add(CreateNextStageMergeable(placeable, GetFreeTile(targetTile)));
-            for (int i = 0; i < sameTierCount; i++)
-                result.Add(CreateMergeable(placeable, GetFreeTile(targetTile)));
+            return HandleMergeResult(totalNextTierCount, sameTierCount, placeable, targetTile);
+        }
+
+        private List<PlaceableModel> HandleMergeResult(int nextTierCount, int sameTierCount, MergeableModel originalObject, IGameAreaTile targetTile)
+        {
+            var result = new List<PlaceableModel>();
+            var nextTierObject = _mergeProvider.Get(originalObject.MergeableType, originalObject.Stage.Value);
+
+            if (nextTierObject == null)
+            {
+                Logger.ZLogError("Could not find merge result object");
+                return result;
+            }
+
+            for (var i = 0; i < nextTierCount; i++)
+                result.Add(CreateAndPositionPlaceable(nextTierObject, GetFreeTile(targetTile)));
+            for (var i = 0; i < sameTierCount; i++)
+                result.Add(CreateAndPositionPlaceable(originalObject, GetFreeTile(targetTile)));
 
             return result;
+        }
+
+        private PlaceableModel CreateAndPositionPlaceable(PlaceableModel originalObject, IGameAreaTile targetTile)
+        {
+            var tile = GetFreeTile(targetTile);
+            if (tile == null)
+            {
+                Logger.ZLogError("Could not find free tile for merge result object");
+                return null;
+            }
+                
+            var model = originalObject.Clone();
+            model.ParentTile.Value = tile;
+            tile.Occupy(model);
+
+            return model;
         }
 
         private IGameAreaTile GetFreeTile(IGameAreaTile targetTile)
@@ -86,23 +123,6 @@ namespace Features.Core.MergeSystem
             }
 
             return GridManager.GetRandomFreeTile();
-        }
-
-        private MergeableModel CreateNextStageMergeable(MergeableModel referenceModel, IGameAreaTile spawnTile)
-        {
-            var resultObject = CreateMergeable(referenceModel, spawnTile);
-            resultObject.Stage.Value++;
-            return resultObject;
-        }
-
-        private MergeableModel CreateMergeable(MergeableModel referenceModel, IGameAreaTile spawnTile)
-        {
-            var resultObject = _placeablesFactory.Create(PlaceableType.MergeableObject, referenceModel.MergeableType) as MergeableModel;
-            resultObject.Stage.Value = referenceModel.Stage.Value;
-            resultObject.ParentTile.Value = spawnTile;
-            spawnTile.Occupy(resultObject);
-
-            return resultObject;
         }
 
         private List<MergeableModel> GetAllConnectedMergeables(IGameAreaTile startTile)

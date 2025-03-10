@@ -1,5 +1,7 @@
 ﻿using System;
+using Features.Core.GridSystem.Tiles;
 using Features.Core.MergeSystem.Models;
+using UnityEngine;
 
 namespace Features.Core.Placeables.Models
 {
@@ -8,6 +10,21 @@ namespace Features.Core.Placeables.Models
     {
         public MergeableType MergeableType;
         public GameplayReactiveProperty<int> Stage = new();
+        
+        public MergeableModel()
+        {
+        }
+
+        protected MergeableModel(MergeableModel other) : base(other)
+        {
+            MergeableType = other.MergeableType;
+            Stage = new GameplayReactiveProperty<int>(other.Stage.Value);
+        }
+        
+        public override PlaceableModel Clone()
+        {
+            return new MergeableModel(this);
+        }
 
         public override void Dispose()
         {

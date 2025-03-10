@@ -17,6 +17,7 @@ using Common.Serialization;
 using Common.TimeService;
 using Features.Core;
 using Features.Core.MergeSystem;
+using Features.Core.MergeSystem.Providers;
 using Features.Core.Placeables;
 using Features.Core.Placeables.Factories;
 using Features.Core.PlacementSystem;
@@ -44,6 +45,7 @@ namespace Common.EntryPoint
         [SerializeField] private LifetimeScope[] _compositeScopes;
         [SerializeField] private SplashSceneView _splashSceneView;
         [SerializeField] private SupplyWeightsConfigProvider supplyWeightsConfigProvider;
+        [SerializeField] private MergesConfigProvider _mergesConfigProvider;
 
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -100,8 +102,8 @@ namespace Common.EntryPoint
         private void RegisterSystems(IContainerBuilder builder)
         {
             builder.RegisterPlaceables();
-            builder.RegisterMergeSystem(supplyWeightsConfigProvider);
-            builder.RegisterSupplySystem();
+            builder.RegisterMergeSystem(_mergesConfigProvider);
+            builder.RegisterSupplySystem(supplyWeightsConfigProvider);
             builder.RegisterPlacementSystem();
         }
 

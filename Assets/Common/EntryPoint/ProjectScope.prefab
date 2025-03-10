@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7171860102206684358}
   - component: {fileID: 7696564839100698249}
   - component: {fileID: 1884999974545409363}
+  - component: {fileID: 1886457322445925509}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   _compositeScopes: []
   _splashSceneView: {fileID: 0}
   supplyWeightsConfigProvider: {fileID: 1884999974545409363}
+  _mergesConfigProvider: {fileID: 1886457322445925509}
   _disableInitFlow: 0
 --- !u!114 &1884999974545409363
 MonoBehaviour:
@@ -66,3 +68,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 6d0da6633be5e264caa442c822ebb67e, type: 2}
+--- !u!114 &1886457322445925509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212875366303386821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33898dd3c793498a81395f40bce62162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 3e9932c666e3c3b44a0efa12f73ea8c0, type: 2}
