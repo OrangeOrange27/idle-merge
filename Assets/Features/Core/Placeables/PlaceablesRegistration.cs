@@ -23,6 +23,15 @@ namespace Features.Core.Placeables
                     _ => throw new ArgumentOutOfRangeException(nameof(mergeableType), mergeableType, null)
                 };
             });
+            builder.RegisterViewLoader<ProductionObjectView, IPlaceableView, ProductionType>(productionType =>
+            {
+                return productionType switch
+                {
+                    ProductionType.Egg => "EggProducer",
+                    ProductionType.Carrot => "CarrotProducer",
+                    _ => throw new ArgumentOutOfRangeException(nameof(productionType), productionType, null)
+                };
+            });
             
             builder.Register<PlaceableViewController>(Lifetime.Transient).AsImplementedInterfaces();
             builder.RegisterFactory<IPlaceableViewController>(resolver => resolver.Resolve<IPlaceableViewController>, Lifetime.Transient);

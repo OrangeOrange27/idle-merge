@@ -25,6 +25,6 @@ namespace Features.Core.MergeSystem.Models
         public MergeableType MergeableType;
         public int Stage;
         public CollectibleType CollectibleType;
-        public CollectibleType ProductionType;
+        public ProductionType ProductionType;
     }
 }

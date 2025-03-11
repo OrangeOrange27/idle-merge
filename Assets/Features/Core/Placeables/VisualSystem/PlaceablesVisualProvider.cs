@@ -13,12 +13,15 @@ namespace Features.Core.Placeables.VisualSystem
     {
         private readonly IViewLoader<IPlaceableView, string> _defaultViewLoader;
         private readonly IViewLoader<IPlaceableView, MergeableType> _mergeableViewLoader;
+        private readonly IViewLoader<IPlaceableView, ProductionType> _productionEntityViewLoader;
 
         public PlaceablesVisualProvider(IViewLoader<IPlaceableView, string> defaultViewLoader,
-            IViewLoader<IPlaceableView, MergeableType> mergeableViewLoader)
+            IViewLoader<IPlaceableView, MergeableType> mergeableViewLoader,
+            IViewLoader<IPlaceableView, ProductionType> productionEntityViewLoader)
         {
             _defaultViewLoader = defaultViewLoader;
             _mergeableViewLoader = mergeableViewLoader;
+            _productionEntityViewLoader = productionEntityViewLoader;
         }
 
         public UniTask<IPlaceableView> Load(PlaceableModel model, IControllerResources controllerResources,
@@ -27,8 +30,9 @@ namespace Features.Core.Placeables.VisualSystem
             return model switch
             {
                 MergeableModel mergeableModel => _mergeableViewLoader.Load(mergeableModel.MergeableType,
-                    controllerResources,
-                    cancellationToken, parent),
+                    controllerResources, cancellationToken, parent),
+                ProductionObjectModel productionObjectModel => _productionEntityViewLoader.Load(
+                    productionObjectModel.ProductionType, controllerResources, cancellationToken, parent),
                 _ => _defaultViewLoader.Load(model.ObjectType.ToString(), controllerResources, cancellationToken,
                     parent)
             };

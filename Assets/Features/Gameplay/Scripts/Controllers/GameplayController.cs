@@ -86,6 +86,9 @@ namespace Features.Gameplay.Scripts.Controllers
                 case PlaceableType.CollectibleObject:
                     RegisterClickOnCollectible(placeableModel as CollectibleModel);
                     break;
+                case PlaceableType.ProductionEntity:
+                    RegisterClickOnProductionObject(placeableModel as ProductionObjectModel);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -100,6 +103,17 @@ namespace Features.Gameplay.Scripts.Controllers
             }
             
             _selectionController.SelectPlaceable(placeableModel);
+        }
+        
+        private void RegisterClickOnProductionObject(ProductionObjectModel productionObjectModel)
+        {
+            if (productionObjectModel == null)
+            {
+                Logger.ZLogWarning("Tried to register click on NULL production object");
+                return;
+            }
+            
+            _selectionController.SelectPlaceable(productionObjectModel);
         }
 
         private void RegisterClickOnCollectible(CollectibleModel placeableModel)
