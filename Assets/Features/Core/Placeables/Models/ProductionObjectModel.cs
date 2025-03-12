@@ -7,6 +7,7 @@ namespace Features.Core.Placeables.Models
     {
         public ProductionType ProductionType;
         public GameplayReactiveProperty<DateTime> NextCollectionDateTime = new();
+        public GameplayReactiveProperty<int> TimesCollected = new();
 
         public ProductionObjectModel()
         {
@@ -27,6 +28,7 @@ namespace Features.Core.Placeables.Models
         {
             base.Dispose();
             NextCollectionDateTime?.Dispose();
+            TimesCollected?.Dispose();
         }
     }
 }

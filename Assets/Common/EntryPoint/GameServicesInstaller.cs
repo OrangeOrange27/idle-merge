@@ -21,6 +21,8 @@ using Features.Core.MergeSystem.Providers;
 using Features.Core.Placeables;
 using Features.Core.Placeables.Factories;
 using Features.Core.PlacementSystem;
+using Features.Core.ProductionSystem;
+using Features.Core.ProductionSystem.Providers;
 using Features.Core.SupplySystem;
 using Features.Core.SupplySystem.Providers;
 using Features.Gameplay.Scripts;
@@ -46,6 +48,7 @@ namespace Common.EntryPoint
         [SerializeField] private SplashSceneView _splashSceneView;
         [SerializeField] private SupplyWeightsConfigProvider supplyWeightsConfigProvider;
         [SerializeField] private MergesConfigProvider _mergesConfigProvider;
+        [SerializeField] private ProductionConfigProvider _productionConfigProvider;
 
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -105,6 +108,7 @@ namespace Common.EntryPoint
             builder.RegisterMergeSystem(_mergesConfigProvider);
             builder.RegisterSupplySystem(supplyWeightsConfigProvider);
             builder.RegisterPlacementSystem();
+            builder.RegisterProductionSystem(_productionConfigProvider);
         }
 
         private void RegisterDataProvider(IContainerBuilder builder)

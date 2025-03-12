@@ -11,5 +11,6 @@ namespace Features.Core.PlacementSystem
         
         IDisposable Initialize(GameContext gameContext, IGridManager gridManager);
         bool TryPlaceOnCell(PlaceableModel placeable, Vector3Int cellPosition);
+        void PlaceOnRandomCell(PlaceableModel placeable);
     }
 }

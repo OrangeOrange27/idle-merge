@@ -13,7 +13,9 @@ namespace Features.Core.PlacementSystem
     {
         private GameContext _gameContext;
         private IGridManager _gridManager;
-        
+
+        public IGridManager GridManager => _gridManager;
+
         public IDisposable Initialize(GameContext gameContext, IGridManager gridManager)
         {
             _gameContext = gameContext;
@@ -58,6 +60,11 @@ namespace Features.Core.PlacementSystem
 
         public event Action<PlacementRequestResult> OnPlacementAttempt; 
         
+        public void PlaceOnRandomCell(PlaceableModel placeable)
+        {
+            TryPlaceOnCell(placeable, _gridManager.GetRandomFreeTile().Position);
+        }
+        
         public bool TryPlaceOnCell(PlaceableModel placeable, Vector3Int cellPosition)
         {
             var tile = _gridManager.GetTile(cellPosition);
@@ -81,7 +88,7 @@ namespace Features.Core.PlacementSystem
             });
             return true;
         }
-        
+
         private static void ChangePlaceableTile(PlaceableModel placeable, IGameAreaTile oldTile, IGameAreaTile newTile)
         {
             oldTile?.DeOccupy();

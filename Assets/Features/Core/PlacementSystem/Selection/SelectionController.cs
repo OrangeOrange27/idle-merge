@@ -12,6 +12,8 @@ namespace Features.Core.PlacementSystem
 {
     public class SelectionController : ISelectionController, ITickable, IDisposable
     {
+        private const float MinDistanceToMoveSelectedObject = 0.15f;
+        
         private readonly Func<IGameView> _gameViewGetter;
         private readonly IPlacementSystem _placementSystem;
 
@@ -22,6 +24,8 @@ namespace Features.Core.PlacementSystem
         private IGameView GameView => _gameView ??= _gameViewGetter.Invoke();
         private IGridManager GridManager => GameView.GameAreaView.GridManager;
         private Camera Camera => GameView.Camera;
+        
+        private Vector2 _lastClickMousePosition;
 
         private PlaceableModel SelectedPlaceable
         {
@@ -51,6 +55,8 @@ namespace Features.Core.PlacementSystem
             SelectedPlaceable = placeable;
             SelectedPlaceable.IsSelected.Value = true;
             _returnPosition = SelectedPlaceable.Position.Value;
+            
+            _lastClickMousePosition = Input.mousePosition;
 
             OnSelect?.Invoke(SelectedPlaceable);
         }
@@ -68,7 +74,8 @@ namespace Features.Core.PlacementSystem
                 return;
             }
 
-            SelectedPlaceable.Position.Value = GetCellCenterFromInput(Input.mousePosition);
+            if(Vector2.Distance(_lastClickMousePosition, Input.mousePosition) > MinDistanceToMoveSelectedObject)
+                SelectedPlaceable.Position.Value = GetCellCenterFromInput(Input.mousePosition);
         }
 
         private void DeselectPlaceable(bool returnToOriginalPosition)

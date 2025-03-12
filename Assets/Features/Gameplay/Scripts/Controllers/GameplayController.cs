@@ -114,6 +114,8 @@ namespace Features.Gameplay.Scripts.Controllers
             }
             
             _selectionController.SelectPlaceable(productionObjectModel);
+            
+            
         }
 
         private void RegisterClickOnCollectible(CollectibleModel placeableModel)
