@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Core.Common.Models;
 using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
@@ -9,12 +10,12 @@ namespace Features.Core.MergeSystem.Providers
     public class MergeProvider : IMergeProvider
     {
         private PlaceablesFactoryResolver _placeablesFactory;
-        private readonly Dictionary<(MergeableType, int), MergeResult> _mergesDictionary;
+        private readonly Dictionary<(MergeableType, int), PlaceableCreationInstruction> _mergesDictionary;
 
         public MergeProvider(MergesConfig mergesConfig, PlaceablesFactoryResolver placeablesFactory)
         {
             _placeablesFactory = placeablesFactory;
-            _mergesDictionary = new Dictionary<(MergeableType, int), MergeResult>();
+            _mergesDictionary = new Dictionary<(MergeableType, int), PlaceableCreationInstruction>();
 
             foreach (var mergeCfg in mergesConfig.Merges)
             {
@@ -32,7 +33,7 @@ namespace Features.Core.MergeSystem.Providers
             return GetModelFromMergeResult(mergeResult);
         }
 
-        private PlaceableModel GetModelFromMergeResult(MergeResult mergeResult)
+        private PlaceableModel GetModelFromMergeResult(PlaceableCreationInstruction mergeResult)
         {
             Enum type = mergeResult.ObjectType switch
             {

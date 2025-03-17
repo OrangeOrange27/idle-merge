@@ -1,9 +1,11 @@
-﻿using Features.Core.Placeables.Models;
+﻿using System.Collections.Generic;
+using Features.Core.Placeables.Models;
 
 namespace Features.Core.ProductionSystem
 {
     public interface IProductionController
     {
-        CollectibleModel TryCollect(ProductionObjectModel productionObjectModel);
+        List<CollectibleModel> TryCollect(ProductionObjectModel productionObjectModel);
+        List<PlaceableModel> Recycle(ProductionObjectModel productionObjectModel);
     }
 }

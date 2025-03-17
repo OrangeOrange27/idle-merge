@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common.PlayerData;
+using Cysharp.Threading.Tasks;
 using Features.Core;
 using Features.Core.GridSystem.Managers;
 using Features.Core.MergeSystem;
 using Features.Core.Placeables.Models;
+using Features.Core.Placeables.Views;
 using Features.Core.PlacementSystem;
+using Features.Core.ProductionSystem;
 using Features.Gameplay.View;
 using Microsoft.Extensions.Logging;
 using Package.Logger.Abstraction;
@@ -23,6 +26,7 @@ namespace Features.Gameplay.Scripts.Controllers
         private readonly IPlacementSystem _placementSystem;
         private readonly IMergeController _mergeController;
         private readonly IPlayerDataService _playerDataService;
+        private readonly IProductionController _productionController;
         private readonly Func<IGameView> _gameViewGetter;
 
         private GameContext _gameContext;
@@ -31,13 +35,14 @@ namespace Features.Gameplay.Scripts.Controllers
         public GameContext GameContext => _gameContext;
 
         public GameplayController(ISelectionController selectionController, IPlacementSystem placementSystem,
-            Func<IGameView> gameViewGetter, IMergeController mergeController, IPlayerDataService playerDataService)
+            Func<IGameView> gameViewGetter, IMergeController mergeController, IPlayerDataService playerDataService, IProductionController productionController)
         {
             _selectionController = selectionController;
             _placementSystem = placementSystem;
             _gameViewGetter = gameViewGetter;
             _mergeController = mergeController;
             _playerDataService = playerDataService;
+            _productionController = productionController;
         }
 
         public IDisposable Initialize(GameContext gameContext)
@@ -113,9 +118,25 @@ namespace Features.Gameplay.Scripts.Controllers
                 return;
             }
             
+            var productionObjectView = productionObjectModel.View as ProductionObjectView;
+
+            if (productionObjectModel.IsExausted)
+            {
+                _gameContext.Placeables.AddRange(_productionController.Recycle(productionObjectModel));
+                return;
+            }
+            
             _selectionController.SelectPlaceable(productionObjectModel);
+
+            var collectibles = _productionController.TryCollect(productionObjectModel);
+            if (collectibles == null)
+            {
+                productionObjectView?.ShowAndHideTooltip().Forget();
+                return;
+            }
             
-            
+            _gameContext.Placeables.AddRange(collectibles);
+            productionObjectView?.ClaimProducts();
         }
 
         private void RegisterClickOnCollectible(CollectibleModel placeableModel)

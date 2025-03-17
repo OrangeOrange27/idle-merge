@@ -16,5 +16,6 @@ MonoBehaviour:
     ProductionConfigEntries:
     - ProductionType: 3
       Config:
+        ProductionAmount: 2
         CoolDownInSeconds: 60
         MaximumCollectionTimes: 2

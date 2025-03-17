@@ -20,6 +20,7 @@ namespace Features.Core.ProductionSystem.Models
     [Serializable]
     public class ProductionConfig
     {
+        public int ProductionAmount;
         public int CoolDownInSeconds;
         public int MaximumCollectionTimes;
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Core.ProductionSystem.Models;
 
 namespace Features.Core.Placeables.Models
 {
@@ -6,8 +7,13 @@ namespace Features.Core.Placeables.Models
     public class ProductionObjectModel : PlaceableModel
     {
         public ProductionType ProductionType;
+        public ProductionConfig ProductionConfig;
+        public RecycleResult RecycleResult;
+        
         public GameplayReactiveProperty<DateTime> NextCollectionDateTime = new();
         public GameplayReactiveProperty<int> TimesCollected = new();
+        
+        public bool IsExausted => TimesCollected.Value >= ProductionConfig.MaximumCollectionTimes;
 
         public ProductionObjectModel()
         {

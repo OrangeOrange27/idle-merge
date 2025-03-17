@@ -49,6 +49,7 @@ namespace Common.EntryPoint
         [SerializeField] private SupplyWeightsConfigProvider supplyWeightsConfigProvider;
         [SerializeField] private MergesConfigProvider _mergesConfigProvider;
         [SerializeField] private ProductionConfigProvider _productionConfigProvider;
+        [SerializeField] private RecycleConfigProvider _recycleConfigProvider;
 
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -108,7 +109,7 @@ namespace Common.EntryPoint
             builder.RegisterMergeSystem(_mergesConfigProvider);
             builder.RegisterSupplySystem(supplyWeightsConfigProvider);
             builder.RegisterPlacementSystem();
-            builder.RegisterProductionSystem(_productionConfigProvider);
+            builder.RegisterProductionSystem(_productionConfigProvider, _recycleConfigProvider);
         }
 
         private void RegisterDataProvider(IContainerBuilder builder)

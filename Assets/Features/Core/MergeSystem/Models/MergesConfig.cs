@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Core.Common.Models;
 using Features.Core.Placeables.Models;
 
 namespace Features.Core.MergeSystem.Models
@@ -14,17 +15,6 @@ namespace Features.Core.MergeSystem.Models
     {
         public MergeableType RequiredType;
         public int RequiredStage;
-        public MergeResult ResultObject;
-    }
-
-    //don't really like it :/
-    [Serializable]
-    public class MergeResult
-    {
-        public PlaceableType ObjectType;
-        public MergeableType MergeableType;
-        public int Stage;
-        public CollectibleType CollectibleType;
-        public ProductionType ProductionType;
+        public PlaceableCreationInstruction ResultObject;
     }
 }
