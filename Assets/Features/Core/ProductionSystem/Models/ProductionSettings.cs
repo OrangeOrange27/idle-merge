@@ -3,9 +3,8 @@ using Features.Core.Placeables.Models;
 
 namespace Features.Core.ProductionSystem.Models
 {
-    //todo: rename 
     [Serializable]
-    public class ProductionsConfig
+    public class ProductionSettings
     {
         public ProductionConfigEntry[] ProductionConfigEntries;
     }

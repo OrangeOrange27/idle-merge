@@ -16,10 +16,10 @@ namespace Features.Core.Placeables.Factories
         
         public PlaceableType FactoryType => PlaceableType.ProductionEntity;
         
-        public ProductionObjectsFactory(ProductionsConfig productionsConfig, RecyclingConfig recyclingConfig)
+        public ProductionObjectsFactory(ProductionSettings productionSettings, RecyclingConfig recyclingConfig)
         {
             _productionConfigs = new Dictionary<ProductionType, ProductionConfig>();
-            foreach (var configEntry in productionsConfig.ProductionConfigEntries)
+            foreach (var configEntry in productionSettings.ProductionConfigEntries)
             {
                 if (_productionConfigs.ContainsKey(configEntry.ProductionType))
                     continue;

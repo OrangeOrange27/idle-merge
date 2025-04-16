@@ -6,6 +6,6 @@ namespace Features.Core.ProductionSystem.Models
     [CreateAssetMenu(fileName = "ProductionConfig", menuName = "Config/ProductionConfig")]
     public class ProductionConfigSO : ScriptableObject
     {
-        [FormerlySerializedAs("ProductionConfig")] public ProductionsConfig productionsConfig = new();
+        [FormerlySerializedAs("productionsConfig")] [FormerlySerializedAs("ProductionConfig")] public ProductionSettings productionSettings = new();
     }
 }

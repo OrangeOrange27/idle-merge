@@ -12,7 +12,7 @@ namespace Features.Core.ProductionSystem
             builder.RegisterInstance(productionConfigProvider.GetConfig());
 
             builder.RegisterInstance<IRecycleConfigProvider, RecycleConfigProvider>(recycleConfigProvider);
-            builder.RegisterInstance(productionConfigProvider.GetConfig());
+            builder.RegisterInstance(recycleConfigProvider.GetConfig());
 
             builder.Register<ProductionController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
