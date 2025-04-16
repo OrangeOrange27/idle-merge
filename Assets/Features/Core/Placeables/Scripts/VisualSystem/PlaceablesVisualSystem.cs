@@ -11,15 +11,15 @@ namespace Features.Core.Placeables.VisualSystem
 {
     public class PlaceablesVisualSystem : IPlaceablesVisualSystem
     {
-        private readonly Func<IPlaceableViewController> _viewControllerGetter;
+        private readonly Func<PlaceableModel, IPlaceableViewControllerBase> _viewControllerGetter;
         private readonly IPlaceablesVisualProvider _placeablesVisualProvider;
         private readonly IGameplayController _gameplayController;
 
         private IControllerResources _resources;
         private GameContext _gameContext;
-        private IPlaceableViewController[] _viewControllers;
+        private IPlaceableViewControllerBase[] _viewControllers;
 
-        public PlaceablesVisualSystem(Func<IPlaceableViewController> viewControllerGetter,
+        public PlaceablesVisualSystem(Func<PlaceableModel, IPlaceableViewControllerBase> viewControllerGetter,
             IPlaceablesVisualProvider placeablesVisualProvider, IGameplayController gameplayController)
         {
             _viewControllerGetter = viewControllerGetter;
@@ -33,7 +33,7 @@ namespace Features.Core.Placeables.VisualSystem
             _resources = resources;
             _gameContext = context;
             _gameContext.Placeables.CollectionChanged += OnPlaceablesCollectionChanged;
-
+            
             _viewControllers =
                 await UniTask.WhenAll(context.Placeables.Select(model => LoadSpawnView(model, resources, token)));
         }
@@ -74,15 +74,16 @@ namespace Features.Core.Placeables.VisualSystem
                 .ContinueWith(controller => controller.InitObserving());
         }
 
-        private async UniTask<IPlaceableViewController> LoadSpawnView(PlaceableModel model,
+        private async UniTask<IPlaceableViewControllerBase> LoadSpawnView(PlaceableModel model,
             IControllerResources resources, CancellationToken token)
         {
             var view = await _placeablesVisualProvider.Load(model, resources, token,
                 model.ParentTile.CurrentValue.Transform);
-            var viewController = _viewControllerGetter.Invoke();
+
+            var viewController = _viewControllerGetter.Invoke(model);
 
             model.View = view;
-            viewController.InitOnCreate(_gameContext, view, model);
+            viewController.InitOnCreate(view, model);
             resources.Attach(viewController);
 
             viewController.OnTap += OnViewTap;

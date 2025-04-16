@@ -44,16 +44,20 @@ namespace Features.Core.Placeables.Factories
                 Logger.ZLogError($"No production config found for {type}");
                 return null;
             }
-            
+
             if (_recycleConfigs.TryGetValue(type, out var recycleResult) == false)
             {
                 Logger.ZLogError($"No recycle config found for {type}");
                 return null;
             }
-            
-            var model = new ProductionObjectModel() { ObjectType = PlaceableType.ProductionEntity, ProductionType = type };
-            model.ProductionConfig = productionConfig;
-            model.RecycleResult = recycleResult;
+
+            var model = new ProductionObjectModel
+            {
+                ObjectType = PlaceableType.ProductionEntity, 
+                ProductionType = type, 
+                ProductionConfig = productionConfig,
+                RecycleResult = recycleResult
+            };
             return model;
         }
 

@@ -9,10 +9,10 @@ namespace Features.Core.Placeables.Models
         public ProductionType ProductionType;
         public ProductionConfig ProductionConfig;
         public RecycleResult RecycleResult;
-        
+
         public GameplayReactiveProperty<DateTime> NextCollectionDateTime = new();
         public GameplayReactiveProperty<int> TimesCollected = new();
-        
+
         public bool IsExausted => TimesCollected.Value >= ProductionConfig.MaximumCollectionTimes;
 
         public ProductionObjectModel()
@@ -22,7 +22,10 @@ namespace Features.Core.Placeables.Models
         protected ProductionObjectModel(ProductionObjectModel other) : base(other)
         {
             ProductionType = other.ProductionType;
+            ProductionConfig = other.ProductionConfig;
+            RecycleResult = other.RecycleResult;
             NextCollectionDateTime = new GameplayReactiveProperty<DateTime>(other.NextCollectionDateTime.Value);
+            TimesCollected = new GameplayReactiveProperty<int>(other.TimesCollected.Value);
         }
 
         public override PlaceableModel Clone()

@@ -80,19 +80,16 @@ namespace Features.Gameplay.Scripts.Controllers
         public void RegisterPlaceableClick(PlaceableModel placeableModel)
         {
             Logger.LogInformation($"Placeable {placeableModel} clicked");
-            switch (placeableModel.ObjectType)
+            switch (placeableModel)
             {
-                case PlaceableType.ProductionBuilding:
-                case PlaceableType.SpecialObject:
+                case MergeableModel mergeableModel:
+                    RegisterClickOnMergeable(mergeableModel);
                     break;
-                case PlaceableType.MergeableObject:
-                    RegisterClickOnMergeable(placeableModel as MergeableModel);
+                case CollectibleModel collectibleModel:
+                    RegisterClickOnCollectible(collectibleModel);
                     break;
-                case PlaceableType.CollectibleObject:
-                    RegisterClickOnCollectible(placeableModel as CollectibleModel);
-                    break;
-                case PlaceableType.ProductionEntity:
-                    RegisterClickOnProductionObject(placeableModel as ProductionObjectModel);
+                case ProductionObjectModel productionObjectModel:
+                    RegisterClickOnProductionObject(productionObjectModel);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

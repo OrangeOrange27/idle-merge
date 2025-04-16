@@ -33,8 +33,8 @@ namespace Features.Core.Placeables
                 };
             });
             
-            builder.Register<PlaceableViewController>(Lifetime.Transient).AsImplementedInterfaces();
-            builder.RegisterFactory<IPlaceableViewController>(resolver => resolver.Resolve<IPlaceableViewController>, Lifetime.Transient);
+            builder.RegisterViewControllers();
+            
             builder.Register<PlaceablesVisualSystem>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlaceablesVisualProvider>(Lifetime.Singleton).AsImplementedInterfaces();
             

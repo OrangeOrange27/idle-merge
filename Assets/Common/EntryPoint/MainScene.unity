@@ -220,6 +220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectScope
       objectReference: {fileID: 0}
+    - target: {fileID: 1884999974545409363, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: a38a6b1b926804e0ab7e673da2629e19, type: 2}
     - target: {fileID: 7171860102206684358, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.9564991

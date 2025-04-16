@@ -9,7 +9,7 @@ namespace Features.Core.Placeables.Models
     public class MergeableModel : PlaceableModel
     {
         public MergeableType MergeableType;
-        public GameplayReactiveProperty<int> Stage = new();
+        public GameplayReactiveProperty<int> Stage = new(55);
         
         public MergeableModel()
         {
