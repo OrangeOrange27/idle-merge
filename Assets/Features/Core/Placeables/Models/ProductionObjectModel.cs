@@ -22,7 +22,10 @@ namespace Features.Core.Placeables.Models
         protected ProductionObjectModel(ProductionObjectModel other) : base(other)
         {
             ProductionType = other.ProductionType;
+            ProductionConfig = other.ProductionConfig;
+            RecycleResult = other.RecycleResult;
             NextCollectionDateTime = new GameplayReactiveProperty<DateTime>(other.NextCollectionDateTime.Value);
+            TimesCollected = new GameplayReactiveProperty<int>(other.TimesCollected.Value);
         }
 
         public override PlaceableModel Clone()
