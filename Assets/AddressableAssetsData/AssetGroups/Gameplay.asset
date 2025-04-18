@@ -32,6 +32,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa218153c566a4743b91de27f0ece304
+    m_Address: Assets/Features/Core/Placeables/Prefabs/Collectibles/TEST Collectible
+      1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 574965251b6e68d44a97f07fed44eae1, type: 2}
   m_SchemaSet:

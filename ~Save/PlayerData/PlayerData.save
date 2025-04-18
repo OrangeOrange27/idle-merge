@@ -1,0 +1,23 @@
+{
+  "balance": {
+    "collectibles": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "settings": {
+    "isMusicEnabled": true,
+    "isSoundEnabled": true,
+    "isVibrationsEnabled": true
+  },
+  "extras": {},
+  "id": "8959c76e-7d7f-4c76-a7c0-96db7c104e54",
+  "loginData": {
+    "CreatedAt": "1970-01-01T00:00:00Z",
+    "LastLogin": "1970-01-01T00:00:00Z"
+  },
+  "purchases": {}
+}

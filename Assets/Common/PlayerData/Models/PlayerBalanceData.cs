@@ -108,9 +108,6 @@ namespace Common.PlayerData
 
             if(Collectibles.IsNullOrEmpty())
                 Collectibles = new Collectible[enumValuesCount];
-            
-            if (Collectibles.Length == enumValuesCount)
-                return;
 
             var collectibles = new Collectible[enumValuesCount];
             if (collectibles == null)
@@ -118,10 +115,13 @@ namespace Common.PlayerData
 
             foreach (var type in EnumExtensions.EnumToList<CollectibleType>())
             {
-                var amount = Collectibles.FirstOrDefault(collectible => collectible.CollectibleType == type)?.Amount ??
-                             0;
+                var collectible = Collectibles.FirstOrDefault(collectible => 
+                    collectible != null && collectible.CollectibleType == type);
+                var amount = collectible?.Amount ?? 0;
                 collectibles[(int)type] = new Collectible { CollectibleType = type, Amount = amount };
             }
+            
+            Collectibles = collectibles;
         }
 
         private Collectible GetCollectible(CollectibleType collectibleType)
