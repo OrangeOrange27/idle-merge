@@ -82,7 +82,8 @@ namespace Features.Core.ProductionSystem
         private CollectibleModel CreateAndPositionCollectible(ProductionObjectModel productionObjectModel)
         {
             var collectible =
-                _placeablesFactory.Create(PlaceableType.CollectibleObject, productionObjectModel.ProductionType);
+                _placeablesFactory.Create(PlaceableType.CollectibleObject,
+                    productionObjectModel.ProductionType.ToCollectibleType());
             _placementSystem.PlaceOnRandomCell(collectible);
 
             return collectible as CollectibleModel;

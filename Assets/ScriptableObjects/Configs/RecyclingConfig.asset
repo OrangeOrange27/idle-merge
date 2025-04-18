@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RecyclingConfig:
     RecyclingConfigEntries:
-    - ProductionType: 0
+    - ProductionType: 3
       Config:
         RecycleResultPlaceable:
           ObjectType: 1

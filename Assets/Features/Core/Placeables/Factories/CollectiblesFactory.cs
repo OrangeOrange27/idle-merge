@@ -9,7 +9,7 @@ namespace Features.Core.Placeables.Factories
 
         public PlaceableModel Create(CollectibleType type)
         {
-            return new CollectibleModel() { ObjectType = PlaceableType.MergeableObject, CollectibleType = type };
+            return new CollectibleModel() { ObjectType = PlaceableType.CollectibleObject, CollectibleType = type };
         }
 
         PlaceableModel IPlaceablesFactory.Create(Enum objectType)

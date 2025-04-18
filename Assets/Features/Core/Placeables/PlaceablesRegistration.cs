@@ -23,6 +23,15 @@ namespace Features.Core.Placeables
                     _ => throw new ArgumentOutOfRangeException(nameof(mergeableType), mergeableType, null)
                 };
             });
+            builder.RegisterViewLoader<CollectibleView, IPlaceableView, CollectibleType>(collectibleType =>
+            {
+                return collectibleType switch
+                {
+                    CollectibleType.Egg => "EggCollectible",
+                    CollectibleType.Carrot => "CarrotCollectible",
+                    _ => throw new ArgumentOutOfRangeException(nameof(collectibleType), collectibleType, null)
+                };
+            });
             builder.RegisterViewLoader<ProductionObjectView, IPlaceableView, ProductionType>(productionType =>
             {
                 return productionType switch
