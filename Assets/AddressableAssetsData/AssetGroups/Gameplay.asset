@@ -33,8 +33,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa218153c566a4743b91de27f0ece304
-    m_Address: Assets/Features/Core/Placeables/Prefabs/Collectibles/TEST Collectible
-      1.prefab
+    m_Address: EggCollectible
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

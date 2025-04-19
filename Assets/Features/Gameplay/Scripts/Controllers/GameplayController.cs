@@ -149,10 +149,16 @@ namespace Features.Gameplay.Scripts.Controllers
             
             var collectibleType = placeableModel.CollectibleType;
             var collectibles = GetAllCollectiblesOnGameArea(collectibleType); 
-            if(collectibles == null || collectibles.Count <=0)
+            if(collectibles is not { Count: > 0 })
                 return;
             
             _playerDataService.GiveCollectible(collectibleType, collectibles.Count);
+            foreach (var collectible in collectibles)
+            {
+                collectible.View.Collect();
+                collectible.Dispose();
+                _gameContext.Placeables.Remove(collectible);
+            }
         }
 
         private List<CollectibleModel> GetAllCollectiblesOnGameArea(CollectibleType type)
