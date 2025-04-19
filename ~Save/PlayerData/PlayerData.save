@@ -1,11 +1,20 @@
 {
   "balance": {
     "collectibles": [
-      null,
-      null,
-      null,
-      null,
-      null
+      {},
+      {
+        "CollectibleType": 1
+      },
+      {
+        "CollectibleType": 2
+      },
+      {
+        "CollectibleType": 3,
+        "Amount": 58
+      },
+      {
+        "CollectibleType": 4
+      }
     ]
   },
   "settings": {
@@ -14,7 +23,7 @@
     "isVibrationsEnabled": true
   },
   "extras": {},
-  "id": "8959c76e-7d7f-4c76-a7c0-96db7c104e54",
+  "id": "4bad8bd2-e8f2-4f6c-b15d-b7a29b85c542",
   "loginData": {
     "CreatedAt": "1970-01-01T00:00:00Z",
     "LastLogin": "1970-01-01T00:00:00Z"
