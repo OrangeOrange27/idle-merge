@@ -11,7 +11,7 @@ namespace Features.Core.Placeables.Views
     {
         public event Action OnTap;
 
-        private PlaceableModel _model;
+        protected PlaceableModel _model;
         private bool _isSelected;
 
         public bool CanMove => true;
