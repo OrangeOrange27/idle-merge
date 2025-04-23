@@ -4,7 +4,9 @@ namespace Features.Core.Placeables.Views
 {
     public interface IProductionObjectView
     {
-        UniTask ShowAndHideTooltip();
+        void ShowHarvestTooltip();
+        UniTask HideHarvestTooltip();
+        UniTask ShowAndHideTimerTooltip();
         void ClaimProducts();
         void Kill();
     }

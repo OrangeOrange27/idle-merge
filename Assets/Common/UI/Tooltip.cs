@@ -10,14 +10,12 @@ namespace Common.UI
 {
     public class Tooltip : MonoBehaviour
     {
-        [Header("Parameters")] [SerializeField]
-        private float _hideDelay = 2f;
-
+        [Header("Parameters")] 
+        [SerializeField] private float _hideDelay = 2f;
         [SerializeField] private bool _closeOnTouch;
-
-        [Space] [Header("References")] [SerializeField]
-        private TMP_Text _tooltipText;
-
+        [Space] 
+        [Header("References")] 
+        [SerializeField] private TMP_Text _tooltipText;
         [SerializeField] private Animator _animator;
 
         private bool _isShowing;
@@ -57,7 +55,9 @@ namespace Common.UI
 
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
-            await ScheduleHide();
+            
+            if(_hideDelay>0) 
+                await ScheduleHide();
         }
 
         public void ForceHide()

@@ -131,7 +131,7 @@ namespace Features.Gameplay.Scripts.Controllers
             var collectibles = _productionController.TryCollect(productionObjectModel);
             if (collectibles == null)
             {
-                productionObjectView?.ShowAndHideTooltip().Forget();
+                productionObjectView?.ShowAndHideTimerTooltip().Forget();
                 return;
             }
             

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Common.UI;
 using Common.Utils;
 using Cysharp.Threading.Tasks;
@@ -10,14 +9,25 @@ namespace Features.Core.Placeables.Views
 {
     public class ProductionObjectView : PlaceableView, IProductionObjectView
     {
-        [SerializeField] private Tooltip _tooltip;
+        [SerializeField] private Tooltip _timerTooltip;
+        [SerializeField] private Tooltip _harvestTooltip;
 
         private ProductionObjectModel Model => _model as ProductionObjectModel;
-        
-        public async UniTask ShowAndHideTooltip()
+        private TimeSpan TimeToNextHarvest => Model.NextCollectionDateTime.Value - DateTime.Now;
+
+        public void ShowHarvestTooltip()
         {
-            var timeToNextHarvest = Model.NextCollectionDateTime.Value - DateTime.Now;
-            await _tooltip.ShowAndHideAsync(Helpers.FormatTimer(timeToNextHarvest));
+            _harvestTooltip.Show(Helpers.FormatTimer(TimeToNextHarvest));
+        }
+
+        public async UniTask HideHarvestTooltip()
+        {
+            await _harvestTooltip.HideAsync();
+        }
+
+        public async UniTask ShowAndHideTimerTooltip()
+        {
+            await _timerTooltip.ShowAndHideAsync(Helpers.FormatTimer(TimeToNextHarvest));
         }
 
         public void ClaimProducts()
@@ -27,7 +37,5 @@ namespace Features.Core.Placeables.Views
         public void Kill()
         {
         }
-        
-        
     }
 }
