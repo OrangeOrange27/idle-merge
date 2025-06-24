@@ -83,7 +83,7 @@ namespace Features.Gameplay.Scripts.Controllers
             switch (placeableModel.ObjectType)
             {
                 case PlaceableType.ProductionBuilding:
-                case PlaceableType.SpecialObject:
+                    RegisterClickOnProductionBuilding(placeableModel as ProductionBuildingModel);
                     break;
                 case PlaceableType.MergeableObject:
                     RegisterClickOnMergeable(placeableModel as MergeableModel);
@@ -93,6 +93,8 @@ namespace Features.Gameplay.Scripts.Controllers
                     break;
                 case PlaceableType.ProductionEntity:
                     RegisterClickOnProductionObject(placeableModel as ProductionObjectModel);
+                    break;
+                case PlaceableType.SpecialObject:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -137,6 +139,19 @@ namespace Features.Gameplay.Scripts.Controllers
             
             _gameContext.Placeables.AddRange(collectibles);
             productionObjectView?.ClaimProducts();
+        }
+
+        private void RegisterClickOnProductionBuilding(ProductionBuildingModel productionBuildingModel)
+        {
+            if (productionBuildingModel == null)
+            {
+                Logger.ZLogWarning("Tried to register click on NULL production building");
+                return;
+            }
+            
+            var productionBuildingView = productionBuildingModel.View as ProductionBuildingView;
+
+            //TODO
         }
 
         private void RegisterClickOnCollectible(CollectibleModel placeableModel)

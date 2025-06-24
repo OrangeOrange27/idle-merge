@@ -7,6 +7,5 @@
         Milk,
         Egg,
         Carrot,
-        //etc
     }
 }
