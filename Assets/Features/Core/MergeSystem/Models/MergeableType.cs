@@ -5,5 +5,9 @@
         None = 0,
         Circle,
         Square,
+        
+        Coin,
+        Gem,
+        Energy
     }
 }

@@ -15,6 +15,7 @@ namespace Features.Core.ProductionSystem
             builder.RegisterInstance(recycleConfigProvider.GetConfig());
 
             builder.Register<ProductionController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CraftingController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }
