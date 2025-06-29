@@ -10,7 +10,6 @@ namespace Features.Core.Placeables.Views
         event Action OnTap;
         
         void SetModel(PlaceableModel model);
-        void SetParentTile(IGameAreaTile tile);
         void Move(Vector3 position);
         
         //Mergeables

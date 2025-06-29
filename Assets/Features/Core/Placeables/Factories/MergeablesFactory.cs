@@ -1,6 +1,7 @@
 ﻿using System;
 using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Models;
+using UnityEngine;
 
 namespace Features.Core.Placeables.Factories
 {
@@ -10,7 +11,12 @@ namespace Features.Core.Placeables.Factories
 
         public PlaceableModel Create(MergeableType type)
         {
-            return new MergeableModel() { ObjectType = PlaceableType.MergeableObject, MergeableType = type };
+            return new MergeableModel()
+            {
+                ObjectType = PlaceableType.MergeableObject,
+                MergeableType = type,
+                Size = new Vector2(1,1) //todo: pass cfg
+            };
         }
 
         PlaceableModel IPlaceablesFactory.Create(Enum objectType)

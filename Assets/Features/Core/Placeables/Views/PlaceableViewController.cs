@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using Features.Core.GridSystem.Tiles;
 using Features.Core.Placeables.Models;
+using ObservableCollections;
 using R3;
 
 namespace Features.Core.Placeables.Views
@@ -19,14 +22,19 @@ namespace Features.Core.Placeables.Views
             _view = view;
             _model = model;
             _view.SetModel(_model);
+            
+            UpdateParentTile(_model.OccupiedTiles.First());
         }
 
         public void InitObserving()
         {
             _view.OnTap += OnViewTap;
-
+            _model.OccupiedTiles.CollectionChanged += OnParentTileChange;
+            
             _disposable = Disposable.Combine(
-                _model.ParentTile.Subscribe(tile => _view.SetParentTile(tile)),
+                new Package.Disposables.Disposable(() =>
+                    _model.OccupiedTiles.CollectionChanged -= OnParentTileChange),
+                
                 _model.Position.Subscribe(position => _view.Move(position))
             );
 
@@ -36,6 +44,18 @@ namespace Features.Core.Placeables.Views
                     _disposable,
                     mergeableModel.Stage.Subscribe(stage => _view.SetStage(stage)));
             }
+
+            return;
+
+            void OnParentTileChange(in NotifyCollectionChangedEventArgs<IGameAreaTile> e)
+            {
+                UpdateParentTile(e.NewItems[0]);
+            }
+        }
+
+        private void UpdateParentTile(in IGameAreaTile tile)
+        {
+            _model.Position.Value = tile.Position + PlaceablesConstants.PlaceableOffset;
         }
 
         public void Dispose()

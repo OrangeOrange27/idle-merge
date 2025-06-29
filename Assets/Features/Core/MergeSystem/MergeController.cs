@@ -105,7 +105,7 @@ namespace Features.Core.MergeSystem
             }
                 
             var model = originalObject.Clone();
-            model.ParentTile.Value = tile;
+            model.OccupiedTiles.Add(tile);
             tile.Occupy(model);
 
             return model;

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Features.Core.Placeables.Models;
 using Features.Core.ProductionSystem.Models;
-using Microsoft.Extensions.Logging;
 using Package.Logger.Abstraction;
+using UnityEngine;
 using ZLogger;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Features.Core.Placeables.Factories
 {
@@ -51,7 +52,13 @@ namespace Features.Core.Placeables.Factories
                 return null;
             }
             
-            var model = new ProductionObjectModel() { ObjectType = PlaceableType.ProductionEntity, ProductionType = type };
+            var model = new ProductionObjectModel()
+            {
+                ObjectType = PlaceableType.ProductionEntity,
+                ProductionType = type,
+                Size = new Vector2(1,1) //todo: pass cfg
+            };
+            
             model.ProductionConfig = productionConfig;
             model.RecycleResult = recycleResult;
             return model;

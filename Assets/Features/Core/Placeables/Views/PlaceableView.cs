@@ -21,11 +21,6 @@ namespace Features.Core.Placeables.Views
             _model = model;
         }
 
-        public void SetParentTile(IGameAreaTile tile)
-        {
-            _model.Position.Value = tile.Position + PlaceablesConstants.PlaceableOffset;
-        }
-
         public void Move(Vector3 position)
         {
             if (CanMove == false)

@@ -10,7 +10,7 @@ namespace Features.Core.PlacementSystem
         event Action<PlacementRequestResult> OnPlacementAttempt; 
         
         IDisposable Initialize(GameContext gameContext, IGridManager gridManager);
-        bool TryPlaceOnCell(PlaceableModel placeable, Vector3Int cellPosition);
+        bool TryPlaceOnCell(PlaceableModel placeable, Vector3Int targetCellPosition);
         void PlaceOnRandomCell(PlaceableModel placeable);
     }
 }

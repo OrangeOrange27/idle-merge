@@ -1,19 +1,20 @@
 ﻿using System;
-using Common.Utils;
-using Common.Utils.Extensions;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables;
 using Features.Core.Placeables.Models;
 using Features.Gameplay.View;
+using Package.Logger.Abstraction;
 using UnityEngine;
 using VContainer.Unity;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Features.Core.PlacementSystem
 {
     public class SelectionController : ISelectionController, ITickable, IDisposable
     {
         private const float MinDistanceToMoveSelectedObject = 0.15f;
-        
+
+        private static readonly ILogger Logger = LogManager.GetLogger<SelectionController>();
         private readonly Func<IGameView> _gameViewGetter;
         private readonly IPlacementSystem _placementSystem;
 
@@ -24,7 +25,7 @@ namespace Features.Core.PlacementSystem
         private IGameView GameView => _gameView ??= _gameViewGetter.Invoke();
         private IGridManager GridManager => GameView.GameAreaView.GridManager;
         private Camera Camera => GameView.Camera;
-        
+
         private Vector2 _lastClickMousePosition;
 
         private PlaceableModel SelectedPlaceable
@@ -55,7 +56,7 @@ namespace Features.Core.PlacementSystem
             SelectedPlaceable = placeable;
             SelectedPlaceable.IsSelected.Value = true;
             _returnPosition = SelectedPlaceable.Position.Value;
-            
+
             _lastClickMousePosition = Input.mousePosition;
 
             OnSelect?.Invoke(SelectedPlaceable);
@@ -69,20 +70,21 @@ namespace Features.Core.PlacementSystem
 
             if (Input.GetMouseButtonUp(0))
             {
-                var returnToOriginalPosition = !_placementSystem.TryPlaceOnCell(SelectedPlaceable, InputToGridPosition(Input.mousePosition));
+                var returnToOriginalPosition =
+                    !_placementSystem.TryPlaceOnCell(SelectedPlaceable, InputToGridPosition(Input.mousePosition));
                 DeselectPlaceable(returnToOriginalPosition);
                 return;
             }
 
-            if(Vector2.Distance(_lastClickMousePosition, Input.mousePosition) > MinDistanceToMoveSelectedObject)
+            if (Vector2.Distance(_lastClickMousePosition, Input.mousePosition) > MinDistanceToMoveSelectedObject)
                 SelectedPlaceable.Position.Value = GetCellCenterFromInput(Input.mousePosition);
         }
 
         private void DeselectPlaceable(bool returnToOriginalPosition)
         {
-            if(SelectedPlaceable==null)
+            if (SelectedPlaceable == null)
                 return;
-            
+
             if (returnToOriginalPosition)
                 SelectedPlaceable.Position.Value = _returnPosition;
 
@@ -102,11 +104,19 @@ namespace Features.Core.PlacementSystem
 
         private Vector3 GetCellCenterFromInput(Vector3 inputPosition)
         {
+            inputPosition.z = Camera.WorldToScreenPoint(new Vector3(0, 0, PlaceablesConstants.ZOffset)).z;
             var worldPosition = Camera.ScreenToWorldPoint(inputPosition);
-            var gridPosition =
-                GridManager.Grid.GetCellCenterWorld(
-                    (worldPosition + (Vector3)(Vector2.Scale(PlaceablesConstants.PlaceableOffset, ((Vector2)worldPosition).normalized) - (Vector2)PlaceablesConstants.PlaceableOffset))
-                    .ToVector3Int());
+
+            var cellSize = GridManager.Grid.cellSize;
+            var gridOrigin = GridManager.Grid.transform.position;
+
+            var cellX = Mathf.FloorToInt((worldPosition.x - gridOrigin.x) / cellSize.x);
+            var cellY = Mathf.FloorToInt((worldPosition.y - gridOrigin.y) / cellSize.y);
+            var cellZ = 0;
+
+            var flooredCellCoordinates = new Vector3Int(cellX, cellY, cellZ);
+
+            var gridPosition = GridManager.Grid.GetCellCenterWorld(flooredCellCoordinates);
             gridPosition.z = PlaceablesConstants.ZOffset;
 
             return gridPosition;

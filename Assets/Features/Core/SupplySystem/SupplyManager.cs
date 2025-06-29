@@ -28,7 +28,7 @@ namespace Features.Core.SupplySystem
                 return;
 
             var supply = _supplyProvider.GetSupply();
-            supply.ParentTile.Value = freeTile;
+            supply.OccupiedTiles.Add(freeTile);
             gameContext.Placeables.Add(supply);
         }
     }

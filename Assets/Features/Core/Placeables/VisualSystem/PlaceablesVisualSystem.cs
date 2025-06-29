@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Features.Core.Placeables.Models;
@@ -78,13 +79,13 @@ namespace Features.Core.Placeables.VisualSystem
             IControllerResources resources, CancellationToken token)
         {
             var view = await _placeablesVisualProvider.Load(model, resources, token,
-                model.ParentTile.CurrentValue.Transform);
+                model.OccupiedTiles.First().Transform);
             var viewController = _viewControllerGetter.Invoke();
-
+            
             model.View = view;
             viewController.InitOnCreate(_gameContext, view, model);
             resources.Attach(viewController);
-
+            
             viewController.OnTap += OnViewTap;
 
             return viewController;

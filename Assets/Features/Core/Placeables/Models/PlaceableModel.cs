@@ -1,6 +1,7 @@
 ﻿using System;
 using Features.Core.GridSystem.Tiles;
 using Features.Core.Placeables.Views;
+using ObservableCollections;
 using UnityEngine;
 
 namespace Features.Core.Placeables.Models
@@ -10,8 +11,9 @@ namespace Features.Core.Placeables.Models
     {
         public PlaceableType ObjectType;
         public IPlaceableView View;
+        public Vector2 Size;
 
-        public GameplayReactiveProperty<IGameAreaTile> ParentTile = new();
+        public ObservableList<IGameAreaTile> OccupiedTiles = new();
         public GameplayReactiveProperty<Vector3> Position = new();
         public GameplayReactiveProperty<bool> IsSelected = new();
 
@@ -24,7 +26,8 @@ namespace Features.Core.Placeables.Models
         protected PlaceableModel(PlaceableModel other)
         {
             ObjectType = other.ObjectType;
-            ParentTile = new GameplayReactiveProperty<IGameAreaTile>(other.ParentTile.CurrentValue);
+            Size = other.Size;
+            OccupiedTiles = new ObservableList<IGameAreaTile>(other.OccupiedTiles);
             Position = new GameplayReactiveProperty<Vector3>(other.Position.CurrentValue);
             IsSelected = new GameplayReactiveProperty<bool>(other.IsSelected.CurrentValue);
         }
@@ -38,8 +41,11 @@ namespace Features.Core.Placeables.Models
         {
             IsDisposed = true;
 
-            ParentTile.CurrentValue.DeOccupy();
-            ParentTile?.Dispose();
+            foreach (var tile in OccupiedTiles)
+            {
+                tile.DeOccupy();
+            }
+
             Position?.Dispose();
             IsSelected?.Dispose();
 
