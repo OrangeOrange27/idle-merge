@@ -2,13 +2,17 @@
 using System.Linq;
 using Features.Core.GridSystem.Tiles;
 using Features.Core.Placeables.Models;
+using Microsoft.Extensions.Logging;
 using ObservableCollections;
+using Package.Logger.Abstraction;
 using R3;
 
 namespace Features.Core.Placeables.Views
 {
     public class PlaceableViewController : IPlaceableViewController
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<PlaceableViewController>();
+        
         private PlaceableModel _model;
         private IPlaceableView _view;
         private GameContext _context;
@@ -49,6 +53,12 @@ namespace Features.Core.Placeables.Views
 
             void OnParentTileChange(in NotifyCollectionChangedEventArgs<IGameAreaTile> e)
             {
+                if (e.NewItems.IsEmpty)
+                {
+                    Logger.LogDebug($"Parent tile for {_model.Position} tile has changed to null");
+                    return;
+                }
+
                 UpdateParentTile(e.NewItems[0]);
             }
         }

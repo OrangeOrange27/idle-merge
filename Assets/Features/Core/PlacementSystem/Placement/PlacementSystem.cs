@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using Features.Core.GridSystem.Managers;
 using Features.Core.GridSystem.Tiles;
 using Features.Core.Placeables.Models;
@@ -60,8 +61,27 @@ namespace Features.Core.PlacementSystem
 
                 return;
 
-                void ChangeTiles(in NotifyCollectionChangedEventArgs<IGameAreaTile> e) =>
-                    ChangePlaceableTiles(placeable, e);
+                void ChangeTiles(in NotifyCollectionChangedEventArgs<IGameAreaTile> e)
+                {
+                    if (e.Action is NotifyCollectionChangedAction.Remove)
+                    {
+                        if (e.IsSingleItem)
+                        {
+                            e.OldItem?.DeOccupy();
+                        }
+                        else
+                        {
+                            foreach (var tile in e.OldItems)
+                            {
+                                tile?.DeOccupy();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ChangePlaceableTiles(placeable, e);
+                    }
+                }
             }
         }
 
@@ -97,7 +117,14 @@ namespace Features.Core.PlacementSystem
                 }
             }
 
-            ChangePlaceableTiles(placeable, placeable.OccupiedTiles, tilesToOccupy);
+            // This will trigger a NotifyCollectionChangedAction.Remove event for each item
+            // instead of NotifyCollectionChangedAction.Reset
+            foreach (var item in placeable.OccupiedTiles.ToList())
+            {
+                placeable.OccupiedTiles.Remove(item);
+            }
+
+            placeable.OccupiedTiles.AddRange(tilesToOccupy);
 
             OnPlacementAttempt?.Invoke(new PlacementRequestResult()
             {
@@ -111,7 +138,21 @@ namespace Features.Core.PlacementSystem
         private static void ChangePlaceableTiles(PlaceableModel placeable,
             in NotifyCollectionChangedEventArgs<IGameAreaTile> e)
         {
-            ChangePlaceableTiles(placeable, e.OldItems.ToArray(), e.NewItems.ToArray());
+            var oldItems = new List<IGameAreaTile>();
+            var newItems = new List<IGameAreaTile>();
+
+            if (e.IsSingleItem)
+            {
+                oldItems.Add(e.OldItem);
+                newItems.Add(e.NewItem);
+            }
+            else
+            {
+                oldItems.AddRange(e.OldItems.ToArray());
+                newItems.AddRange(e.NewItems.ToArray());
+            }
+
+            ChangePlaceableTiles(placeable, oldItems, newItems);
         }
 
         private static void ChangePlaceableTiles(PlaceableModel placeable, IEnumerable<IGameAreaTile> oldTiles,

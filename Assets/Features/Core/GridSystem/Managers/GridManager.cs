@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Features.Core.GridSystem.Tiles;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Features.Core.GridSystem.Managers
         private bool _isTilemapUpToDate;
 
         public Grid Grid => _grid;
+        
+        public ReadOnlyDictionary<Vector3Int, GameAreaTile> ValidCells => new(_validCells);
         private bool NeedToUpdateValidCellsMap => _validCells == null || _isTilemapUpToDate == false;
 
         private void Awake()
