@@ -35,7 +35,7 @@ namespace Features.Core.MergeSystem.Providers
 
         private PlaceableModel GetModelFromMergeResult(PlaceableCreationInstruction mergeResult)
         {
-            Enum type = mergeResult.ObjectType switch
+            Enum type = mergeResult.PlaceableType switch
             {
                 PlaceableType.CollectibleObject => mergeResult.CollectibleType,
                 PlaceableType.MergeableObject => mergeResult.MergeableType,
@@ -43,7 +43,7 @@ namespace Features.Core.MergeSystem.Providers
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            var model = _placeablesFactory.Create(mergeResult.ObjectType, type);
+            var model = _placeablesFactory.Create(mergeResult.PlaceableType, type);
             if (model is MergeableModel mergeableModel)
                 mergeableModel.Stage.Value = mergeResult.Stage;
 

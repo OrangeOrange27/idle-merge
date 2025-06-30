@@ -45,7 +45,7 @@ namespace Features.Core.ProductionSystem
         public List<PlaceableModel> Recycle(ProductionObjectModel productionObjectModel)
         {
             var instruction = productionObjectModel.RecycleResult.RecycleResultPlaceable;
-            Enum type = instruction.ObjectType switch
+            Enum type = instruction.PlaceableType switch
             {
                 PlaceableType.CollectibleObject => instruction.CollectibleType,
                 PlaceableType.MergeableObject => instruction.MergeableType,
@@ -56,7 +56,7 @@ namespace Features.Core.ProductionSystem
             var placeables = new List<PlaceableModel>();
             for (var i = 0; i < productionObjectModel.RecycleResult.Amount; i++)
             {
-                var placeable = _placeablesFactory.Create(instruction.ObjectType, type);
+                var placeable = _placeablesFactory.Create(instruction.PlaceableType, type);
                 _placementSystem.PlaceOnRandomCell(placeable);
                 placeables.Add(placeable);
             }

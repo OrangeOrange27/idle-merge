@@ -23,6 +23,16 @@ namespace Features.Core.GameAreaInitializationSystem.Models
 
         public Dictionary<Vector3Int, PlaceableModel> Placeables { get; private set; }
 
+        public GameAreaConfig()
+        {
+            Placeables = new Dictionary<Vector3Int, PlaceableModel>();
+        }
+        public GameAreaConfig(List<GameAreaPlaceableConfigEntry> placeableConfigs)
+        {
+            _placeableConfigs = placeableConfigs;
+            OnAfterDeserialize();
+        }
+
         public void OnBeforeSerialize()
         {
             _placeableConfigs.Clear();
