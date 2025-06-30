@@ -122,24 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &355346391 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 212875366303386821, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
-  m_PrefabInstance: {fileID: 593033623}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &355346397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355346391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b882831662e408db592432bf58150f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 67a7fe65c98f07843ba28f4e38716acd, type: 2}
 --- !u!1 &480171836
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,10 +202,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectScope
       objectReference: {fileID: 0}
-    - target: {fileID: 1884999974545409363, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
-      propertyPath: _config
-      value: 
-      objectReference: {fileID: 11400000, guid: 3d98114e7893f409d9a118f695484d11, type: 2}
     - target: {fileID: 7171860102206684358, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.9564991
@@ -268,17 +246,10 @@ PrefabInstance:
       propertyPath: _splashSceneView
       value: 
       objectReference: {fileID: 389670549626422011}
-    - target: {fileID: 7696564839100698249, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
-      propertyPath: _recycleConfigProvider
-      value: 
-      objectReference: {fileID: 355346397}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 212875366303386821, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 355346397}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77bd9d55bf1b1764e9db4612c30f048a, type: 3}
 --- !u!1 &619394800
 GameObject:

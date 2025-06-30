@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1884999974545409363}
   - component: {fileID: 1886457322445925509}
   - component: {fileID: 826986000597029218}
+  - component: {fileID: 1223632545437437874}
+  - component: {fileID: 3771127469666439979}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -56,6 +58,8 @@ MonoBehaviour:
   supplyWeightsConfigProvider: {fileID: 1884999974545409363}
   _mergesConfigProvider: {fileID: 1886457322445925509}
   _productionConfigProvider: {fileID: 826986000597029218}
+  _recycleConfigProvider: {fileID: 1223632545437437874}
+  _gameAreaConfigProvider: {fileID: 3771127469666439979}
   _disableInitFlow: 0
 --- !u!114 &1884999974545409363
 MonoBehaviour:
@@ -69,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e762138dfb148beb2f5498e3babce00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 6d0da6633be5e264caa442c822ebb67e, type: 2}
+  _config: {fileID: 11400000, guid: 3d98114e7893f409d9a118f695484d11, type: 2}
 --- !u!114 &1886457322445925509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,3 +100,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: c120d51c0f0ccc5449af34941897b244, type: 2}
+--- !u!114 &1223632545437437874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212875366303386821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b882831662e408db592432bf58150f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 67a7fe65c98f07843ba28f4e38716acd, type: 2}
+--- !u!114 &3771127469666439979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212875366303386821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7054f01b7f44acb900815d3ef84f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameAreaConfigSO: {fileID: 11400000, guid: ad7185a7b2c614da2b21bad4dd8943b9, type: 2}

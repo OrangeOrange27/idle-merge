@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Features.Core;
+using Features.Core.GameAreaInitializationSystem;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables.VisualSystem;
 using Features.Core.PlacementSystem;
@@ -23,18 +24,20 @@ namespace Features.Gameplay.States
         private readonly IPlaceablesVisualSystem _placeablesVisualSystem;
         private readonly IGameplayController _gameplayController;
         private readonly IObjectResolver _resolver;
+        private readonly IGameAreaInitializer _gameAreaInitializer;
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
 
         public RootGameplayState(IObjectResolver resolver, ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager,
-            IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController)
+            IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController, IGameAreaInitializer gameAreaInitializer)
         {
             _resolver = resolver;
             _gameViewLoader = gameViewLoader;
             _supplyManager = supplyManager;
             _placeablesVisualSystem = placeablesVisualSystem;
             _gameplayController = gameplayController;
+            _gameAreaInitializer = gameAreaInitializer;
         }
 
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
@@ -53,6 +56,7 @@ namespace Features.Gameplay.States
             
             resources.Attach(_gameplayController.Initialize(new GameContext())); //todo: get valid context
 
+            await _gameAreaInitializer.InitializeGameArea(_gameplayController.GameContext);
             await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameplayController.GameContext, resources, token);
             await _placeablesVisualSystem.InitializePlaceablesViews();
         }

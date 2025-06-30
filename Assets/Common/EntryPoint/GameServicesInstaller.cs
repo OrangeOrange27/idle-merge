@@ -16,6 +16,8 @@ using Common.PlayerData;
 using Common.Serialization;
 using Common.TimeService;
 using Features.Core;
+using Features.Core.GameAreaInitializationSystem;
+using Features.Core.GameAreaInitializationSystem.Providers;
 using Features.Core.MergeSystem;
 using Features.Core.MergeSystem.Providers;
 using Features.Core.Placeables;
@@ -50,6 +52,7 @@ namespace Common.EntryPoint
         [SerializeField] private MergesConfigProvider _mergesConfigProvider;
         [SerializeField] private ProductionConfigProvider _productionConfigProvider;
         [SerializeField] private RecycleConfigProvider _recycleConfigProvider;
+        [SerializeField] private GameAreaConfigProvider _gameAreaConfigProvider;
 
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -110,6 +113,7 @@ namespace Common.EntryPoint
             builder.RegisterSupplySystem(supplyWeightsConfigProvider);
             builder.RegisterPlacementSystem();
             builder.RegisterProductionSystem(_productionConfigProvider, _recycleConfigProvider);
+            builder.RegisterGameAreaInitializationSystem(_gameAreaConfigProvider);
         }
 
         private void RegisterDataProvider(IContainerBuilder builder)
