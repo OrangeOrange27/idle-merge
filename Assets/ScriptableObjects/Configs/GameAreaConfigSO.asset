@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: GameAreaConfigSO
   m_EditorClassIdentifier: 
   GameAreaConfig:
-    _placeableConfigs: []
+    _placeableConfigs:
+    - Position: {x: -6, y: -3, z: 0}
+      Placeable:
+        ObjectType: 4
+        Size: {x: 2, y: 2}
+        Position:
+          value: {x: -5.5, y: -2.5, z: -1}
+        IsSelected:
+          value: 0

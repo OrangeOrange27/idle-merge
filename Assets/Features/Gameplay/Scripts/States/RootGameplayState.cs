@@ -51,14 +51,16 @@ namespace Features.Gameplay.States
             gameView.Initialize(_resolver);
             _gameUIView = gameView.GameUIView;
             _gameAreaView = gameView.GameAreaView;
-            
-            _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
-            
-            resources.Attach(_gameplayController.Initialize(new GameContext())); //todo: get valid context
 
-            await _gameAreaInitializer.InitializeGameArea(_gameplayController.GameContext);
+            var gameContext = new GameContext(); //todo: get valid context
+            
+            await _gameAreaInitializer.InitializeGameArea(gameContext);
+            
+            resources.Attach(_gameplayController.Initialize(gameContext)); 
             await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameplayController.GameContext, resources, token);
             await _placeablesVisualSystem.InitializePlaceablesViews();
+            
+            _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
         }
 
         private void OnSupplyClick()

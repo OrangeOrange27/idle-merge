@@ -1,3 +1,4 @@
+using Features.Core.Placeables.Models;
 using Features.Core.ProductionSystem.Models;
 using UnityEngine;
 
@@ -7,6 +8,18 @@ namespace Features.Core.Placeables.Editor
     {
         public string Name;
         public ProductionRecipe[] AvailableRecipes;
-        public ProductionRecipe SelectedRecipe;
+        public Vector2 Size;
+
+        public ProductionBuildingModel GetModel()
+        {
+            return new ProductionBuildingModel()
+            {
+                ObjectType = PlaceableType.ProductionBuilding,
+                Size = Size,
+                
+                Name = Name,
+                AvailableRecipes = AvailableRecipes,
+            };
+        }
     }
 }

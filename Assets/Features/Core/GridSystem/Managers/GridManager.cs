@@ -16,8 +16,10 @@ namespace Features.Core.GridSystem.Managers
         private bool _isTilemapUpToDate;
 
         public Grid Grid => _grid;
+        public ReadOnlyDictionary<Vector3Int, GameAreaTile> ValidCells => _validCells == null
+            ? null
+            : new ReadOnlyDictionary<Vector3Int, GameAreaTile>(_validCells);
         
-        public ReadOnlyDictionary<Vector3Int, GameAreaTile> ValidCells => new(_validCells);
         private bool NeedToUpdateValidCellsMap => _validCells == null || _isTilemapUpToDate == false;
 
         private void Awake()
