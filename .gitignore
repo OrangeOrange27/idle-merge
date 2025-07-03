@@ -66,6 +66,9 @@ sysinfo.txt
 *.save
 /~[Ss]ave/
 
+# MacOS files
+.DS_Store
+
 # Crashlytics generated file
 crashlytics-build.properties
 
