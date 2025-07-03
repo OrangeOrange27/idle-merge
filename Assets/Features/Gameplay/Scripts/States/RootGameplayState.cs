@@ -1,12 +1,15 @@
 ﻿using System.Threading;
+using Common.PlayerData;
 using Cysharp.Threading.Tasks;
 using Features.Core;
 using Features.Core.GameAreaInitializationSystem;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables.VisualSystem;
 using Features.Core.PlacementSystem;
+using Features.Core.ProgressionSystem;
 using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts.Controllers;
+using Features.Gameplay.Scripts.Models;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.Infrastructure;
 using Package.ControllersTree.Abstractions;
@@ -25,12 +28,17 @@ namespace Features.Gameplay.States
         private readonly IGameplayController _gameplayController;
         private readonly IObjectResolver _resolver;
         private readonly IGameAreaInitializer _gameAreaInitializer;
+        private readonly IPlayerDataService _playerDataService;
+        private readonly IProgressionManager _progressionManager;
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
 
-        public RootGameplayState(IObjectResolver resolver, ISharedViewLoader<IGameView> gameViewLoader, ISupplyManager supplyManager,
-            IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController, IGameAreaInitializer gameAreaInitializer)
+        public RootGameplayState(IObjectResolver resolver, ISharedViewLoader<IGameView> gameViewLoader,
+            ISupplyManager supplyManager,
+            IPlaceablesVisualSystem placeablesVisualSystem, IGameplayController gameplayController,
+            IGameAreaInitializer gameAreaInitializer,
+            IPlayerDataService playerDataService, IProgressionManager progressionManager)
         {
             _resolver = resolver;
             _gameViewLoader = gameViewLoader;
@@ -38,6 +46,8 @@ namespace Features.Gameplay.States
             _placeablesVisualSystem = placeablesVisualSystem;
             _gameplayController = gameplayController;
             _gameAreaInitializer = gameAreaInitializer;
+            _playerDataService = playerDataService;
+            _progressionManager = progressionManager;
         }
 
         public async UniTask OnInitialize(IControllerResources resources, CancellationToken token)
@@ -48,7 +58,11 @@ namespace Features.Gameplay.States
             CancellationToken token)
         {
             var gameView = await _gameViewLoader.Load(resources, token, null);
-            gameView.Initialize(_resolver);
+            gameView.Initialize(_resolver, new GameUIDTO()
+            {
+                PlayerDataService = _playerDataService,
+                ProgressionManager = _progressionManager
+            });
             _gameUIView = gameView.GameUIView;
             _gameAreaView = gameView.GameAreaView;
 

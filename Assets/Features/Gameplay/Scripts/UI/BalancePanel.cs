@@ -14,12 +14,12 @@ namespace Features.Gameplay.Scripts.UI
 
         private void Awake()
         {
-            _button.onClick.AddListener(() => OnButtonClicked?.Invoke());
+            _button?.onClick.AddListener(() => OnButtonClicked?.Invoke());
         }
 
         private void OnDestroy()
         {
-            _button.onClick.RemoveAllListeners();
+            _button?.onClick.RemoveAllListeners();
         }
 
         public void SetBalance(int value)

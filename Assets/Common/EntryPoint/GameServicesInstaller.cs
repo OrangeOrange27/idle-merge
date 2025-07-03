@@ -25,6 +25,8 @@ using Features.Core.Placeables.Factories;
 using Features.Core.PlacementSystem;
 using Features.Core.ProductionSystem;
 using Features.Core.ProductionSystem.Providers;
+using Features.Core.ProgressionSystem;
+using Features.Core.ProgressionSystem.Providers;
 using Features.Core.SupplySystem;
 using Features.Core.SupplySystem.Providers;
 using Features.Gameplay.Scripts;
@@ -53,6 +55,7 @@ namespace Common.EntryPoint
         [SerializeField] private ProductionConfigProvider _productionConfigProvider;
         [SerializeField] private RecycleConfigProvider _recycleConfigProvider;
         [SerializeField] private GameAreaConfigProvider _gameAreaConfigProvider;
+        [SerializeField] private LevelsConfigProvider _levelsConfigProvider;
 
         public static JsonSerializerSettings JsonSettings = new()
         {
@@ -114,6 +117,7 @@ namespace Common.EntryPoint
             builder.RegisterPlacementSystem();
             builder.RegisterProductionSystem(_productionConfigProvider, _recycleConfigProvider);
             builder.RegisterGameAreaInitializationSystem(_gameAreaConfigProvider);
+            builder.RegisterProgressionSystem(_levelsConfigProvider);
         }
 
         private void RegisterDataProvider(IContainerBuilder builder)

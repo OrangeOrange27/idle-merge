@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 826986000597029218}
   - component: {fileID: 1223632545437437874}
   - component: {fileID: 3771127469666439979}
+  - component: {fileID: 2120763868805340374}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -60,6 +61,7 @@ MonoBehaviour:
   _productionConfigProvider: {fileID: 826986000597029218}
   _recycleConfigProvider: {fileID: 1223632545437437874}
   _gameAreaConfigProvider: {fileID: 3771127469666439979}
+  _levelsConfigProvider: {fileID: 2120763868805340374}
   _disableInitFlow: 0
 --- !u!114 &1884999974545409363
 MonoBehaviour:
@@ -126,3 +128,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameAreaConfigSO: {fileID: 11400000, guid: ad7185a7b2c614da2b21bad4dd8943b9, type: 2}
+--- !u!114 &2120763868805340374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212875366303386821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0729316e136940e5b334771d360c5a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: ebfa8afb2edf94b5aa374ca5ccdb3289, type: 2}

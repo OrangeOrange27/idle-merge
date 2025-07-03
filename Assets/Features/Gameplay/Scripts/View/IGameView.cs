@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.Gameplay.Scripts.Models;
+using UnityEngine;
 using VContainer;
 
 namespace Features.Gameplay.View
@@ -8,7 +9,7 @@ namespace Features.Gameplay.View
         Camera Camera { get; }
         IGameAreaView GameAreaView { get; }
         IGameUIView GameUIView { get; }
-        
-        void Initialize(IObjectResolver resolver);
+
+        void Initialize(IObjectResolver resolver, GameUIDTO uiDto);
     }
 }

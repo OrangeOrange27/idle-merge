@@ -5,5 +5,6 @@
         Coins,
         Gems,
         Energy,
+        Xp
     }
 }

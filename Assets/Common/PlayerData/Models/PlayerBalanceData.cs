@@ -12,6 +12,7 @@ namespace Common.PlayerData
         [JsonProperty("coins")] public int Coins;
         [JsonProperty("gems")] public int Gems;
         [JsonProperty("energy")] public int Energy;
+        [JsonProperty("xp")] public int Experience;
         [JsonProperty("collectibles")] public Collectible[] Collectibles;
 
         public event Action<PlayerBalanceAssetType, int> OnBalanceChanged;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.Gameplay.Scripts.Models;
+using UnityEngine;
 using VContainer;
 
 namespace Features.Gameplay.View
@@ -13,9 +14,10 @@ namespace Features.Gameplay.View
         public IGameAreaView GameAreaView => _gameAreaView;
         public IGameUIView GameUIView => _gameUIView;
 
-        public void Initialize(IObjectResolver resolver)
+        public void Initialize(IObjectResolver resolver, GameUIDTO uiDto)
         {
             resolver.Inject(_gameAreaView.GridManager);
+            _gameUIView.Initialize(uiDto);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Common.PlayerData
         bool IsOnline { get; }
         bool IsSignedIn { get; }
         PlayerData PlayerData { get; }
-
+        PlayerBalanceData PlayerBalance { get; }
         public event Action<PlayerBalanceAssetType, int> OnBalanceChanged;
         
         IDisposable Update();

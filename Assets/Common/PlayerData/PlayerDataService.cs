@@ -23,6 +23,7 @@ namespace Common.PlayerData
         public bool IsOnline => _isOnline;
         public bool IsSignedIn { get; private set; }
         public PlayerData PlayerData { get; private set; }
+        public PlayerBalanceData PlayerBalance => PlayerData.Balance;
 
         public event Action<PlayerBalanceAssetType, int> OnBalanceChanged;
 
