@@ -8,6 +8,8 @@ namespace Features.Gameplay.Scripts.Controllers
     {
         GameContext GameContext { get; }
         
+        event Action<ProductionBuildingModel> OnRequestCrafting;
+        
         IDisposable Initialize(GameContext gameContext);
         void RegisterPlaceableClick(PlaceableModel placeableModel);
     }

@@ -18,23 +18,20 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform _rewardsContainer;
         [SerializeField] private Transform _recipesContainer;
 
-        private Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> _rewardViewGetter;
-        private Func<Transform, UniTask<RecipeItemView>> _recipeItemViewGetter;
-        private Func<string, Transform, UniTask<ItemView>> _rewardItemViewGetter;
+        private Func<Transform, UniTask<IRecipeItemView>> _recipeItemViewGetter;
+        private Func<string, Transform, UniTask<IItemView>> _rewardItemViewGetter;
         
-        private Dictionary<ProductionRecipe, RecipeItemView> _recipeToViewMap = new();
-        private List<ItemView> _spawnedRewardItems = new();
+        private Dictionary<ProductionRecipe, IRecipeItemView> _recipeToViewMap = new();
+        private List<IItemView> _spawnedRewardItems = new();
         private ProductionRecipe _selectedRecipe;
         
         public event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
 
         public void Initialize(IPlayerDataService playerDataService,
-            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter,
-            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
-            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
-            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter)
+            Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<IRecipeItemView>> recipeItemViewGetter)
         {
-            _rewardViewGetter = rewardViewGetter;
             _rewardItemViewGetter = rewardItemViewGetter;
             _recipeItemViewGetter = recipeItemViewGetter;
             
@@ -48,7 +45,7 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var recipeView in _recipeToViewMap.Values)
             {
                 if(recipeView!=null)
-                    Destroy(recipeView.gameObject);
+                    Destroy(recipeView.GameObject);
             }
             _recipeToViewMap.Clear();
             
@@ -60,7 +57,7 @@ namespace Features.Core.ProductionSystem.Components
 
                 foreach (var reward in recipe.Outcome)
                 {
-                    var rewardView = await _rewardViewGetter.Invoke(reward, recipeView.RewardsContainer);
+                    var rewardView = await _rewardItemViewGetter.Invoke(reward.GetViewKey(), recipeView.RewardsContainer);
                 }
 
                 recipeView.OnClick += () => SetRecipe(recipe, token).Forget();
@@ -82,7 +79,7 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var reward in recipe.Outcome)
             {
                 token.ThrowIfCancellationRequested();
-                var rewardView = await _rewardViewGetter.Invoke(reward, _rewardsContainer);
+                var rewardView = await _rewardItemViewGetter.Invoke(reward.GetViewKey(), _rewardsContainer);
                 token.ThrowIfCancellationRequested();
                 
                 _spawnedRewardItems.Add(rewardView);
@@ -99,7 +96,7 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var rewardItem in _spawnedRewardItems)
             {
                 if(rewardItem != null)
-                    Destroy(rewardItem.gameObject);
+                    Destroy(rewardItem.GameObject);
             }
             _spawnedRewardItems.Clear();
         }

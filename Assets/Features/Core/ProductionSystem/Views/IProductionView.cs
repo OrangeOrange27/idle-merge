@@ -14,10 +14,9 @@ namespace Features.Core.ProductionSystem
         event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
         
         void Initialize(IPlayerDataService playerDataService,
-            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter,
-            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
-            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
-            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter,
-            Func<Transform, UniTask<IngredientItemView>> ingredientItemViewGetter);
+            Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<IRecipeItemView>> recipeItemViewGetter,
+            Func<Transform, UniTask<IIngredientItemView>> ingredientItemViewGetter);
     }
 }

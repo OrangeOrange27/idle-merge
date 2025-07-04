@@ -1,28 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Features.Core.MergeSystem.Models;
-using Features.Core.Placeables.Models;
+using Features.Core.Common.Models;
 
 namespace Features.Core.ProductionSystem.Models
 {
     [Serializable]
     public class ProductionRecipe
     { 
-        public class Component
-        {
-            public CollectibleType CollectibleType { get; set; }
-            public int Amout { get; set; }
-        }
-        
-        public class Reward
-        {
-            public MergeableType MergeableType { get; set; }
-            public int Tier { get; set; }
-        }
-
         public string RecipeName;
-        public List<Component> InComponents = new();
-        public List<Reward> Outcome = new();
+        public List<CollectibleItemUIModel> Ingredients = new();
+        public List<MergeableItemUIModel> Outcome = new();
         public int CraftingTimeInSeconds { get; set; }
     }
 }

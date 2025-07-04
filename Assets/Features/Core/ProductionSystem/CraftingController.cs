@@ -32,6 +32,11 @@ namespace Features.Core.ProductionSystem
                 return;
             }
 
+            foreach (var ingredient in recipe.Ingredients)
+            {
+                _playerDataService.UseCollectible(ingredient.CollectibleType, ingredient.Amout);
+            }
+
             productionBuildingModel.SelectedRecipe = recipe;
             productionBuildingModel.NextCollectionDateTime.Value =
                 DateTime.Now.AddSeconds(recipe.CraftingTimeInSeconds);
@@ -58,7 +63,7 @@ namespace Features.Core.ProductionSystem
                 return false;
             }
 
-            foreach (var component in recipe.InComponents)
+            foreach (var component in recipe.Ingredients)
             {
                 if (_playerDataService.PlayerData.Balance.GetCollectibleAmount(component.CollectibleType) <
                     component.Amout)

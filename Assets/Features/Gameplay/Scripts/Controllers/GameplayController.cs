@@ -27,6 +27,7 @@ namespace Features.Gameplay.Scripts.Controllers
         private readonly IMergeController _mergeController;
         private readonly IPlayerDataService _playerDataService;
         private readonly IProductionController _productionController;
+        private readonly ICraftingController _craftingController;
         private readonly Func<IGameView> _gameViewGetter;
 
         private GameContext _gameContext;
@@ -34,8 +35,11 @@ namespace Features.Gameplay.Scripts.Controllers
 
         public GameContext GameContext => _gameContext;
 
+        public event Action<ProductionBuildingModel> OnRequestCrafting;
+        
         public GameplayController(ISelectionController selectionController, IPlacementSystem placementSystem,
-            Func<IGameView> gameViewGetter, IMergeController mergeController, IPlayerDataService playerDataService, IProductionController productionController)
+            Func<IGameView> gameViewGetter, IMergeController mergeController, IPlayerDataService playerDataService, 
+            IProductionController productionController, ICraftingController craftingController)
         {
             _selectionController = selectionController;
             _placementSystem = placementSystem;
@@ -43,6 +47,7 @@ namespace Features.Gameplay.Scripts.Controllers
             _mergeController = mergeController;
             _playerDataService = playerDataService;
             _productionController = productionController;
+            _craftingController = craftingController;
         }
 
         public IDisposable Initialize(GameContext gameContext)
@@ -150,8 +155,24 @@ namespace Features.Gameplay.Scripts.Controllers
             }
             
             var productionBuildingView = productionBuildingModel.View as ProductionBuildingView;
+            
+            //TODO Update View
 
-            //TODO
+            if (productionBuildingModel.NextCollectionDateTime.CurrentValue <= DateTime.Now)
+            {
+                var craftingReward = _craftingController.TryCollect(productionBuildingModel);
+                if(craftingReward == null)
+                    return;
+
+                foreach (var mergeable in craftingReward)
+                {
+                    _placementSystem.PlaceOnRandomCell(mergeable);
+                }
+            }
+            else
+            {
+                OnRequestCrafting?.Invoke(productionBuildingModel);
+            }
         }
 
         private void RegisterClickOnCollectible(CollectibleModel placeableModel)

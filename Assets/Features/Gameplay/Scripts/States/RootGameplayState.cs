@@ -4,8 +4,11 @@ using Cysharp.Threading.Tasks;
 using Features.Core;
 using Features.Core.GameAreaInitializationSystem;
 using Features.Core.GridSystem.Managers;
+using Features.Core.Placeables.Models;
 using Features.Core.Placeables.VisualSystem;
 using Features.Core.PlacementSystem;
+using Features.Core.ProductionSystem;
+using Features.Core.ProductionSystem.Models;
 using Features.Core.ProgressionSystem;
 using Features.Core.SupplySystem;
 using Features.Gameplay.Scripts.Controllers;
@@ -75,11 +78,24 @@ namespace Features.Gameplay.States
             await _placeablesVisualSystem.InitializePlaceablesViews();
             
             _gameUIView.OnSupplyButtonClicked += OnSupplyClick;
+            _gameplayController.OnRequestCrafting += OnRequestCrafting;
         }
 
         private void OnSupplyClick()
         {
             _supplyManager.SpawnSupply(_gameplayController.GameContext);
+        }
+
+        private void OnRequestCrafting(ProductionBuildingModel model)
+        {
+            var payload = new StartProductionPopupPayload
+            {
+                ProductionBuilding = model,
+            };
+
+            _machineInstructionCompletionSource.TrySetResult(
+                StateMachineInstructionSugar.GoTo<StartProductionPopupState, StartProductionPopupPayload>(_resolver,
+                    payload));
         }
 
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources, IControllerChildren controllerChildren, CancellationToken token)
@@ -90,6 +106,7 @@ namespace Features.Gameplay.States
         public async UniTask OnStop(CancellationToken token)
         {
             _gameUIView.OnSupplyButtonClicked -= OnSupplyClick;
+            _gameplayController.OnRequestCrafting -= OnRequestCrafting;
         }
 
         public async UniTask OnDispose(CancellationToken token)

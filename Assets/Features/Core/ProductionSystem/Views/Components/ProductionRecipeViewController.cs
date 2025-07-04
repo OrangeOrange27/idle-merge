@@ -21,15 +21,15 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform[] _plusSigns;
 
         private IPlayerDataService _playerDataService;
-        private Func<Transform, UniTask<RecipeComponentView>> _recipeComponentViewGetter;
-        private Func<string, Transform, UniTask<ItemView>> _rewardItemViewGetter;
+        private Func<Transform, UniTask<IRecipeComponentView>> _recipeComponentViewGetter;
+        private Func<string, Transform, UniTask<IItemView>> _rewardItemViewGetter;
 
-        private List<RecipeComponentView> _spawnedViews = new();
-        private ItemView _rewardItemView;
+        private List<IRecipeComponentView> _spawnedViews = new();
+        private IItemView _rewardItemView;
 
         public void Initialize(IPlayerDataService playerDataService,
-            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
-            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter)
+            Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
+            Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter)
         {
             _playerDataService = playerDataService;
             _recipeComponentViewGetter = recipeComponentViewGetter;
@@ -40,7 +40,7 @@ namespace Features.Core.ProductionSystem.Components
         {
             Clear();
 
-            foreach (var recipeComponent in recipe.InComponents)
+            foreach (var recipeComponent in recipe.Ingredients)
             {
                 token.ThrowIfCancellationRequested();
 
@@ -81,13 +81,13 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var view in _spawnedViews)
             {
                 if(view!=null) 
-                    Destroy(view.gameObject);
+                    Destroy(view.GameObject);
             }
             _spawnedViews.Clear();
 
             if (_rewardItemView != null)
             {
-                Destroy(_rewardItemView.gameObject);
+                Destroy(_rewardItemView.GameObject);
                 _rewardItemView = null;
             }
 

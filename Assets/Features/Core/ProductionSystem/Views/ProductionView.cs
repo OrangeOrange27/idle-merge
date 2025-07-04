@@ -35,18 +35,17 @@ namespace Features.Core.ProductionSystem
             gameObject.SetActive(false);
         }
 
-        public void Initialize(IPlayerDataService playerDataService, 
-            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter, 
-            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
-            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
-            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter, 
-            Func<Transform, UniTask<IngredientItemView>> ingredientItemViewGetter)
+        public void Initialize(IPlayerDataService playerDataService,
+            Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<IRecipeItemView>> recipeItemViewGetter,
+            Func<Transform, UniTask<IIngredientItemView>> ingredientItemViewGetter)
         {
             _closeButton.onClick.AddListener(OnCloseButtonPressed);
             _ordersButton.onClick.AddListener(() => SwitchTab(TabType.Orders));
             _ingredientsButton.onClick.AddListener(() => SwitchTab(TabType.Ingredients));
 
-            _ordersTab.Initialize(playerDataService, rewardViewGetter, rewardItemViewGetter, recipeComponentViewGetter,
+            _ordersTab.Initialize(playerDataService, rewardItemViewGetter, recipeComponentViewGetter,
                 recipeItemViewGetter);
             
             _ordersTab.OnStartProductionButtonPressedEvent += OnStartProductionButtonPressed;

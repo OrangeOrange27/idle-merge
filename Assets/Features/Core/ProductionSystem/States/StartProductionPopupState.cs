@@ -12,24 +12,22 @@ namespace Features.Core.ProductionSystem
     public class StartProductionPopupState : BasicViewState<IProductionView, StartProductionPopupPayload>
     {
         private readonly IPlayerDataService _playerDataService;
-        private readonly IViewLoader<ItemView, ProductionRecipe.Reward> _rewardsViewLoader;
-        private readonly IViewLoader<RecipeComponentView> _recipeComponentViewLoader;
-        private readonly IViewLoader<ItemView, string> _rewardItemViewLoader;
-        private readonly IViewLoader<RecipeItemView> _recipeItemViewLoader;
-        private readonly IViewLoader<IngredientItemView> _ingredientItemViewLoader;
+        private readonly ICraftingController _craftingController;
+        private readonly IViewLoader<IRecipeComponentView> _recipeComponentViewLoader;
+        private readonly IViewLoader<IItemView, string> _rewardItemViewLoader;
+        private readonly IViewLoader<IRecipeItemView> _recipeItemViewLoader;
+        private readonly IViewLoader<IIngredientItemView> _ingredientItemViewLoader;
 
         public StartProductionPopupState(ISharedViewLoader<IProductionView> sharedViewLoader,
             IPlayerDataService playerDataService,
-            IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView> recipeComponentViewLoader,
-            IViewLoader<ItemView, string> rewardItemViewLoader,
-            IViewLoader<RecipeItemView> recipeItemViewLoader,
-            IViewLoader<IngredientItemView> ingredientItemViewLoader) : base(sharedViewLoader)
+            IViewLoader<IItemView, string> rewardsViewLoader,
+            IViewLoader<IRecipeComponentView> recipeComponentViewLoader,
+            IViewLoader<IRecipeItemView> recipeItemViewLoader,
+            IViewLoader<IIngredientItemView> ingredientItemViewLoader) : base(sharedViewLoader)
         {
             _playerDataService = playerDataService;
-            _rewardsViewLoader = rewardsViewLoader;
             _recipeComponentViewLoader = recipeComponentViewLoader;
-            _rewardItemViewLoader = rewardItemViewLoader;
+            _rewardItemViewLoader = rewardsViewLoader;
             _recipeItemViewLoader = recipeItemViewLoader;
             _ingredientItemViewLoader = ingredientItemViewLoader;
         }
@@ -38,8 +36,6 @@ namespace Features.Core.ProductionSystem
             CancellationToken token)
         {
             view.Initialize(_playerDataService,
-                async (key, container) =>
-                    await _rewardsViewLoader.Load(key, ControllerResources, token, container),
                 async (key, container) =>
                     await _rewardItemViewLoader.Load(key, ControllerResources, token, container),
                 async (container) =>
@@ -63,7 +59,7 @@ namespace Features.Core.ProductionSystem
 
         private void StartProduction(ProductionRecipe recipe)
         {
-            throw new System.NotImplementedException();
+            _craftingController.StartCrafting(Payload.ProductionBuilding, recipe);
         }
     }
 }

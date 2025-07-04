@@ -5,15 +5,8 @@ using UnityEngine.UI;
 
 namespace Features.Core.ProductionSystem.Components
 {
-    public class RecipeItemView : ItemView
+    public class RecipeItemView : ItemView, IRecipeItemView
     {
-        public enum Status
-        {
-            NotAvailable = 0,
-            Available = 1,
-            InProgress = 2,
-        }
-        
         [SerializeField] private Button _button;
         
         [SerializeField] private Transform _rewardsContainer;
@@ -27,10 +20,10 @@ namespace Features.Core.ProductionSystem.Components
         
         public event Action OnClick;
 
-        public void SetRecipeStatus(Status status)
+        public void SetRecipeStatus(IRecipeItemView.Status status)
         {
-            _availableIndicator.gameObject.SetActive(status == Status.Available);
-            _inProgressIndicator.gameObject.SetActive(status == Status.InProgress);
+            _availableIndicator.gameObject.SetActive(status == IRecipeItemView.Status.Available);
+            _inProgressIndicator.gameObject.SetActive(status == IRecipeItemView.Status.InProgress);
         }
 
         private void Awake()

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Features.Core.ProductionSystem.Components
 {
-    public class RecipeComponentView : ItemView
+    public class RecipeComponentView : ItemView, IRecipeComponentView
     {
         [SerializeField] private Button _hintButton;
         

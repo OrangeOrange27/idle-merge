@@ -11,12 +11,12 @@ namespace Features.Core.ProductionSystem.Components
     {
         [SerializeField] private Transform _contentHolder;
 
-        private Func<Transform, UniTask<IngredientItemView>> _ingredientItemViewGetter;
+        private Func<Transform, UniTask<IIngredientItemView>> _ingredientItemViewGetter;
         private IPlayerDataService _playerDataService;
 
-        private List<IngredientItemView> _spawnedIngredientItemViews = new();
+        private List<IIngredientItemView> _spawnedIngredientItemViews = new();
 
-        public void Initialize(Func<Transform, UniTask<IngredientItemView>> ingredientItemViewGetter,
+        public void Initialize(Func<Transform, UniTask<IIngredientItemView>> ingredientItemViewGetter,
             IPlayerDataService playerDataService)
         {
             _ingredientItemViewGetter = ingredientItemViewGetter;
@@ -30,7 +30,7 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var itemView in _spawnedIngredientItemViews)
             {
                 if (itemView != null)
-                    Destroy(itemView.gameObject);
+                    Destroy(itemView.GameObject);
             }
 
             _spawnedIngredientItemViews.Clear();
