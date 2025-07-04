@@ -1,5 +1,6 @@
 using System;
 using Features.Core.Common.Views;
+using Features.Core.Placeables.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,11 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Button _hintButton;
         
         public event Action OnHintButtonPressedEvent;
+
+        public void SetCollectibleType(CollectibleType collectibleType)
+        {
+            throw new NotImplementedException();
+        }
 
         private void Awake()
         {

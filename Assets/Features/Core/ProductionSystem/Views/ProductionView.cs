@@ -3,7 +3,6 @@ using System.Threading;
 using Common.PlayerData;
 using Cysharp.Threading.Tasks;
 using Features.Core.Common.Views;
-using Features.Core.Placeables.Models;
 using Features.Core.ProductionSystem.Components;
 using Features.Core.ProductionSystem.Models;
 using Package.AssetProvider.ViewLoader.Infrastructure;
@@ -30,9 +29,9 @@ namespace Features.Core.ProductionSystem
 
         public void Initialize(IPlayerDataService playerDataService, 
             IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView, CollectibleType> itemsViewLoader,
+            IViewLoader<RecipeComponentView> itemsViewLoader,
             IViewLoader<ItemView, string> rewardItemViewLoader, 
-            IViewLoader<RecipeItemView, string> recipeItemViewLoader, 
+            IViewLoader<RecipeItemView> recipeItemViewLoader, 
             IViewLoader<IngredientItemView> ingredientItemViewLoader, 
             IControllerResources controllerResources, CancellationToken token)
         {

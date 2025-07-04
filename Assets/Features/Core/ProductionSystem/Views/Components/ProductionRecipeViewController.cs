@@ -23,14 +23,14 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform[] _plusSigns;
 
         private IPlayerDataService _playerDataService;
-        private IViewLoader<RecipeComponentView, CollectibleType> _itemsViewLoader;
+        private IViewLoader<RecipeComponentView> _itemsViewLoader;
         private IViewLoader<ItemView, string> _rewardItemViewLoader;
 
         private List<RecipeComponentView> _spawnedViews = new();
         private ItemView _rewardItemView;
 
         public void Initialize(IPlayerDataService playerDataService,
-            IViewLoader<RecipeComponentView, CollectibleType> itemsViewLoader,
+            IViewLoader<RecipeComponentView> itemsViewLoader,
             IViewLoader<ItemView, string> rewardItemViewLoader)
         {
             _playerDataService = playerDataService;
@@ -46,7 +46,7 @@ namespace Features.Core.ProductionSystem.Components
             foreach (var recipeComponent in recipe.InComponents)
             {
                 var itemType = recipeComponent.CollectibleType;
-                var itemView = await _itemsViewLoader.Load(itemType, resources, token,
+                var itemView = await _itemsViewLoader.Load(resources, token,
                     GetIngredientContainer());
 
                 itemView.SetText(

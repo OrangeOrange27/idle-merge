@@ -22,7 +22,8 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform _recipesContainer;
 
         private IViewLoader<ItemView, ProductionRecipe.Reward> _rewardsViewLoader;
-        private IViewLoader<RecipeItemView, string> _recipeItemViewLoader;
+        private IViewLoader<RecipeItemView> _recipeItemViewLoader;
+        private IViewLoader<ItemView, string> _rewardItemViewLoader;
         private IControllerResources _controllerResources;
         private CancellationToken _cancellationToken;
         
@@ -34,13 +35,14 @@ namespace Features.Core.ProductionSystem.Components
 
         public void Initialize(IPlayerDataService playerDataService, 
             IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView, CollectibleType> itemsViewLoader,
+            IViewLoader<RecipeComponentView> itemsViewLoader,
             IViewLoader<ItemView, string> rewardItemViewLoader, 
-            IViewLoader<RecipeItemView, string> recipeItemViewLoader, 
+            IViewLoader<RecipeItemView> recipeItemViewLoader, 
             IControllerResources controllerResources, CancellationToken token)
         {
             _rewardsViewLoader = rewardsViewLoader;
             _recipeItemViewLoader = recipeItemViewLoader;
+            _rewardItemViewLoader = rewardItemViewLoader;
             _controllerResources = controllerResources;
             _cancellationToken = token;
 
@@ -60,10 +62,10 @@ namespace Features.Core.ProductionSystem.Components
             
             foreach (var recipe in recipes)
             {
-                var recipeView = await _recipeItemViewLoader.Load(recipe.RecipeName, _controllerResources,
+                var recipeView = await _recipeItemViewLoader.Load(_controllerResources,
                     _cancellationToken, _recipesContainer);
                 
-                var recipeRewardItemView = await _recipeItemViewLoader.Load(recipe.RecipeName, _controllerResources,
+                var recipeRewardItemView = await _rewardItemViewLoader.Load(recipe.RecipeName, _controllerResources,
                     _cancellationToken, recipeView.RewardItemContainer);
 
                 foreach (var reward in recipe.Outcome)
