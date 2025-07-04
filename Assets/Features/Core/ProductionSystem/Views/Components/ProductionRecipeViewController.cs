@@ -4,9 +4,7 @@ using System.Threading;
 using Common.PlayerData;
 using Cysharp.Threading.Tasks;
 using Features.Core.Common.Views;
-using Features.Core.Placeables.Models;
 using Features.Core.ProductionSystem.Models;
-using Package.AssetProvider.ViewLoader.Infrastructure;
 using Package.Logger.Abstraction;
 using UnityEngine;
 using ZLogger;
@@ -23,31 +21,33 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform[] _plusSigns;
 
         private IPlayerDataService _playerDataService;
-        private IViewLoader<RecipeComponentView> _itemsViewLoader;
-        private IViewLoader<ItemView, string> _rewardItemViewLoader;
+        private Func<Transform, UniTask<RecipeComponentView>> _recipeComponentViewGetter;
+        private Func<string, Transform, UniTask<ItemView>> _rewardItemViewGetter;
 
         private List<RecipeComponentView> _spawnedViews = new();
         private ItemView _rewardItemView;
 
         public void Initialize(IPlayerDataService playerDataService,
-            IViewLoader<RecipeComponentView> itemsViewLoader,
-            IViewLoader<ItemView, string> rewardItemViewLoader)
+            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
+            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter)
         {
             _playerDataService = playerDataService;
-            _itemsViewLoader = itemsViewLoader;
-            _rewardItemViewLoader = rewardItemViewLoader;
+            _recipeComponentViewGetter = recipeComponentViewGetter;
+            _rewardItemViewGetter = rewardItemViewGetter;
         }
 
-        public async UniTask SetRecipe(ProductionRecipe recipe, ICollection<IDisposable> resources,
-            CancellationToken token)
+        public async UniTask SetRecipe(ProductionRecipe recipe, CancellationToken token)
         {
             Clear();
-            
+
             foreach (var recipeComponent in recipe.InComponents)
             {
+                token.ThrowIfCancellationRequested();
+
                 var itemType = recipeComponent.CollectibleType;
-                var itemView = await _itemsViewLoader.Load(resources, token,
-                    GetIngredientContainer());
+                var itemView = await _recipeComponentViewGetter.Invoke(GetIngredientContainer());
+
+                token.ThrowIfCancellationRequested();
 
                 itemView.SetText(
                     $"{_playerDataService.PlayerBalance.GetCollectibleAmount(itemType)} / {recipeComponent.Amout}");
@@ -58,8 +58,11 @@ namespace Features.Core.ProductionSystem.Components
                     _plusSigns[_spawnedViews.Count - 2].gameObject.SetActive(true);
             }
 
-            _rewardItemView =
-                await _rewardItemViewLoader.Load(recipe.RecipeName, resources, token, _rewardItemContainer);
+            token.ThrowIfCancellationRequested();
+
+            _rewardItemView = await _rewardItemViewGetter.Invoke(recipe.RecipeName, _rewardItemContainer);
+
+            token.ThrowIfCancellationRequested();
         }
 
         private Transform GetIngredientContainer()

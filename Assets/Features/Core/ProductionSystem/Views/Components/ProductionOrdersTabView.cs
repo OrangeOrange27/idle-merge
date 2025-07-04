@@ -4,10 +4,7 @@ using System.Threading;
 using Common.PlayerData;
 using Cysharp.Threading.Tasks;
 using Features.Core.Common.Views;
-using Features.Core.Placeables.Models;
 using Features.Core.ProductionSystem.Models;
-using Package.AssetProvider.ViewLoader.Infrastructure;
-using Package.ControllersTree.Abstractions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,11 +18,9 @@ namespace Features.Core.ProductionSystem.Components
         [SerializeField] private Transform _rewardsContainer;
         [SerializeField] private Transform _recipesContainer;
 
-        private IViewLoader<ItemView, ProductionRecipe.Reward> _rewardsViewLoader;
-        private IViewLoader<RecipeItemView> _recipeItemViewLoader;
-        private IViewLoader<ItemView, string> _rewardItemViewLoader;
-        private IControllerResources _controllerResources;
-        private CancellationToken _cancellationToken;
+        private Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> _rewardViewGetter;
+        private Func<Transform, UniTask<RecipeItemView>> _recipeItemViewGetter;
+        private Func<string, Transform, UniTask<ItemView>> _rewardItemViewGetter;
         
         private Dictionary<ProductionRecipe, RecipeItemView> _recipeToViewMap = new();
         private List<ItemView> _spawnedRewardItems = new();
@@ -33,25 +28,22 @@ namespace Features.Core.ProductionSystem.Components
         
         public event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
 
-        public void Initialize(IPlayerDataService playerDataService, 
-            IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView> itemsViewLoader,
-            IViewLoader<ItemView, string> rewardItemViewLoader, 
-            IViewLoader<RecipeItemView> recipeItemViewLoader, 
-            IControllerResources controllerResources, CancellationToken token)
+        public void Initialize(IPlayerDataService playerDataService,
+            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter,
+            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter)
         {
-            _rewardsViewLoader = rewardsViewLoader;
-            _recipeItemViewLoader = recipeItemViewLoader;
-            _rewardItemViewLoader = rewardItemViewLoader;
-            _controllerResources = controllerResources;
-            _cancellationToken = token;
-
+            _rewardViewGetter = rewardViewGetter;
+            _rewardItemViewGetter = rewardItemViewGetter;
+            _recipeItemViewGetter = recipeItemViewGetter;
+            
             _startProductionButton.onClick.AddListener(OnStartButtonPressed);
 
-            _recipeView.Initialize(playerDataService, itemsViewLoader, rewardItemViewLoader);
+            _recipeView.Initialize(playerDataService, recipeComponentViewGetter, rewardItemViewGetter);
         }
         
-        public async UniTask CreateRecipeViews(IEnumerable<ProductionRecipe> recipes)
+        public async UniTask CreateRecipeViews(IEnumerable<ProductionRecipe> recipes, CancellationToken token)
         {
             foreach (var recipeView in _recipeToViewMap.Values)
             {
@@ -62,38 +54,36 @@ namespace Features.Core.ProductionSystem.Components
             
             foreach (var recipe in recipes)
             {
-                var recipeView = await _recipeItemViewLoader.Load(_controllerResources,
-                    _cancellationToken, _recipesContainer);
+                var recipeView = await _recipeItemViewGetter.Invoke(_recipesContainer);
                 
-                var recipeRewardItemView = await _rewardItemViewLoader.Load(recipe.RecipeName, _controllerResources,
-                    _cancellationToken, recipeView.RewardItemContainer);
+                var recipeRewardItemView = await _rewardItemViewGetter.Invoke(recipe.RecipeName, recipeView.RewardItemContainer);
 
                 foreach (var reward in recipe.Outcome)
                 {
-                    var rewardView = await _rewardsViewLoader.Load(reward, _controllerResources, _cancellationToken,
-                        recipeView.RewardsContainer);
+                    var rewardView = await _rewardViewGetter.Invoke(reward, recipeView.RewardsContainer);
                 }
 
-                recipeView.OnClick += () => SetRecipe(recipe).Forget();
+                recipeView.OnClick += () => SetRecipe(recipe, token).Forget();
                 
                 _recipeToViewMap.Add(recipe, recipeView);
             }
         }
 
-        private async UniTask SetRecipe(ProductionRecipe recipe)
+        private async UniTask SetRecipe(ProductionRecipe recipe, CancellationToken token)
         {
             _selectedRecipe = recipe;
-            await UniTask.WhenAll(SetRecipeRewards(recipe),
-                _recipeView.SetRecipe(recipe, _controllerResources, _cancellationToken));
+            await UniTask.WhenAll(SetRecipeRewards(recipe, token),
+                _recipeView.SetRecipe(recipe, token));
         }
 
-        private async UniTask SetRecipeRewards(ProductionRecipe recipe)
+        private async UniTask SetRecipeRewards(ProductionRecipe recipe, CancellationToken token)
         {
             ClearRewardItems();
             foreach (var reward in recipe.Outcome)
             {
-                var rewardView = await _rewardsViewLoader.Load(reward, _controllerResources, _cancellationToken,
-                    _rewardsContainer);
+                token.ThrowIfCancellationRequested();
+                var rewardView = await _rewardViewGetter.Invoke(reward, _rewardsContainer);
+                token.ThrowIfCancellationRequested();
                 
                 _spawnedRewardItems.Add(rewardView);
             }

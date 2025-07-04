@@ -1,22 +1,23 @@
-using System.Threading;
+using System;
 using Common.PlayerData;
 using Common.UI;
+using Cysharp.Threading.Tasks;
 using Features.Core.Common.Views;
 using Features.Core.ProductionSystem.Components;
 using Features.Core.ProductionSystem.Models;
-using Package.AssetProvider.ViewLoader.Infrastructure;
-using Package.ControllersTree.Abstractions;
+using UnityEngine;
 
 namespace Features.Core.ProductionSystem
 {
     public interface IProductionView : IView
     {
+        event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
+        
         void Initialize(IPlayerDataService playerDataService,
-            IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView> itemsViewLoader,
-            IViewLoader<ItemView, string> rewardItemViewLoader,
-            IViewLoader<RecipeItemView> recipeItemViewLoader,
-            IViewLoader<IngredientItemView> ingredientItemViewLoader,
-            IControllerResources controllerResources, CancellationToken token);
+            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter,
+            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter,
+            Func<Transform, UniTask<IngredientItemView>> ingredientItemViewGetter);
     }
 }

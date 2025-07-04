@@ -13,7 +13,7 @@ namespace Features.Core.ProductionSystem
     {
         private readonly IPlayerDataService _playerDataService;
         private readonly IViewLoader<ItemView, ProductionRecipe.Reward> _rewardsViewLoader;
-        private readonly IViewLoader<RecipeComponentView> _itemsViewLoader;
+        private readonly IViewLoader<RecipeComponentView> _recipeComponentViewLoader;
         private readonly IViewLoader<ItemView, string> _rewardItemViewLoader;
         private readonly IViewLoader<RecipeItemView> _recipeItemViewLoader;
         private readonly IViewLoader<IngredientItemView> _ingredientItemViewLoader;
@@ -21,14 +21,14 @@ namespace Features.Core.ProductionSystem
         public StartProductionPopupState(ISharedViewLoader<IProductionView> sharedViewLoader,
             IPlayerDataService playerDataService,
             IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView> itemsViewLoader,
+            IViewLoader<RecipeComponentView> recipeComponentViewLoader,
             IViewLoader<ItemView, string> rewardItemViewLoader,
             IViewLoader<RecipeItemView> recipeItemViewLoader,
             IViewLoader<IngredientItemView> ingredientItemViewLoader) : base(sharedViewLoader)
         {
             _playerDataService = playerDataService;
             _rewardsViewLoader = rewardsViewLoader;
-            _itemsViewLoader = itemsViewLoader;
+            _recipeComponentViewLoader = recipeComponentViewLoader;
             _rewardItemViewLoader = rewardItemViewLoader;
             _recipeItemViewLoader = recipeItemViewLoader;
             _ingredientItemViewLoader = ingredientItemViewLoader;
@@ -37,16 +37,31 @@ namespace Features.Core.ProductionSystem
         protected override async UniTask SetInitialViewState(StartProductionPopupPayload payload, IProductionView view,
             CancellationToken token)
         {
-            view.Initialize(_playerDataService, _rewardsViewLoader, _itemsViewLoader, _rewardItemViewLoader,
-                _recipeItemViewLoader, _ingredientItemViewLoader, ControllerResources, token);
+            view.Initialize(_playerDataService,
+                async (key, container) =>
+                    await _rewardsViewLoader.Load(key, ControllerResources, token, container),
+                async (key, container) =>
+                    await _rewardItemViewLoader.Load(key, ControllerResources, token, container),
+                async (container) =>
+                    await _recipeComponentViewLoader.Load(ControllerResources, token, container),
+                async (container) =>
+                    await _recipeItemViewLoader.Load(ControllerResources, token, container),
+                async (container) =>
+                    await _ingredientItemViewLoader.Load(ControllerResources, token, container)
+            );
         }
 
         protected override void SubscribeOnInput(IProductionView view)
         {
-            throw new System.NotImplementedException();
+            view.OnStartProductionButtonPressedEvent += StartProduction;
         }
 
         protected override void UnsubscribeOnInput(IProductionView view)
+        {
+            view.OnStartProductionButtonPressedEvent -= StartProduction;
+        }
+
+        private void StartProduction(ProductionRecipe recipe)
         {
             throw new System.NotImplementedException();
         }

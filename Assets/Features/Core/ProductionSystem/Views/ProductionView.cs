@@ -5,8 +5,6 @@ using Cysharp.Threading.Tasks;
 using Features.Core.Common.Views;
 using Features.Core.ProductionSystem.Components;
 using Features.Core.ProductionSystem.Models;
-using Package.AssetProvider.ViewLoader.Infrastructure;
-using Package.ControllersTree.Abstractions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,26 +25,6 @@ namespace Features.Core.ProductionSystem
         public event Action OnCloseButtonPressedEvent;
         public event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
 
-        public void Initialize(IPlayerDataService playerDataService, 
-            IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
-            IViewLoader<RecipeComponentView> itemsViewLoader,
-            IViewLoader<ItemView, string> rewardItemViewLoader, 
-            IViewLoader<RecipeItemView> recipeItemViewLoader, 
-            IViewLoader<IngredientItemView> ingredientItemViewLoader, 
-            IControllerResources controllerResources, CancellationToken token)
-        {
-            _closeButton.onClick.AddListener(OnCloseButtonPressed);
-            _ordersButton.onClick.AddListener(() => SwitchTab(TabType.Orders));
-            _ingredientsButton.onClick.AddListener(() => SwitchTab(TabType.Ingredients));
-
-            _ordersTab.Initialize(playerDataService, rewardsViewLoader, itemsViewLoader, rewardItemViewLoader,
-                recipeItemViewLoader, controllerResources, token);
-            
-            _ordersTab.OnStartProductionButtonPressedEvent += OnStartProductionButtonPressed;
-
-            _ingredientsTab.Initialize(ingredientItemViewLoader, playerDataService, controllerResources, token);
-        }
-
         public async UniTask ShowAsync(CancellationToken cancellationToken)
         {
             gameObject.SetActive(true);
@@ -55,6 +33,25 @@ namespace Features.Core.ProductionSystem
         public async UniTask HideAsync(CancellationToken cancellationToken)
         {
             gameObject.SetActive(false);
+        }
+
+        public void Initialize(IPlayerDataService playerDataService, 
+            Func<ProductionRecipe.Reward, Transform, UniTask<ItemView>> rewardViewGetter, 
+            Func<string, Transform, UniTask<ItemView>> rewardItemViewGetter,
+            Func<Transform, UniTask<RecipeComponentView>> recipeComponentViewGetter,
+            Func<Transform, UniTask<RecipeItemView>> recipeItemViewGetter, 
+            Func<Transform, UniTask<IngredientItemView>> ingredientItemViewGetter)
+        {
+            _closeButton.onClick.AddListener(OnCloseButtonPressed);
+            _ordersButton.onClick.AddListener(() => SwitchTab(TabType.Orders));
+            _ingredientsButton.onClick.AddListener(() => SwitchTab(TabType.Ingredients));
+
+            _ordersTab.Initialize(playerDataService, rewardViewGetter, rewardItemViewGetter, recipeComponentViewGetter,
+                recipeItemViewGetter);
+            
+            _ordersTab.OnStartProductionButtonPressedEvent += OnStartProductionButtonPressed;
+
+            _ingredientsTab.Initialize(ingredientItemViewGetter, playerDataService);
         }
 
         private void OnCloseButtonPressed()
