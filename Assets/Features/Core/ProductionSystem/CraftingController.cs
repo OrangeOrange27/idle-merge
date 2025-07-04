@@ -77,10 +77,11 @@ namespace Features.Core.ProductionSystem
             var outcome = productionBuildingModel.SelectedRecipe.Outcome;
             var outputObjects = new List<MergeableModel>();
 
-            foreach (var mergeableType in outcome)
+            foreach (var reward in outcome)
             {
                 var mergeable =
-                    _placeablesFactory.Create(PlaceableType.MergeableObject, mergeableType) as MergeableModel;
+                    _placeablesFactory.Create(PlaceableType.MergeableObject, reward.MergeableType) as MergeableModel;
+                mergeable.Stage.Value = reward.Tier;
                 outputObjects.Add(mergeable);
             }
             

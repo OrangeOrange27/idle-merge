@@ -13,10 +13,16 @@ namespace Features.Core.ProductionSystem.Models
             public CollectibleType CollectibleType { get; set; }
             public int Amout { get; set; }
         }
+        
+        public class Reward
+        {
+            public MergeableType MergeableType { get; set; }
+            public int Tier { get; set; }
+        }
 
         public string RecipeName;
         public List<Component> InComponents = new();
-        public List<MergeableType> Outcome = new();
+        public List<Reward> Outcome = new();
         public int CraftingTimeInSeconds { get; set; }
     }
 }
