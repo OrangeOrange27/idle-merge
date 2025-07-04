@@ -33,6 +33,7 @@ namespace Features.Core.ProductionSystem
             IViewLoader<RecipeComponentView, CollectibleType> itemsViewLoader,
             IViewLoader<ItemView, string> rewardItemViewLoader, 
             IViewLoader<RecipeItemView, string> recipeItemViewLoader, 
+            IViewLoader<IngredientItemView> ingredientItemViewLoader, 
             IControllerResources controllerResources, CancellationToken token)
         {
             _closeButton.onClick.AddListener(OnCloseButtonPressed);
@@ -43,6 +44,8 @@ namespace Features.Core.ProductionSystem
                 recipeItemViewLoader, controllerResources, token);
             
             _ordersTab.OnStartProductionButtonPressedEvent += OnStartProductionButtonPressed;
+
+            _ingredientsTab.Initialize(ingredientItemViewLoader, playerDataService, controllerResources, token);
         }
 
         public async UniTask ShowAsync(CancellationToken cancellationToken)
