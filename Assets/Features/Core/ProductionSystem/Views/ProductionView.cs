@@ -26,7 +26,7 @@ namespace Features.Core.ProductionSystem
         [SerializeField] private ProductionIngredientsTabView _ingredientsTab;
         
         public event Action OnCloseButtonPressedEvent;
-        public event Action OnStartButtonPressedEvent;
+        public event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
 
         public void Initialize(IPlayerDataService playerDataService, 
             IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
@@ -42,7 +42,7 @@ namespace Features.Core.ProductionSystem
             _ordersTab.Initialize(playerDataService, rewardsViewLoader, itemsViewLoader, rewardItemViewLoader,
                 recipeItemViewLoader, controllerResources, token);
             
-            _ordersTab.OnStartButtonPressedEvent += OnStartButtonPressed;
+            _ordersTab.OnStartProductionButtonPressedEvent += OnStartProductionButtonPressed;
         }
 
         public async UniTask ShowAsync(CancellationToken cancellationToken)
@@ -60,9 +60,9 @@ namespace Features.Core.ProductionSystem
             OnCloseButtonPressedEvent?.Invoke();
         }
         
-        private void OnStartButtonPressed()
+        private void OnStartProductionButtonPressed(ProductionRecipe recipe)
         {
-            OnStartButtonPressedEvent?.Invoke();
+            OnStartProductionButtonPressedEvent?.Invoke(recipe);
         }
 
         private void SwitchTab(TabType tabType)
@@ -77,7 +77,7 @@ namespace Features.Core.ProductionSystem
             _ordersButton.onClick.RemoveAllListeners();
             _ingredientsButton.onClick.RemoveAllListeners();
             
-            _ordersTab.OnStartButtonPressedEvent -= OnStartButtonPressed;
+            _ordersTab.OnStartProductionButtonPressedEvent -= OnStartProductionButtonPressed;
         }
 
         private enum TabType

@@ -28,8 +28,9 @@ namespace Features.Core.ProductionSystem.Components
         
         private Dictionary<ProductionRecipe, RecipeItemView> _recipeToViewMap = new();
         private List<ItemView> _spawnedRewardItems = new();
+        private ProductionRecipe _selectedRecipe;
         
-        public event Action OnStartButtonPressedEvent;
+        public event Action<ProductionRecipe> OnStartProductionButtonPressedEvent;
 
         public void Initialize(IPlayerDataService playerDataService, 
             IViewLoader<ItemView, ProductionRecipe.Reward> rewardsViewLoader,
@@ -79,6 +80,7 @@ namespace Features.Core.ProductionSystem.Components
 
         private async UniTask SetRecipe(ProductionRecipe recipe)
         {
+            _selectedRecipe = recipe;
             await UniTask.WhenAll(SetRecipeRewards(recipe),
                 _recipeView.SetRecipe(recipe, _controllerResources, _cancellationToken));
         }
@@ -97,7 +99,7 @@ namespace Features.Core.ProductionSystem.Components
         
         private void OnStartButtonPressed()
         {
-            OnStartButtonPressedEvent?.Invoke();
+            OnStartProductionButtonPressedEvent?.Invoke(_selectedRecipe);
         }
 
         private void ClearRewardItems()
