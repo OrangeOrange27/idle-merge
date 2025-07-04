@@ -16,7 +16,7 @@ namespace Features.Core.ProductionSystem
         [SerializeField] private Button _ingredientsButton;
         
         [SerializeField] private TMP_Text _title;
-        [SerializeField] private ProductionRecipeView _recipeView;
+        [SerializeField] private ProductionRecipeViewController _recipeView;
         
         public event Action OnCloseButtonPressedEvent;
 
