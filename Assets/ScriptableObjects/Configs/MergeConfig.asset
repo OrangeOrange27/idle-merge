@@ -17,7 +17,7 @@ MonoBehaviour:
     - RequiredType: 1
       RequiredStage: 1
       ResultObject:
-        ObjectType: 1
+        PlaceableType: 1
         MergeableType: 1
         Stage: 2
         CollectibleType: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
     - RequiredType: 1
       RequiredStage: 2
       ResultObject:
-        ObjectType: 1
+        PlaceableType: 1
         MergeableType: 1
         Stage: 3
         CollectibleType: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     - RequiredType: 1
       RequiredStage: 3
       ResultObject:
-        ObjectType: 3
+        PlaceableType: 3
         MergeableType: 0
         Stage: 0
         CollectibleType: 0
