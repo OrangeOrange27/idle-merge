@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Features.Core.GameAreaInitializationSystem.Models;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables.Editor;
+using Features.Core.PlacementSystem;
 using Features.Gameplay.View;
 using Microsoft.Extensions.Logging;
 using Package.Logger.Abstraction;
@@ -18,13 +19,15 @@ namespace Features.Core.GameAreaInitializationSystem
         
         private readonly Func<IGameView> _gameViewGetter;
         private readonly GameAreaConfig _gameAreaConfig;
+        private readonly IPlacementSystem _placementSystem;
         
         private IGridManager _gridManager;
 
-        public GameAreaInitializer(Func<IGameView> gameViewGetter, GameAreaConfig gameAreaConfig)
+        public GameAreaInitializer(Func<IGameView> gameViewGetter, GameAreaConfig gameAreaConfig, IPlacementSystem placementSystem)
         {
             _gameViewGetter = gameViewGetter;
             _gameAreaConfig = gameAreaConfig;
+            _placementSystem = placementSystem;
         }
         
         public async UniTask InitializeGameArea(GameContext gameContext)
@@ -36,13 +39,14 @@ namespace Features.Core.GameAreaInitializationSystem
 
             foreach (var placeable in _gameAreaConfig.Placeables)
             {
-                var tile = _gridManager.GetTile(placeable.Key);
-                if (tile == null)
+                var result = _placementSystem.TryPlaceOnCell(placeable.Value, placeable.Key);
+
+                if (!result)
                 {
-                    Logger.ZLogError($"Tile {placeable.Key} does not exist");
+                    Logger.LogError($"Failed to place placeable on tile: {placeable.Key}");
                     continue;
                 }
-                placeable.Value.OccupiedTiles.Add(tile);
+                
                 gameContext.Placeables.Add(placeable.Value);
             }
         }

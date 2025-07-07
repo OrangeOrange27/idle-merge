@@ -71,9 +71,9 @@ namespace Features.Gameplay.States
 
             var gameContext = new GameContext(); //todo: get valid context
             
+            resources.Attach(_gameplayController.Initialize(gameContext)); 
             await _gameAreaInitializer.InitializeGameArea(gameContext);
             
-            resources.Attach(_gameplayController.Initialize(gameContext)); 
             await _placeablesVisualSystem.SpawnInitPlaceablesViews(_gameplayController.GameContext, resources, token);
             await _placeablesVisualSystem.InitializePlaceablesViews();
             
