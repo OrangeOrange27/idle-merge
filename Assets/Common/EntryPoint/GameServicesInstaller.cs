@@ -11,6 +11,7 @@ using Common.Encoding.Implementation;
 using Common.Encoding.Infrastructure;
 using Common.EntryPoint.Initialize;
 using Common.GlobalServiceLocator;
+using Common.Inputs;
 using Common.JsonConverters;
 using Common.PlayerData;
 using Common.Serialization;
@@ -76,6 +77,7 @@ namespace Common.EntryPoint
         {
             builder.RegisterSerialization();
             RegisterDataProvider(builder);
+            RegisterInputs(builder);
             builder.RegisterFactory<Type, ILogger>(_ => (type) => LogManager.GetLogger(type.Name), Lifetime.Singleton);
 
             builder.Register<IAssetProviderAnalyticsCallbacks, EmptyAssetProviderAnalyticsCallbacks>(
@@ -128,6 +130,15 @@ namespace Common.EntryPoint
             builder.Register<IEncoder, GenericEncoder>(Lifetime.Singleton);
 #else
             builder.Register<IEncoder, CryptEncoder>(Lifetime.Singleton);
+#endif
+        }
+        
+        private void RegisterInputs(IContainerBuilder builder)
+        {
+#if UNITY_EDITOR
+            builder.Register<DesktopInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
+#else
+            builder.Register<MobileInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
 #endif
         }
     }
