@@ -1,4 +1,5 @@
 using System;
+using Features.Core;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -6,8 +7,10 @@ namespace Common.Inputs
 {
     public class DesktopInputManager : IFixedTickable, IInputManager
     {
-        private const float DragThreshold = 10f;
+        private const float DragThreshold = 50f;
         private const float HoldDelay = 0.2f;
+
+        public GameplayReactiveProperty<Vector3> InputPosition { get; } = new();
         
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
@@ -19,20 +22,20 @@ namespace Common.Inputs
         private bool _isDragging;
         private float _holdStartTime;
         private Vector3 _inputStartPosition;
-        private Vector3 _lastFramePosition;
 
         public void FixedTick()
         {
             if (Input.GetMouseButtonDown(0))
             {
                 _inputStartPosition = Input.mousePosition;
-                _lastFramePosition = _inputStartPosition;
                 _holdStartTime = Time.time;
                 _isHolding = true;
             }
 
             if (Input.GetMouseButton(0))
             {
+                InputPosition.Value = Input.mousePosition;
+                
                 if (_isHolding && Time.time - _holdStartTime >= HoldDelay)
                 {
                     OnStartHold?.Invoke(_inputStartPosition);

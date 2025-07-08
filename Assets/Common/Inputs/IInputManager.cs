@@ -1,10 +1,13 @@
 using System;
+using Features.Core;
 using UnityEngine;
 
 namespace Common.Inputs
 {
     public interface IInputManager
     {
+        public GameplayReactiveProperty<Vector3> InputPosition { get; }
+        
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
         public event Action<Vector3> OnEndHold;

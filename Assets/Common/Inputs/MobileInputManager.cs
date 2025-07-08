@@ -1,4 +1,5 @@
 using System;
+using Features.Core;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -9,6 +10,7 @@ namespace Common.Inputs
         private const float DragThreshold = 10f;
         private const float HoldDelay = 0.2f;
 
+        public GameplayReactiveProperty<Vector3> InputPosition { get; } = new();
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
         public event Action<Vector3> OnEndHold;
@@ -29,6 +31,8 @@ namespace Common.Inputs
             var touch = GetPrimaryTouch();
             if (touch.fingerId != _activeFingerId && _activeFingerId != -1)
                 return;
+            
+            InputPosition.Value = touch.position;
 
             switch (touch.phase)
             {
