@@ -27,8 +27,16 @@ namespace Features.Core.Placeables
             {
                 return collectibleType switch
                 {
-                    CollectibleType.Egg => "EggCollectible",
-                    CollectibleType.Carrot => "CarrotCollectible",
+                    CollectibleType.Fish => "FishCollectible",
+                    CollectibleType.Herbs => "HerbsCollectible",
+                    CollectibleType.Fur => "FurCollectible",
+                    CollectibleType.Wood =>"WoodCollectible",
+                    CollectibleType.Feather => "FeatherCollectible",
+                    CollectibleType.Essence => "EssenceCollectible",
+                    CollectibleType.Dust => "DustCollectible",
+                    CollectibleType.ToyParts => "ToyPartsCollectible",
+                    CollectibleType.Milk => "MilkCollectible",
+                    CollectibleType.Crystal => "CrystalCollectible",
                     _ => throw new ArgumentOutOfRangeException(nameof(collectibleType), collectibleType, null)
                 };
             });
@@ -36,8 +44,16 @@ namespace Features.Core.Placeables
             {
                 return productionType switch
                 {
-                    ProductionType.Egg => "EggProducer",
-                    ProductionType.Carrot => "CarrotProducer",
+                    ProductionType.Fish => "FishProducer",
+                    ProductionType.Herbs => "HerbsProducer",
+                    ProductionType.Fur => "FurProducer",
+                    ProductionType.Wood => "WoodProducer",
+                    ProductionType.Feather => "FeatherProducer",
+                    ProductionType.Essence => "EssenceProducer",
+                    ProductionType.Dust => "DustProducer",
+                    ProductionType.ToyParts => "ToyPartsProducer",
+                    ProductionType.Milk => "MilkProducer",
+                    ProductionType.Crystal => "CrystalProducer",
                     _ => throw new ArgumentOutOfRangeException(nameof(productionType), productionType, null)
                 };
             });

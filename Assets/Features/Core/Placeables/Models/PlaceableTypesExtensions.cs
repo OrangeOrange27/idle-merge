@@ -8,11 +8,16 @@ namespace Features.Core.Placeables.Models
         {
             return collectibleType switch
             {
-                CollectibleType.None => ProductionType.None,
-                CollectibleType.Wheat => ProductionType.Wheat,
+                CollectibleType.Fish => ProductionType.Fish,
+                CollectibleType.Herbs => ProductionType.Herbs,
+                CollectibleType.Fur => ProductionType.Fur,
+                CollectibleType.Wood => ProductionType.Wood,
+                CollectibleType.Feather => ProductionType.Feather,
+                CollectibleType.Essence => ProductionType.Essence,
+                CollectibleType.Dust => ProductionType.Dust,
+                CollectibleType.ToyParts => ProductionType.ToyParts,
+                CollectibleType.Crystal => ProductionType.Crystal,
                 CollectibleType.Milk => ProductionType.Milk,
-                CollectibleType.Egg => ProductionType.Egg,
-                CollectibleType.Carrot => ProductionType.Carrot,
                 _ => throw new ArgumentOutOfRangeException(nameof(collectibleType), collectibleType, null)
             };
         }
@@ -21,11 +26,16 @@ namespace Features.Core.Placeables.Models
         {
             return collectibleType switch
             {
-                ProductionType.None => CollectibleType.None,
-                ProductionType.Wheat => CollectibleType.Wheat,
+                ProductionType.Fish => CollectibleType.Fish,
+                ProductionType.Herbs => CollectibleType.Herbs,
+                ProductionType.Fur => CollectibleType.Fur,
+                ProductionType.Wood => CollectibleType.Wood,
+                ProductionType.Feather => CollectibleType.Feather,
+                ProductionType.Essence => CollectibleType.Essence,
+                ProductionType.Dust => CollectibleType.Dust,
+                ProductionType.ToyParts => CollectibleType.ToyParts,
+                ProductionType.Crystal => CollectibleType.Crystal,
                 ProductionType.Milk => CollectibleType.Milk,
-                ProductionType.Egg => CollectibleType.Egg,
-                ProductionType.Carrot => CollectibleType.Carrot,
                 _ => throw new ArgumentOutOfRangeException(nameof(collectibleType), collectibleType, null)
             };
         }
