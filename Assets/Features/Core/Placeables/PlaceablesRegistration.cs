@@ -16,6 +16,7 @@ namespace Features.Core.Placeables
             builder.RegisterViewLoader<PlaceableView, IPlaceableView, string>(key => key);
             builder.RegisterViewLoader<MergeableView, IPlaceableView, MergeableType>(mergeableType =>
             {
+                //TODO:  add real mergeable types
                 return mergeableType switch
                 {
                     MergeableType.Circle => "Circle",
