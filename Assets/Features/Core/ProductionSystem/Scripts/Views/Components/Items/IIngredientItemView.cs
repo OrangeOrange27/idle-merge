@@ -3,9 +3,8 @@ using Features.Core.Placeables.Models;
 
 namespace Features.Core.ProductionSystem.Components
 {
-    public interface IIngredientItemView : IItemView
+    public interface IIngredientItemView : IItemView, ICollectibleItemView
     {
-        void SetIngredientType(CollectibleType collectibleType);
         void SetText(string text);
     }
 }

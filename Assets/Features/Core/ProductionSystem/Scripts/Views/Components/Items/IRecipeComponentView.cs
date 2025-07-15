@@ -7,7 +7,6 @@ namespace Features.Core.ProductionSystem.Components
     public interface IRecipeComponentView : IItemView
     {
         event Action OnHintButtonPressedEvent;
-        void SetCollectibleType(CollectibleType collectibleType);
         void SetText(string text);
     }
 }

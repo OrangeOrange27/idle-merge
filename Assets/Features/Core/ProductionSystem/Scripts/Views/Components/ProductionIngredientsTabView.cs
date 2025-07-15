@@ -41,7 +41,7 @@ namespace Features.Core.ProductionSystem.Components
                 var amount = _playerDataService.PlayerBalance.GetCollectibleAmount(type);
 
                 itemView.SetText(amount.ToString());
-                itemView.SetIngredientType(type);
+                itemView.SetType(type);
 
                 _spawnedIngredientItemViews.Add(itemView);
             }

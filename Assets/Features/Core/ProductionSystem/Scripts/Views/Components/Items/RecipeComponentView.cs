@@ -7,17 +7,12 @@ using UnityEngine.UI;
 
 namespace Features.Core.ProductionSystem.Components
 {
-    public class RecipeComponentView : ItemView, IRecipeComponentView
+    public class RecipeComponentView : CollectibleItemView, IRecipeComponentView
     {
         [SerializeField] private Button _hintButton;
         [SerializeField] private TMP_Text _text;
         
         public event Action OnHintButtonPressedEvent;
-
-        public void SetCollectibleType(CollectibleType collectibleType)
-        {
-            throw new NotImplementedException();
-        }
 
         public void SetText(string text)
         {
