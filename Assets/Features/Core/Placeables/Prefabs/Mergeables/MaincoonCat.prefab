@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512791830562231474, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Name
-      value: MergeableMaincoonCat
+      value: MaincoonCat
       objectReference: {fileID: 0}
     - target: {fileID: 2492220863390617314, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_IsActive
@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 37a3f744e0f0e41a480553cb14592d99, type: 3}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5658131330144272460, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_IsActive
       value: 0

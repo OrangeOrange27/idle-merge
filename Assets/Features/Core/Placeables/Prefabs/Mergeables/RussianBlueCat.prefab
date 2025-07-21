@@ -10,8 +10,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512791830562231474, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Name
-      value: MergeableBengalCat Variant
+      value: RussianBlueCat
       objectReference: {fileID: 0}
+    - target: {fileID: 2492220863390617314, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515975842760375890, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 145e0248f8e9d4ae1b1c2274efbfd139, type: 3}
     - target: {fileID: 2923590073050047205, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -50,6 +58,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2923590073050047205, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 79b7ba630243b4452b38c0f96049322d, type: 3}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5658131330144272460, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963262611737384804, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08bb799da90414f88b8933f20f041165, type: 3}
+    - target: {fileID: 7027434269858400532, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

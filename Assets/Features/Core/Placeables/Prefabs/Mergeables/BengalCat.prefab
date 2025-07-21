@@ -10,16 +10,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512791830562231474, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Name
-      value: MergeableMaincoonCat
+      value: BengalCat
       objectReference: {fileID: 0}
-    - target: {fileID: 2492220863390617314, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2515975842760375890, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cc7209cb6d2c8494b83536cea336055a, type: 3}
     - target: {fileID: 2923590073050047205, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -61,20 +53,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 37a3f744e0f0e41a480553cb14592d99, type: 3}
-    - target: {fileID: 5658131330144272460, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Size.x
+      value: 10.810547
       objectReference: {fileID: 0}
-    - target: {fileID: 5963262611737384804, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_Size.y
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2e372f7beca354e89b80eb57bef6fb34, type: 3}
-    - target: {fileID: 7027434269858400532, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      objectReference: {fileID: 21300000, guid: febd9ace2fd5542ebbd9955966f0818a, type: 3}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
