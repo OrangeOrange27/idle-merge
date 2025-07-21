@@ -16,11 +16,25 @@ namespace Features.Core.Placeables
             builder.RegisterViewLoader<PlaceableView, IPlaceableView, string>(key => key);
             builder.RegisterViewLoader<MergeableView, IPlaceableView, MergeableType>(mergeableType =>
             {
-                //TODO:  add real mergeable types
                 return mergeableType switch
                 {
                     MergeableType.Circle => "Circle",
                     MergeableType.Square => "Square",
+                    
+                    MergeableType.Coin => "Coin",
+                    MergeableType.Gem => "Gem",
+                    MergeableType.Energy => "Energy",
+                    MergeableType.BengalCat => "BengalCat",
+                    MergeableType.MaineCoonCat => "MaineCoonCat",
+                    MergeableType.RagdollCat => "RagdollCat",
+                    MergeableType.SphynxCat => "SphynxCat",
+                    MergeableType.BritishShorthairCat => "BritishShorthairCat",
+                    MergeableType.ScottishFoldCat => "ScottishFoldCat",
+                    MergeableType.AbyssinianCat => "AbyssinianCat",
+                    MergeableType.RussianBlueCat => "RussianBlueCat",
+                    MergeableType.TabbyCat => "TabbyCat",
+                    MergeableType.SiameseCat => "SiameseCat",
+                    MergeableType.PersianCat => "PersianCat",
                     _ => throw new ArgumentOutOfRangeException(nameof(mergeableType), mergeableType, null)
                 };
             });

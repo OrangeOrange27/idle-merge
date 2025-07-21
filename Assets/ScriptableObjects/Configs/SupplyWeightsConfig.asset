@@ -15,14 +15,14 @@ MonoBehaviour:
   SupplyWeightsConfig:
     WeightsArray:
     - MergeableObject:
-        MergeableType: 1
+        MergeableType: 4
         Stage: 1
       Weight: 1
     - MergeableObject:
-        MergeableType: 1
+        MergeableType: 4
         Stage: 2
       Weight: 0.33
     - MergeableObject:
-        MergeableType: 1
+        MergeableType: 4
         Stage: 3
       Weight: 0.11

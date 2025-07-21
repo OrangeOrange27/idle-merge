@@ -22,8 +22,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1522cb969377044f690f3d5fb185c71d
+    m_Address: SiameseCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21f54d05f4c4c42fb9a6f7edb5d98bd8
+    m_Address: AbyssinianCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4b2eb7eb31e7844fa82ea1f50d22e14e
     m_Address: ProductionBuilding
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a3e835c2ca3749c3b13827214635913
+    m_Address: BritishShorthairCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77f8bae750d0844199fc3a967fe28747
+    m_Address: RussianBlueCat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -32,8 +52,43 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97bb7956c070a43a8b2acabaaadd3e06
+    m_Address: MaineCoonCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e74b7652f1555945a0a8c63abcd5b85
     m_Address: Circle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f6ff4e1a80f0443b900350d19b31359
+    m_Address: SphynxCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fc480bfa1c6448088199ca3c23da944
+    m_Address: TabbyCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9c32eb18d8bf4cbe9015ae28bed856a
+    m_Address: RagdollCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c2ac94cb08b8a4b82a90f3f7c31391ff
+    m_Address: BengalCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8168e903e2454af5a186292835fe9b1
+    m_Address: ScottishFoldCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d316d3d8f2d664a38a496b72166c241e
+    m_Address: PersianCat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
