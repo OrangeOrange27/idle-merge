@@ -12,6 +12,8 @@ namespace Common.Inputs
 
         public GameplayReactiveProperty<Vector3> InputPosition { get; } = new();
         
+        public event Action<Vector3> OnInputStart;
+        public event Action<Vector3> OnInputEnd;
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
         public event Action<Vector3> OnEndHold;
@@ -30,6 +32,8 @@ namespace Common.Inputs
                 _inputStartPosition = Input.mousePosition;
                 _holdStartTime = Time.time;
                 _isHolding = true;
+                
+                OnInputStart?.Invoke(_inputStartPosition);
             }
 
             if (Input.GetMouseButton(0))
@@ -66,6 +70,8 @@ namespace Common.Inputs
                 {
                     OnEndHold?.Invoke(Input.mousePosition);
                 }
+                
+                OnInputEnd?.Invoke(Input.mousePosition);
 
                 ResetInputState();
             }

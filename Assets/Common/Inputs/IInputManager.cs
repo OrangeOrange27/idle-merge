@@ -8,6 +8,8 @@ namespace Common.Inputs
     {
         public GameplayReactiveProperty<Vector3> InputPosition { get; }
         
+        public event Action<Vector3> OnInputStart;
+        public event Action<Vector3> OnInputEnd;
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
         public event Action<Vector3> OnEndHold;

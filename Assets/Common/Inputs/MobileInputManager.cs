@@ -11,6 +11,9 @@ namespace Common.Inputs
         private const float HoldDelay = 0.2f;
 
         public GameplayReactiveProperty<Vector3> InputPosition { get; } = new();
+        
+        public event Action<Vector3> OnInputStart;
+        public event Action<Vector3> OnInputEnd;
         public event Action<Vector3> OnClick;
         public event Action<Vector3> OnStartHold;
         public event Action<Vector3> OnEndHold;
@@ -33,6 +36,8 @@ namespace Common.Inputs
                 return;
             
             InputPosition.Value = touch.position;
+            
+            OnInputStart?.Invoke(InputPosition.Value);
 
             switch (touch.phase)
             {
@@ -76,6 +81,8 @@ namespace Common.Inputs
                     {
                         OnEndHold?.Invoke(touch.position);
                     }
+                    
+                    OnInputEnd?.Invoke(touch.position);
 
                     ResetInputState();
                     break;
