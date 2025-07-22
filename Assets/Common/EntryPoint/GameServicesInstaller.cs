@@ -51,8 +51,6 @@ namespace Common.EntryPoint
 
         [SerializeField] private LifetimeScope[] _compositeScopes;
         [SerializeField] private SplashSceneView _splashSceneView;
-        [SerializeField] private SupplyWeightsConfigProvider supplyWeightsConfigProvider;
-        [SerializeField] private MergesConfigProvider _mergesConfigProvider;
         [SerializeField] private ProductionConfigProvider _productionConfigProvider;
         [SerializeField] private RecycleConfigProvider _recycleConfigProvider;
         [SerializeField] private GameAreaConfigProvider _gameAreaConfigProvider;
@@ -114,8 +112,8 @@ namespace Common.EntryPoint
         private void RegisterSystems(IContainerBuilder builder)
         {
             builder.RegisterPlaceables();
-            builder.RegisterMergeSystem(_mergesConfigProvider);
-            builder.RegisterSupplySystem(supplyWeightsConfigProvider);
+            builder.RegisterMergeSystem();
+            builder.RegisterSupplySystem();
             builder.RegisterPlacementSystem();
             builder.RegisterProductionSystem(_productionConfigProvider, _recycleConfigProvider);
             builder.RegisterGameAreaInitializationSystem(_gameAreaConfigProvider);

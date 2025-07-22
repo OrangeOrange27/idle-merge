@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Config.Infrastructure;
 using Features.Core.Common.Models;
 using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Factories;
@@ -12,12 +13,12 @@ namespace Features.Core.MergeSystem.Providers
         private PlaceablesFactoryResolver _placeablesFactory;
         private readonly Dictionary<(MergeableType, int), PlaceableCreationInstruction> _mergesDictionary;
 
-        public MergeProvider(MergesConfig mergesConfig, PlaceablesFactoryResolver placeablesFactory)
+        public MergeProvider(IConfigProvider<MergesConfig> mergesConfig, PlaceablesFactoryResolver placeablesFactory)
         {
             _placeablesFactory = placeablesFactory;
             _mergesDictionary = new Dictionary<(MergeableType, int), PlaceableCreationInstruction>();
 
-            foreach (var mergeCfg in mergesConfig.Merges)
+            foreach (var mergeCfg in mergesConfig.Get().Merges)
             {
                 var key = (mergeCfg.RequiredType, mergeCfg.RequiredStage);
                 if (_mergesDictionary.ContainsKey(key))

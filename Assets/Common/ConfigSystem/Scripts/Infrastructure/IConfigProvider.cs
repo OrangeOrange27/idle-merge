@@ -2,7 +2,7 @@ using System;
 
 namespace Common.Config.Infrastructure
 {
-	public interface IConfigProvider<T>
+	public interface IConfigProvider<out T>
 	{
 		event Action OnUpdated;
 		T Get();

@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MergesConfig:
     Merges:
-    - RequiredType: 1
+    - RequiredType: 4
       RequiredStage: 1
       ResultObject:
         PlaceableType: 1
-        MergeableType: 1
+        MergeableType: 4
         Stage: 2
         CollectibleType: 0
         ProductionType: 0
-    - RequiredType: 1
+    - RequiredType: 4
       RequiredStage: 2
       ResultObject:
         PlaceableType: 1
-        MergeableType: 1
+        MergeableType: 4
         Stage: 3
         CollectibleType: 0
         ProductionType: 0
-    - RequiredType: 1
+    - RequiredType: 4
       RequiredStage: 3
       ResultObject:
         PlaceableType: 3
         MergeableType: 0
         Stage: 0
         CollectibleType: 0
-        ProductionType: 3
+        ProductionType: 1

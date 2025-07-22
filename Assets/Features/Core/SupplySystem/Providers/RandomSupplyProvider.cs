@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Common.Config.Infrastructure;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
 using Features.Core.SupplySystem.Models;
@@ -11,9 +12,9 @@ namespace Features.Core.SupplySystem.Providers
         private readonly SupplyWeightsConfig _supplyWeightsConfig;
         private readonly PlaceablesFactoryResolver _placeablesFactory;
 
-        public RandomSupplyProvider(SupplyWeightsConfig supplyWeightsConfig, PlaceablesFactoryResolver placeablesFactory)
+        public RandomSupplyProvider(IConfigProvider<SupplyWeightsConfig> supplyWeightsConfig, PlaceablesFactoryResolver placeablesFactory)
         {
-            _supplyWeightsConfig = supplyWeightsConfig;
+            _supplyWeightsConfig = supplyWeightsConfig.Get();
             _placeablesFactory = placeablesFactory;
         }
         

@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Config.Infrastructure;
 using Features.Core.MergeSystem.Models;
 
 namespace Features.Core.SupplySystem.Models
@@ -18,7 +19,7 @@ namespace Features.Core.SupplySystem.Models
     }
     
     [Serializable]
-    public class SupplyWeightsConfig
+    public class SupplyWeightsConfig : BaseConfig
     {
         public SupplyWeightsConfigEntry[] WeightsArray;
 

@@ -1,0 +1,377 @@
+{
+  "Merges": [
+    {
+      "RequiredType": "BengalCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "BengalCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "BengalCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "BengalCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "BengalCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "MaineCoonCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "MaineCoonCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "MaineCoonCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "MaineCoonCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "MaineCoonCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "RagdollCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "RagdollCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "RagdollCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "RagdollCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "RagdollCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "SphynxCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "SphynxCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "SphynxCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "SphynxCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "SphynxCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "BritishShorthairCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "BritishShorthairCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "BritishShorthairCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "BritishShorthairCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "BritishShorthairCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "ScottishFoldCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "ScottishFoldCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "ScottishFoldCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "ScottishFoldCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "ScottishFoldCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "AbyssinianCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "AbyssinianCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "AbyssinianCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "AbyssinianCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "AbyssinianCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "RussianBlueCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "RussianBlueCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "RussianBlueCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "RussianBlueCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "RussianBlueCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "TabbyCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "TabbyCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "TabbyCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "TabbyCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "TabbyCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+    
+    {
+      "RequiredType": "SiameseCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "SiameseCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "SiameseCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "SiameseCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "SiameseCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    },
+
+    {
+      "RequiredType": "PersianCat",
+      "RequiredStage": 1,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "PersianCat",
+        "Stage": 2,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "PersianCat",
+      "RequiredStage": 2,
+      "ResultObject": {
+        "PlaceableType": "MergeableObject",
+        "MergeableType": "PersianCat",
+        "Stage": 3,
+        "CollectibleType": "None",
+        "ProductionType": "None"
+      }
+    },
+    {
+      "RequiredType": "PersianCat",
+      "RequiredStage": 3,
+      "ResultObject": {
+        "PlaceableType": "ProductionEntity",
+        "MergeableType": "None",
+        "Stage": 0,
+        "CollectibleType": "None",
+        "ProductionType": "Fish"
+      }
+    }
+  ]
+}
