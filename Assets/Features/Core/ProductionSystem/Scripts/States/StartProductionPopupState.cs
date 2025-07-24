@@ -15,19 +15,22 @@ namespace Features.Core.ProductionSystem
         private readonly ICraftingController _craftingController;
         private readonly IViewLoader<IRecipeComponentView> _recipeComponentViewLoader;
         private readonly IViewLoader<IItemView, string> _rewardItemViewLoader;
+        private readonly IViewLoader<IMergeableItemView, string> _rewardsViewLoader;
         private readonly IViewLoader<IRecipeItemView> _recipeItemViewLoader;
         private readonly IViewLoader<IIngredientItemView> _ingredientItemViewLoader;
 
         public StartProductionPopupState(ISharedViewLoader<IProductionView> sharedViewLoader,
             IPlayerDataService playerDataService,
-            IViewLoader<IItemView, string> rewardsViewLoader,
+            IViewLoader<IItemView, string> rewardItemViewLoader,
+            IViewLoader<IMergeableItemView, string> rewardsViewLoader,
             IViewLoader<IRecipeComponentView> recipeComponentViewLoader,
             IViewLoader<IRecipeItemView> recipeItemViewLoader,
             IViewLoader<IIngredientItemView> ingredientItemViewLoader) : base(sharedViewLoader)
         {
             _playerDataService = playerDataService;
             _recipeComponentViewLoader = recipeComponentViewLoader;
-            _rewardItemViewLoader = rewardsViewLoader;
+            _rewardItemViewLoader = rewardItemViewLoader;
+            _rewardsViewLoader = rewardsViewLoader;
             _recipeItemViewLoader = recipeItemViewLoader;
             _ingredientItemViewLoader = ingredientItemViewLoader;
         }
@@ -38,6 +41,8 @@ namespace Features.Core.ProductionSystem
             view.Initialize(_playerDataService,
                 async (key, container) =>
                     await _rewardItemViewLoader.Load(key, ControllerResources, token, container),
+                async (key, container) =>
+                    await _rewardsViewLoader.Load(key, ControllerResources, token, container),
                 async (container) =>
                     await _recipeComponentViewLoader.Load(ControllerResources, token, container),
                 async (container) =>
@@ -45,6 +50,8 @@ namespace Features.Core.ProductionSystem
                 async (container) =>
                     await _ingredientItemViewLoader.Load(ControllerResources, token, container)
             );
+
+            await view.SetRecipes(payload.ProductionBuilding.AvailableRecipes, token);
         }
 
         protected override void SubscribeOnInput(IProductionView view)

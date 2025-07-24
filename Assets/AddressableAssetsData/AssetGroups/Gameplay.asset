@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 03a73d21c342aff4e85620e6d567ea48
   m_SerializeEntries:
+  - m_GUID: 07803f6e3698c0a46852467edc066ca8
+    m_Address: RecipeItemView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 101e498faf0b0e24f9eaba126b4ec02a
     m_Address: GameView
     m_ReadOnly: 0
@@ -57,6 +62,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88b257a39844745ceb5bfa635aeb0242
+    m_Address: CraftingPopupView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ee75e7e3ae77fa4cb08de0060133b99
     m_Address: EggProducer
     m_ReadOnly: 0
@@ -84,6 +94,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a9c32eb18d8bf4cbe9015ae28bed856a
     m_Address: RagdollCat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac29db80138fbc44d97b96f30b43db2a
+    m_Address: IngredientItemView
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

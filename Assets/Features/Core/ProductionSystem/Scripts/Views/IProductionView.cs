@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 using Common.PlayerData;
 using Common.UI;
 using Cysharp.Threading.Tasks;
@@ -15,8 +17,11 @@ namespace Features.Core.ProductionSystem
         
         void Initialize(IPlayerDataService playerDataService,
             Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter,
+            Func<string, Transform, UniTask<IMergeableItemView>> rewardsViewGetter,
             Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
             Func<Transform, UniTask<IRecipeItemView>> recipeItemViewGetter,
             Func<Transform, UniTask<IIngredientItemView>> ingredientItemViewGetter);
+
+        UniTask SetRecipes(IEnumerable<ProductionRecipe> recipes, CancellationToken cancellationToken);
     }
 }

@@ -9,7 +9,7 @@ namespace Features.Core.Common.Models
         
         public string GetViewKey()
         {
-            return $"{MergeableType}_{Tier}";
+            return MergeableType.ToString();
         }
     }
 }

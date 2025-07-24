@@ -49,7 +49,6 @@ namespace Features.Core.GameAreaInitializationSystem
                     continue;
                 }
                 
-                gameContext.Placeables.Add(model);
                 
                 // switch (placeable.Value.ObjectType)
                 // {

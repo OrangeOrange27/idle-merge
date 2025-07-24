@@ -16,7 +16,22 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: fd5ffefd7f0091541994194b9ad7b118
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 2c64e59afc31745ed858635a2062bacc
+    m_Address: recipe_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 642c4fcd9613a42fb94054859c57235d
+    m_Address: recipe_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0a98be733fde4232aa14c29761f6b64
+    m_Address: recipe_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 574965251b6e68d44a97f07fed44eae1, type: 2}
   m_SchemaSet:

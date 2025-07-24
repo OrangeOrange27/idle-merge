@@ -23,7 +23,7 @@ namespace Features.Core.GridSystem.Tiles
         public void DeOccupy()
         {
             _occupyingObject = null;
-            occupiedDebugMarker.gameObject.SetActive(false);
+            occupiedDebugMarker?.gameObject.SetActive(false);
         }
     }
 }

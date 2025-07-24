@@ -10,7 +10,8 @@ namespace Features.Core.GameAreaInitializationSystem
             builder.RegisterInstance<IGameAreaConfigProvider, GameAreaConfigProvider>(gameAreaConfigProvider);
             builder.RegisterInstance(gameAreaConfigProvider.GetConfig());
 
-            builder.Register<GameAreaInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
+            //builder.Register<IGameAreaInitializer, GameAreaInitializer>(Lifetime.Singleton);
+            builder.Register<IGameAreaInitializer, TEMP_GameAreaInitializer>(Lifetime.Singleton); //todo: remove
         }
     }
 }

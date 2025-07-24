@@ -22,11 +22,14 @@ namespace Features.Core.ProductionSystem
             builder.Register<CraftingController>(Lifetime.Singleton).AsImplementedInterfaces();
             
             builder.RegisterController<StartProductionPopupState>();
+            
+            builder.RegisterSharedViewLoader<ProductionView, IProductionView>("CraftingPopupView");
 
             builder.RegisterViewLoader<RecipeComponentView, IRecipeComponentView>("RecipeComponentView");
             builder.RegisterViewLoader<RecipeItemView, IRecipeItemView>("RecipeItemView");
             builder.RegisterViewLoader<IngredientItemView, IIngredientItemView>("IngredientItemView");
             builder.RegisterViewLoader<ItemView, IItemView, string>(key => key);
+            builder.RegisterViewLoader<MergeableItemView, IMergeableItemView, string>(key => key);
         }
     }
 }

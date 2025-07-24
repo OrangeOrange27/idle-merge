@@ -15,6 +15,7 @@ using Features.Gameplay.Scripts.Controllers;
 using Features.Gameplay.Scripts.Models;
 using Features.Gameplay.View;
 using Package.AssetProvider.ViewLoader.Infrastructure;
+using Package.ControllersTree;
 using Package.ControllersTree.Abstractions;
 using Package.StateMachine;
 using VContainer;
@@ -36,6 +37,7 @@ namespace Features.Gameplay.States
 
         private IGameUIView _gameUIView;
         private IGameAreaView _gameAreaView;
+        private IControllerChildren _controllerChildren;
 
         public RootGameplayState(IObjectResolver resolver, ISharedViewLoader<IGameView> gameViewLoader,
             ISupplyManager supplyManager,
@@ -60,6 +62,8 @@ namespace Features.Gameplay.States
         public async UniTask OnStart(EmptyPayloadType payload, IControllerResources resources, IControllerChildren controllerChildren,
             CancellationToken token)
         {
+            _controllerChildren = controllerChildren;
+            
             var gameView = await _gameViewLoader.Load(resources, token, null);
             gameView.Initialize(_resolver, new GameUIDTO()
             {
@@ -88,14 +92,18 @@ namespace Features.Gameplay.States
 
         private void OnRequestCrafting(ProductionBuildingModel model)
         {
+            if (_controllerChildren.IsControllerRunning<StartProductionPopupState>())
+            {
+                return;
+            }
+            
             var payload = new StartProductionPopupPayload
             {
                 ProductionBuilding = model,
             };
 
-            _machineInstructionCompletionSource.TrySetResult(
-                StateMachineInstructionSugar.GoTo<StartProductionPopupState, StartProductionPopupPayload>(_resolver,
-                    payload));
+            var shopController = _controllerChildren.Create<StartProductionPopupState, StartProductionPopupPayload>(_resolver);
+            shopController.RunToDispose(payload, CancellationToken.None).Forget();
         }
 
         public async UniTask<IStateMachineInstruction> Execute(IControllerResources resources, IControllerChildren controllerChildren, CancellationToken token)

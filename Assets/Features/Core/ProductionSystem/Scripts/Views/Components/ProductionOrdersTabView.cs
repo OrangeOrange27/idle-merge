@@ -20,6 +20,7 @@ namespace Features.Core.ProductionSystem.Components
 
         private Func<Transform, UniTask<IRecipeItemView>> _recipeItemViewGetter;
         private Func<string, Transform, UniTask<IItemView>> _rewardItemViewGetter;
+        private Func<string, Transform, UniTask<IMergeableItemView>> _rewardsViewGetter;
         
         private Dictionary<ProductionRecipe, IRecipeItemView> _recipeToViewMap = new();
         private List<IItemView> _spawnedRewardItems = new();
@@ -29,11 +30,13 @@ namespace Features.Core.ProductionSystem.Components
 
         public void Initialize(IPlayerDataService playerDataService,
             Func<string, Transform, UniTask<IItemView>> rewardItemViewGetter,
+            Func<string, Transform, UniTask<IMergeableItemView>> rewardsViewGetter,
             Func<Transform, UniTask<IRecipeComponentView>> recipeComponentViewGetter,
             Func<Transform, UniTask<IRecipeItemView>> recipeItemViewGetter)
         {
-            _rewardItemViewGetter = rewardItemViewGetter;
+            _rewardsViewGetter = rewardsViewGetter;
             _recipeItemViewGetter = recipeItemViewGetter;
+            _rewardItemViewGetter = rewardItemViewGetter;
             
             _startProductionButton.onClick.AddListener(OnStartButtonPressed);
 
@@ -57,7 +60,8 @@ namespace Features.Core.ProductionSystem.Components
 
                 foreach (var reward in recipe.Outcome)
                 {
-                    var rewardView = await _rewardItemViewGetter.Invoke(reward.GetViewKey(), recipeView.RewardsContainer);
+                    var rewardView = await _rewardsViewGetter.Invoke(reward.GetViewKey(), recipeView.RewardsContainer);
+                    rewardView.SetStage(reward.Tier);
                 }
 
                 recipeView.OnClick += () => SetRecipe(recipe, token).Forget();
