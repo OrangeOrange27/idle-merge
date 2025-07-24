@@ -85,7 +85,7 @@ namespace Features.Core.SupplySystem.Models
                 {
                     MergeableObject = new MergeableObjectConfig()
                     {
-                        MergeableType = MergeableType.AbyssinianCat,
+                        MergeableType = MergeableType.OrientalCat,
                         Stage = 1
                     },
                     Weight = 1

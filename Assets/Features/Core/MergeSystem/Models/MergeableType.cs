@@ -17,7 +17,7 @@
         SphynxCat = 7,
         BritishShorthairCat = 8,
         ScottishFoldCat = 9,
-        AbyssinianCat = 10,
+        OrientalCat = 10,
         RussianBlueCat = 11,
         TabbyCat = 12,
         SiameseCat = 13,

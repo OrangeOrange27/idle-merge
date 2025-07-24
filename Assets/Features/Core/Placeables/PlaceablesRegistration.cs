@@ -30,7 +30,7 @@ namespace Features.Core.Placeables
                     MergeableType.SphynxCat => "SphynxCat",
                     MergeableType.BritishShorthairCat => "BritishShorthairCat",
                     MergeableType.ScottishFoldCat => "ScottishFoldCat",
-                    MergeableType.AbyssinianCat => "AbyssinianCat",
+                    MergeableType.OrientalCat => "OrientalCat",
                     MergeableType.RussianBlueCat => "RussianBlueCat",
                     MergeableType.TabbyCat => "TabbyCat",
                     MergeableType.SiameseCat => "SiameseCat",

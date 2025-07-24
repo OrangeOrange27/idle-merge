@@ -30,10 +30,10 @@
     { "MergeableObject": { "MergeableType": "ScottishFoldCat", "Stage": 3 }, "Weight": 0.11 },
     { "MergeableObject": { "MergeableType": "ScottishFoldCat", "Stage": 4 }, "Weight": 0.0 },
 
-    { "MergeableObject": { "MergeableType": "AbyssinianCat", "Stage": 1 }, "Weight": 1.0 },
-    { "MergeableObject": { "MergeableType": "AbyssinianCat", "Stage": 2 }, "Weight": 0.33 },
-    { "MergeableObject": { "MergeableType": "AbyssinianCat", "Stage": 3 }, "Weight": 0.11 },
-    { "MergeableObject": { "MergeableType": "AbyssinianCat", "Stage": 4 }, "Weight": 0.0 },
+    { "MergeableObject": { "MergeableType": "OrientalCat", "Stage": 1 }, "Weight": 1.0 },
+    { "MergeableObject": { "MergeableType": "OrientalCat", "Stage": 2 }, "Weight": 0.33 },
+    { "MergeableObject": { "MergeableType": "OrientalCat", "Stage": 3 }, "Weight": 0.11 },
+    { "MergeableObject": { "MergeableType": "OrientalCat", "Stage": 4 }, "Weight": 0.0 },
 
     { "MergeableObject": { "MergeableType": "RussianBlueCat", "Stage": 1 }, "Weight": 1.0 },
     { "MergeableObject": { "MergeableType": "RussianBlueCat", "Stage": 2 }, "Weight": 0.33 },

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512791830562231474, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Name
-      value: MergeableMaincoonCat
+      value: OrientalCat
       objectReference: {fileID: 0}
     - target: {fileID: 2492220863390617314, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_IsActive
@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 2515975842760375890, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cc7209cb6d2c8494b83536cea336055a, type: 3}
+      objectReference: {fileID: 21300000, guid: 71002988670e94730a08c4138e860ea4, type: 3}
     - target: {fileID: 2923590073050047205, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -63,7 +63,11 @@ PrefabInstance:
     - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 37a3f744e0f0e41a480553cb14592d99, type: 3}
+      objectReference: {fileID: 21300000, guid: 96686a7909169473c839476b4ecd6572, type: 3}
+    - target: {fileID: 5380338526225392667, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5658131330144272460, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -71,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 5963262611737384804, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2e372f7beca354e89b80eb57bef6fb34, type: 3}
+      objectReference: {fileID: 21300000, guid: 9dd4954691b954b45b711a72a1eb0d28, type: 3}
     - target: {fileID: 7027434269858400532, guid: 21cfd640ee0d5410fbb0a13f833c7bab, type: 3}
       propertyPath: m_IsActive
       value: 0

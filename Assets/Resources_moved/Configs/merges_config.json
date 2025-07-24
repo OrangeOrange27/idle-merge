@@ -205,29 +205,29 @@
     },
 
     {
-      "RequiredType": "AbyssinianCat",
+      "RequiredType": "OrientalCat",
       "RequiredStage": 1,
       "ResultObject": {
         "PlaceableType": "MergeableObject",
-        "MergeableType": "AbyssinianCat",
+        "MergeableType": "OrientalCat",
         "Stage": 2,
         "CollectibleType": "None",
         "ProductionType": "None"
       }
     },
     {
-      "RequiredType": "AbyssinianCat",
+      "RequiredType": "OrientalCat",
       "RequiredStage": 2,
       "ResultObject": {
         "PlaceableType": "MergeableObject",
-        "MergeableType": "AbyssinianCat",
+        "MergeableType": "OrientalCat",
         "Stage": 3,
         "CollectibleType": "None",
         "ProductionType": "None"
       }
     },
     {
-      "RequiredType": "AbyssinianCat",
+      "RequiredType": "OrientalCat",
       "RequiredStage": 3,
       "ResultObject": {
         "PlaceableType": "ProductionEntity",
