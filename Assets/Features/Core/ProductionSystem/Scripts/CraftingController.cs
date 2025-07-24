@@ -40,6 +40,7 @@ namespace Features.Core.ProductionSystem
             productionBuildingModel.SelectedRecipe = recipe;
             productionBuildingModel.NextCollectionDateTime.Value =
                 DateTime.Now.AddSeconds(recipe.CraftingTimeInSeconds);
+            productionBuildingModel.IsCrafting.Value = true;
         }
 
         public List<MergeableModel> TryCollect(ProductionBuildingModel productionBuildingModel)
@@ -90,6 +91,8 @@ namespace Features.Core.ProductionSystem
                 outputObjects.Add(mergeable);
             }
             
+            productionBuildingModel.IsCrafting.Value = false;
+
             return outputObjects;
         }
     }

@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Features.Core.GameAreaInitializationSystem.Models;
 using Features.Core.GridSystem.Managers;
 using Features.Core.Placeables.Editor;
+using Features.Core.Placeables.Models;
 using Features.Core.PlacementSystem;
 using Features.Gameplay.View;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,8 @@ namespace Features.Core.GameAreaInitializationSystem
 
             foreach (var placeable in _gameAreaConfig.Placeables)
             {
-                var result = _placementSystem.TryPlaceOnCell(placeable.Value, placeable.Key);
+                var model = placeable.Value;
+                var result = _placementSystem.TryPlaceOnCell(model, placeable.Key);
 
                 if (!result)
                 {
@@ -47,7 +49,25 @@ namespace Features.Core.GameAreaInitializationSystem
                     continue;
                 }
                 
-                gameContext.Placeables.Add(placeable.Value);
+                gameContext.Placeables.Add(model);
+                
+                // switch (placeable.Value.ObjectType)
+                // {
+                //     case PlaceableType.MergeableObject:
+                //         gameContext.Placeables.Add(model as MergeableModel);
+                //         break;
+                //     case PlaceableType.CollectibleObject:
+                //         gameContext.Placeables.Add(model as CollectibleModel);
+                //         break;
+                //     case PlaceableType.ProductionEntity:
+                //         gameContext.Placeables.Add(model as ProductionObjectModel);
+                //         break;
+                //     case PlaceableType.ProductionBuilding:
+                //         gameContext.Placeables.Add(model as ProductionBuildingModel);
+                //         break;
+                //     default:
+                //         throw new ArgumentOutOfRangeException();
+                // };
             }
         }
         

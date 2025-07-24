@@ -158,10 +158,11 @@ namespace Features.Gameplay.Scripts.Controllers
             
             //TODO Update View
 
-            if (productionBuildingModel.NextCollectionDateTime.CurrentValue <= DateTime.Now)
+            if (productionBuildingModel.IsCrafting.CurrentValue &&
+                productionBuildingModel.NextCollectionDateTime.CurrentValue <= DateTime.Now)
             {
                 var craftingReward = _craftingController.TryCollect(productionBuildingModel);
-                if(craftingReward == null)
+                if (craftingReward == null)
                     return;
 
                 foreach (var mergeable in craftingReward)

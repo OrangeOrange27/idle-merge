@@ -11,7 +11,7 @@ namespace Features.Core.GameAreaInitializationSystem.Models
     public class GameAreaPlaceableConfigEntry
     {
         public Vector3Int Position;
-        public PlaceableModel Placeable;
+        public ProductionBuildingModel Placeable; //TODO change to PlaceableModel
     }
 
     [Serializable]
@@ -21,11 +21,11 @@ namespace Features.Core.GameAreaInitializationSystem.Models
 
         [SerializeField] private List<GameAreaPlaceableConfigEntry> _placeableConfigs = new();
 
-        public Dictionary<Vector3Int, PlaceableModel> Placeables { get; private set; }
+        public Dictionary<Vector3Int, ProductionBuildingModel> Placeables { get; private set; }
 
         public GameAreaConfig()
         {
-            Placeables = new Dictionary<Vector3Int, PlaceableModel>();
+            Placeables = new Dictionary<Vector3Int, ProductionBuildingModel>();
         }
         public GameAreaConfig(List<GameAreaPlaceableConfigEntry> placeableConfigs)
         {
@@ -45,7 +45,7 @@ namespace Features.Core.GameAreaInitializationSystem.Models
 
         public void OnAfterDeserialize()
         {
-            Placeables = new Dictionary<Vector3Int, PlaceableModel>();
+            Placeables = new Dictionary<Vector3Int, ProductionBuildingModel>();
 
             foreach (var cfg in _placeableConfigs)
             {

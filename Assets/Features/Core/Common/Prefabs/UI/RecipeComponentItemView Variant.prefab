@@ -208,6 +208,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2663579434810415735, guid: ac29db80138fbc44d97b96f30b43db2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465118624108069730, guid: ac29db80138fbc44d97b96f30b43db2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4425897479829169742, guid: ac29db80138fbc44d97b96f30b43db2a, type: 3}
       propertyPath: m_Name
       value: RecipeComponentItemView Variant
