@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Common.ApplicationLifecycleNotifier;
 using Common.Audio;
 using Common.Audio.Implementation;
 using Common.Audio.Infrastructure;
+using Common.Config;
 using Common.DataProvider.Infrastructure;
 using Common.DataProvider.Storage.Implementation.File;
 using Common.DataProvider.Storage.Infrastructure;
@@ -86,7 +88,7 @@ namespace Common.EntryPoint
 
             builder.RegisterApplicationLifecycleNotifier();
             builder.RegisterDeviceInfoRegistration();
-
+            
             builder.RegisterControllersTreePackage();
             builder.RegisterController<RootController>();
             builder.RegisterController<InitializeGameAfterAuthController>();
@@ -111,6 +113,7 @@ namespace Common.EntryPoint
 
         private void RegisterSystems(IContainerBuilder builder)
         {
+            builder.RegisterFeatureUnlockSystem();
             builder.RegisterPlaceables();
             builder.RegisterMergeSystem();
             builder.RegisterSupplySystem();
