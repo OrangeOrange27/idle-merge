@@ -117,6 +117,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f51a315920bf7b646b505ae8925909e1
+    m_Address: RecipeComponentView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa218153c566a4743b91de27f0ece304
     m_Address: EggCollectible
     m_ReadOnly: 0
