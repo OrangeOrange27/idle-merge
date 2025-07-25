@@ -1,0 +1,48 @@
+{
+  "Features": [
+    {
+      "FeatureName": "BengalCat",
+      "UnlockLevel": 1
+    },
+    {
+      "FeatureName": "MaineCoonCat",
+      "UnlockLevel": 2
+    },
+    {
+      "FeatureName": "RagdollCat",
+      "UnlockLevel": 3
+    },
+    {
+      "FeatureName": "SphynxCat",
+      "UnlockLevel": 4
+    },
+    {
+      "FeatureName": "BritishShorthairCat",
+      "UnlockLevel": 5
+    },
+    {
+      "FeatureName": "ScottishFoldCat",
+      "UnlockLevel": 6
+    },
+    {
+      "FeatureName": "OrientalCat",
+      "UnlockLevel": 7
+    },
+    {
+      "FeatureName": "RussianBlueCat",
+      "UnlockLevel": 8
+    },
+    {
+      "FeatureName": "TabbyCat",
+      "UnlockLevel": 9
+    },
+    {
+      "FeatureName": "SiameseCat",
+      "UnlockLevel": 10
+    },
+    {
+      "FeatureName": "PersianCat",
+      "UnlockLevel": 11
+    }
+  ]
+}

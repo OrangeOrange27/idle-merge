@@ -58,7 +58,7 @@ namespace Common.EntryPoint
         [SerializeField] private GameAreaConfigProvider _gameAreaConfigProvider;
         [SerializeField] private LevelsConfigProvider _levelsConfigProvider;
 
-        public static JsonSerializerSettings JsonSettings = new()
+        public static readonly JsonSerializerSettings JsonSettings = new()
         {
             Formatting = Formatting.Indented,
             DefaultValueHandling = DefaultValueHandling.Ignore,
