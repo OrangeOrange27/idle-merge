@@ -85,6 +85,11 @@ namespace Common.PlayerData
             return PlayerData.Settings;
         }
 
+        public int GetPlayerLevel()
+        {
+            return 5; //todo replace with XP calculation
+        }
+
         private void SetOfflinePlayer()
         {
             _isOnline = false;

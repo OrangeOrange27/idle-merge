@@ -1,59 +1,47 @@
-﻿using System.Linq;
-using Common.Config.Infrastructure;
-using Features.Core.Placeables.Factories;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Common.Data;
+using Common.Utils.Extensions;
 using Features.Core.Placeables.Models;
-using Features.Core.SupplySystem.Models;
 using Random = UnityEngine.Random;
 
 namespace Features.Core.SupplySystem.Providers
 {
     public class RandomSupplyProvider : ISupplyProvider
     {
-        private readonly SupplyWeightsConfig _supplyWeightsConfig;
-        private readonly PlaceablesFactoryResolver _placeablesFactory;
+        private readonly ISupplyPoolProvider _supplyPoolProvider;
+        private List<WeightedEntry<PlaceableModel>> _supplyPool;
 
-        public RandomSupplyProvider(IConfigProvider<SupplyWeightsConfig> supplyWeightsConfig, PlaceablesFactoryResolver placeablesFactory)
+        public RandomSupplyProvider(ISupplyPoolProvider supplyPoolProvider)
         {
-            _supplyWeightsConfig = supplyWeightsConfig.Get();
-            _placeablesFactory = placeablesFactory;
+            _supplyPoolProvider = supplyPoolProvider;
         }
-        
+
         public PlaceableModel GetSupply()
         {
             return GetRandomSupply();
         }
-        
+
         private PlaceableModel GetRandomSupply()
         {
-            var totalWeight = _supplyWeightsConfig.WeightsArray.Sum(entry => entry.Weight);
+            if (_supplyPool.IsNullOrEmpty())
+                _supplyPool = _supplyPoolProvider.GetSpawnPool();
+
+            var totalWeight = _supplyPool.Sum(entry => entry.Weight);
             var rnd = Random.Range(0f, totalWeight);
             var cumulativeWeight = 0f;
 
-            var dto = new MergeableCreationDTO();
-            
-            foreach (var entry in _supplyWeightsConfig.WeightsArray)
+            foreach (var entry in _supplyPool)
             {
                 cumulativeWeight += entry.Weight;
 
                 if (rnd <= cumulativeWeight)
                 {
-                    dto.Type = entry.MergeableObject.MergeableType;
-                    dto.Stage = entry.MergeableObject.Stage;
-                    return CreateModel(dto);
+                    return entry.Item;
                 }
             }
 
-            var objectConfig = _supplyWeightsConfig.WeightsArray[^1].MergeableObject;
-            dto.Type = objectConfig.MergeableType;
-            dto.Stage = objectConfig.Stage;
-            return CreateModel(dto);
-            
-            MergeableModel CreateModel(MergeableCreationDTO creationDto)
-            {
-                var model = _placeablesFactory.Create(PlaceableType.MergeableObject, creationDto.Type) as MergeableModel;
-                model.Stage.Value = creationDto.Stage;
-                return model;
-            }
+            return _supplyPool[^1].Item;
         }
     }
 }

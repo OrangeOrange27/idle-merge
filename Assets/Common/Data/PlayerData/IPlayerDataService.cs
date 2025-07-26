@@ -23,5 +23,7 @@ namespace Common.PlayerData
         void UseCollectible(CollectibleType type, int amount);
         
         PlayerSettingsData GetPlayerSettings();
+        
+        int GetPlayerLevel();
     }
 }

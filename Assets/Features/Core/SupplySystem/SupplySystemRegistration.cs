@@ -12,6 +12,7 @@ namespace Features.Core.SupplySystem
             builder.RegisterConfig<SupplyWeightsConfig>("supply_weights_config");
 
             builder.Register<ISupplyManager, SupplyManager>(Lifetime.Singleton);
+            builder.Register<ISupplyPoolProvider, SupplyPoolProvider>(Lifetime.Singleton);
             builder.Register<ISupplyProvider, RandomSupplyProvider>(Lifetime.Singleton);
         }
     }
