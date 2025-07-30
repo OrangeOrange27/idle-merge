@@ -5,13 +5,13 @@ using VContainer.Unity;
 
 namespace Common.Inputs
 {
-    public class DesktopInputManager : IFixedTickable, IInputManager
+    public class DesktopInputManager : ITickable, IInputManager
     {
         private const float DragThreshold = 50f;
         private const float HoldDelay = 0.2f;
 
         public GameplayReactiveProperty<Vector3> InputPosition { get; } = new();
-        
+
         public event Action<Vector3> OnInputStart;
         public event Action<Vector3> OnInputEnd;
         public event Action<Vector3> OnClick;
@@ -25,52 +25,73 @@ namespace Common.Inputs
         private float _holdStartTime;
         private Vector3 _inputStartPosition;
 
-        public void FixedTick()
+        private bool IsDragging
+        {
+            get => _isDragging;
+            set
+            {
+                if (value == _isDragging)
+                    return;
+
+                if (value)
+                    OnStartDrag?.Invoke(_inputStartPosition);
+                else
+                    OnEndDrag?.Invoke(Input.mousePosition);
+
+                _isDragging = value;
+            }
+        }
+
+        private bool IsHolding
+        {
+            get => _isHolding;
+            set
+            {
+                if (value == _isHolding)
+                    return;
+
+                if (value)
+                    OnStartHold?.Invoke(_inputStartPosition);
+                else
+                    OnEndHold?.Invoke(Input.mousePosition);
+
+                _isHolding = value;
+            }
+        }
+
+        public void Tick()
         {
             if (Input.GetMouseButtonDown(0))
             {
                 _inputStartPosition = Input.mousePosition;
                 _holdStartTime = Time.time;
-                _isHolding = true;
-                
+
                 OnInputStart?.Invoke(_inputStartPosition);
             }
 
             if (Input.GetMouseButton(0))
             {
                 InputPosition.Value = Input.mousePosition;
-                
-                if (_isHolding && Time.time - _holdStartTime >= HoldDelay)
+
+                if (!IsHolding && Time.time - _holdStartTime >= HoldDelay)
                 {
-                    OnStartHold?.Invoke(_inputStartPosition);
-                    _isHolding = false;
+                    IsHolding = true;
                 }
 
                 var distance = Vector3.Distance(_inputStartPosition, Input.mousePosition);
-                if (!_isDragging && distance > DragThreshold)
+                if (!IsDragging && distance > DragThreshold)
                 {
-                    _isDragging = true;
-                    OnStartDrag?.Invoke(_inputStartPosition);
+                    IsDragging = true;
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                if (!_isDragging && !_isHolding)
+                if (!IsDragging && !IsHolding)
                 {
                     OnClick?.Invoke(Input.mousePosition);
                 }
 
-                if (_isDragging)
-                {
-                    OnEndDrag?.Invoke(Input.mousePosition);
-                }
-
-                if (!_isHolding)
-                {
-                    OnEndHold?.Invoke(Input.mousePosition);
-                }
-                
                 OnInputEnd?.Invoke(Input.mousePosition);
 
                 ResetInputState();
@@ -79,8 +100,8 @@ namespace Common.Inputs
 
         private void ResetInputState()
         {
-            _isHolding = false;
-            _isDragging = false;
+            IsHolding = false;
+            IsDragging = false;
             _holdStartTime = 0f;
         }
     }

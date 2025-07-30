@@ -1,13 +1,17 @@
 using System.Linq;
 using Common.GlobalServiceLocator;
 using Common.Inputs;
+using Package.Logger.Abstraction;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Common.Camera
 {
     public class CameraController : MonoBehaviour
     {
+        private static readonly ILogger Logger = LogManager.GetLogger<CameraController>();
+        
         [SerializeField] private UnityEngine.Camera _camera;
         [SerializeField] private Transform _cameraTarget;
         [SerializeField] private Collider2D _boundingShape2D;
