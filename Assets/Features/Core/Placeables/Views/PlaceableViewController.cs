@@ -55,11 +55,20 @@ namespace Features.Core.Placeables.Views
             {
                 if (e.NewItems.IsEmpty)
                 {
-                    Logger.LogDebug($"Parent tile for {_model.Position} tile has changed to null");
-                    return;
+                    if (e.NewItem is null)
+                    {
+                        Logger.LogDebug($"Parent tile for {_model.Position} tile has changed to null");
+                        return;
+                    }
+                    else
+                    {
+                        UpdateParentTile(e.NewItem);
+                    }
                 }
-
-                UpdateParentTile(e.NewItems[0]);
+                else
+                {
+                    UpdateParentTile(e.NewItems[0]);
+                }
             }
         }
 

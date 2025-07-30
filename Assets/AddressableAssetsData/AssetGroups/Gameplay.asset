@@ -112,6 +112,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd7c8ddf9ba0e48ce9543bc66bd85d13
+    m_Address: unlock_config
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d316d3d8f2d664a38a496b72166c241e
     m_Address: PersianCat
     m_ReadOnly: 0

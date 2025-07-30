@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Config.Infrastructure;
 using Common.Data;
 using Common.PlayerData;
+using Common.Utils.Extensions;
 using Features.Core.MergeSystem.Models;
 using Features.Core.Placeables.Factories;
 using Features.Core.Placeables.Models;
@@ -18,16 +19,21 @@ namespace Features.Core.SupplySystem.Providers
         private readonly PlaceablesFactoryResolver _placeablesFactory;
 
         public SupplyPoolProvider(IPlayerDataService playerDataService, IFeatureUnlockManager featureUnlockManager,
-            IConfigProvider<SupplyWeightsConfig> supplyWeightsConfigProvider)
+            IConfigProvider<SupplyWeightsConfig> supplyWeightsConfigProvider, PlaceablesFactoryResolver placeablesFactory)
         {
             _playerDataService = playerDataService;
             _featureUnlockManager = featureUnlockManager;
             _supplyWeightsConfigProvider = supplyWeightsConfigProvider;
+            _placeablesFactory = placeablesFactory;
         }
 
         public List<WeightedEntry<PlaceableModel>> GetSpawnPool()
         {
-            return _supplyWeightsConfigProvider.Get().WeightsArray
+            var cfg = _supplyWeightsConfigProvider.Get();
+            if (cfg.WeightsArray.IsNullOrEmpty())
+                cfg = SupplyWeightsConfig.Default;
+            
+            return cfg.WeightsArray
                 .Where(entry => IsUnlocked(entry.Item.MergeableType))
                 .Select(entry => new WeightedEntry<PlaceableModel>
                 {
