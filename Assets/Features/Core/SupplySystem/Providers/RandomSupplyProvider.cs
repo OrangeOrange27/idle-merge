@@ -37,11 +37,11 @@ namespace Features.Core.SupplySystem.Providers
 
                 if (rnd <= cumulativeWeight)
                 {
-                    return entry.Item;
+                    return entry.Item.Clone();
                 }
             }
 
-            return _supplyPool[^1].Item;
+            return _supplyPool[^1].Item.Clone();
         }
     }
 }
