@@ -21,6 +21,11 @@ public class TopPanel : MonoBehaviour
 
         _playerDataService.OnBalanceChanged += OnPlayerBalanceChanged;
         _progressionManager.OnLevelChanged += UpdateLevel;
+
+        OnPlayerBalanceChanged(PlayerBalanceAssetType.Coins, _playerDataService.PlayerBalance.Coins);
+        OnPlayerBalanceChanged(PlayerBalanceAssetType.Gems, _playerDataService.PlayerBalance.Gems);
+        OnPlayerBalanceChanged(PlayerBalanceAssetType.Energy, _playerDataService.PlayerBalance.Energy);
+        OnPlayerBalanceChanged(PlayerBalanceAssetType.Xp, _playerDataService.PlayerBalance.Experience);
     }
 
     private void OnPlayerBalanceChanged(PlayerBalanceAssetType assetType, int amount)
@@ -31,10 +36,10 @@ public class TopPanel : MonoBehaviour
                 _coinsBalance.SetBalance(_playerDataService.PlayerBalance.Coins);
                 break;
             case PlayerBalanceAssetType.Gems:
-                _coinsBalance.SetBalance(_playerDataService.PlayerBalance.Gems);
+                _gemsBalance.SetBalance(_playerDataService.PlayerBalance.Gems);
                 break;
             case PlayerBalanceAssetType.Energy:
-                _coinsBalance.SetBalance(_playerDataService.PlayerBalance.Energy);
+                _energyBalance.SetBalance(_playerDataService.PlayerBalance.Energy);
                 break;
             case PlayerBalanceAssetType.Xp:
                 _levelWidget.UpdateXp(_playerDataService.PlayerBalance.Experience,
