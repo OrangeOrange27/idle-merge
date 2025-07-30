@@ -102,6 +102,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf0e2b9563d1f104881d2115b776eedc
+    m_Address: DiscoveryBookPopupView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c2ac94cb08b8a4b82a90f3f7c31391ff
     m_Address: BengalCat
     m_ReadOnly: 0
