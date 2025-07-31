@@ -1,6 +1,6 @@
 ﻿namespace Features.DiscoveryBook.Scripts.Views
 {
-    public interface IDiscoveryBookItemView
+    public interface IDiscoveryBookSectionView
     {
         
     }

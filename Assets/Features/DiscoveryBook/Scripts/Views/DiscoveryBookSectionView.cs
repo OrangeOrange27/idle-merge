@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Features.DiscoveryBook.Scripts.Views
 {
-    public class DiscoveryBookItemView : MonoBehaviour, IDiscoveryBookItemView
+    public class DiscoveryBookSectionView : MonoBehaviour, IDiscoveryBookSectionView
     {
         [SerializeField] private TMP_Text _title;
         [SerializeField] private Transform[] _viewHolders;
