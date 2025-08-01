@@ -9,25 +9,36 @@ namespace Features.DiscoveryBook.Scripts.States
 {
     public class DiscoveryBookPopupState : BasicViewState<IDiscoveryBookPopupView, DiscoveryBookPopupPayload>
     {
-        public DiscoveryBookPopupState(ISharedViewLoader<IDiscoveryBookPopupView> sharedViewLoader) : base(
+        private readonly IViewLoader<IDiscoveryBookItemView, string> _itemViewLoader;
+        private readonly IViewLoader<IDiscoveryBookSectionView> _sectionViewLoader;
+
+        public DiscoveryBookPopupState(ISharedViewLoader<IDiscoveryBookPopupView> sharedViewLoader,
+            IViewLoader<IDiscoveryBookItemView, string> itemViewLoader,
+            IViewLoader<IDiscoveryBookSectionView> sectionViewLoader) : base(
             sharedViewLoader)
         {
+            _itemViewLoader = itemViewLoader;
+            _sectionViewLoader = sectionViewLoader;
         }
 
-        protected override UniTask SetInitialViewState(DiscoveryBookPopupPayload payload, IDiscoveryBookPopupView view,
+        protected override async UniTask SetInitialViewState(DiscoveryBookPopupPayload payload,
+            IDiscoveryBookPopupView view,
             CancellationToken token)
         {
-            throw new System.NotImplementedException();
+            await view.Initialize(payload.Tabs,
+                async (container) =>
+                    await _sectionViewLoader.Load(ControllerResources, token, container),
+                async (key, container) =>
+                    await _itemViewLoader.Load(key, ControllerResources, token, container),
+                token);
         }
 
         protected override void SubscribeOnInput(IDiscoveryBookPopupView view)
         {
-            throw new System.NotImplementedException();
         }
 
         protected override void UnsubscribeOnInput(IDiscoveryBookPopupView view)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
