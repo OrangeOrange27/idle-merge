@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Features.Core.ProductionSystem.Components;
-using Features.Core.SupplySystem.Models;
+using Features.DiscoveryBook.Scripts.Models;
 using TMPro;
 using UnityEngine;
 
@@ -14,27 +13,28 @@ namespace Features.DiscoveryBook.Scripts.Views
         [SerializeField] private TMP_Text _title;
         [SerializeField] private Transform[] _viewHolders;
 
-        private List<IMergeableItemView> _spawnedViews;
-        private MergeableObjectConfig _config;
+        private List<IDiscoveryBookItemView> _spawnedViews;
 
-        public async UniTask Initialize(MergeableObjectConfig config,
-            Func<string, Transform, UniTask<IMergeableItemView>> rewardsViewGetter, CancellationToken cancellationToken)
+        public async UniTask Initialize(DiscoveryBookSectionData sectionData,
+            Func<string, Transform, UniTask<IDiscoveryBookItemView>> itemViewGetter,
+            CancellationToken cancellationToken)
         {
-            _config = config;
-            _title.text = config.MergeableType.ToString();
-            
-            await SpawnMergeableViews(rewardsViewGetter, cancellationToken);
+            _title.text = sectionData.Title;
+                
+                //todo: handle progressive view
+
+            await SpawnItemViews(sectionData.Items, itemViewGetter, cancellationToken);
         }
 
-        private async UniTask SpawnMergeableViews(
-            Func<string, Transform, UniTask<IMergeableItemView>> rewardsViewGetter, CancellationToken cancellationToken)
+        private async UniTask SpawnItemViews(List<DiscoveryBookItemData> items,
+            Func<string, Transform, UniTask<IDiscoveryBookItemView>> rewardsViewGetter, CancellationToken cancellationToken)
         {
             var taskList = new List<UniTask>();
-            _spawnedViews = new List<IMergeableItemView>();
+            _spawnedViews = new List<IDiscoveryBookItemView>();
 
-            for (var i = 0; i < 4; i++)
+            foreach (var item in items)
             {
-                taskList.Add(CreateMergeableView(i, rewardsViewGetter, cancellationToken));
+                taskList.Add(CreateItemView(item, rewardsViewGetter, cancellationToken));
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -42,16 +42,23 @@ namespace Features.DiscoveryBook.Scripts.Views
             await UniTask.WhenAll(taskList);
         }
 
-        private async UniTask CreateMergeableView(int stage,
-            Func<string, Transform, UniTask<IMergeableItemView>> rewardsViewGetter, CancellationToken cancellationToken)
+        private async UniTask CreateItemView(DiscoveryBookItemData item,
+            Func<string, Transform, UniTask<IDiscoveryBookItemView>> rewardsViewGetter, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var view = await rewardsViewGetter(_config.MergeableType.ToString(), _viewHolders[stage]);
+            var view = await rewardsViewGetter(item.ViewKey, GetNextItemHolder());
             cancellationToken.ThrowIfCancellationRequested();
             
-            view.SetStage(stage + 1);
+            view.SetText(item.Text);
+            
+                //todo: handle item unlock status
             
             _spawnedViews.Add(view);
+        }
+
+        private Transform GetNextItemHolder()
+        {
+            throw new NotImplementedException();
         }
     }
 }
